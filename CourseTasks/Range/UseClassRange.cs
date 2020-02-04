@@ -13,11 +13,11 @@ namespace Range
 			Console.WriteLine("Введите начальное значение диапазона: ");
 			double from = Convert.ToDouble(Console.ReadLine());
 
-			Console.WriteLine("Введите начальное значение диапазона: ");
+			Console.WriteLine("Введите конечное значение диапазона: ");
 			double to = Convert.ToDouble(Console.ReadLine());
 
 			Range range = new Range(from, to);
-
+			
 			Console.WriteLine("Длина заданного диапазона: " + range.GetLength());
 
 			Console.WriteLine("Введите число: ");
@@ -34,6 +34,5 @@ namespace Range
 
 			Console.ReadKey();
 		}
-
 	}
 }
