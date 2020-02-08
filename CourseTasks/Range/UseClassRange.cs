@@ -20,6 +20,18 @@ namespace Range
 
 			Console.WriteLine("Длина заданного диапазона: " + range1.GetLength());
 
+			Console.WriteLine("Введите число: ");
+			double x = Convert.ToDouble(Console.ReadLine());
+
+			if (range1.IsInside(x))
+			{
+				Console.WriteLine("Введенное число находится в первом диапазоне.");
+			}
+			else
+			{
+				Console.WriteLine("Введенное число не находится в первом диапазоне.");
+			}
+
 			Console.WriteLine(Environment.NewLine + "Введите начальное значение второго диапазона: ");
 			double from2 = Convert.ToDouble(Console.ReadLine());
 

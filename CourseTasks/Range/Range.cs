@@ -23,6 +23,11 @@ namespace Range
 			return To - From;
 		}
 
+		public bool IsInside(double x)
+		{
+			return x >= From && x <= To;
+		}
+
 		public double[] GetIntersection(double otherFrom, double otherTo)
 		{
 			double[] range = new double[] { otherFrom, otherTo };
