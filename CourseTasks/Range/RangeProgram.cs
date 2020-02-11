@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Range
 {
-	class UseClassRange
+	class RangeProgram
 	{
 		static void Main(string[] args)
 		{
@@ -44,50 +44,45 @@ namespace Range
 
 			Console.WriteLine(Environment.NewLine + "Результат пересечения диапазонов:");
 
-			if (range1.GetIntersection(from2, to2) == null)
+			if (range1.GetIntersection(range2) == null)
 			{
 				Console.WriteLine("Второй диапазон не пересекается с первым.");
 			}
 			else
 			{
-				double[] intersectionRange = range1.GetIntersection(from2, to2);
+				Range intersection = range1.GetIntersection(range2);
 
-				Console.WriteLine("Новый диапазон от " + intersectionRange[0] + " до " + intersectionRange[1] + ".");
+				intersection.Print();
 			}
-
-			double[] unionRange = range1.GetUnion(from2, to2);
 
 			Console.WriteLine(Environment.NewLine + "Результат объединения диапазонов:");
 
-			if (unionRange[2] == 0 && unionRange[3] == 0)
+			Range[] union = range1.GetUnion(range2);
+
+			foreach (Range e in union)
 			{
-				Console.WriteLine("Новый диапазон от " + unionRange[0] + " до " + unionRange[1] + ".");
-			}
-			else
-			{
-				Console.Write("Новый диапазон: от " + unionRange[0] + " до " + unionRange[1] + " и ");
-				Console.WriteLine("от " + unionRange[2] + " до " + unionRange[3] + ".");
+				if (e == null)
+				{
+					Console.WriteLine("[]");
+					break;
+				}
+
+				e.Print();
 			}
 
 			Console.WriteLine(Environment.NewLine + "Результат разности диапазонов:");
 
-			if (range1.GetDifference(from2, to2) == null)
-			{
-				Console.WriteLine("Первый диапазон полностью вычитается из второго.");
-			}
-			else
-			{
-				double[] differenceRange = range1.GetDifference(from2, to2);
+			Range[] difference = range1.GetDifference(range2);
 
-				if (differenceRange[2] == 0 && differenceRange[3] == 0)
+			foreach (Range e in difference)
+			{
+				if (e == null)
 				{
-					Console.WriteLine("Новый диапазон от " + differenceRange[0] + " до " + differenceRange[1] + ".");
+					Console.WriteLine("[]");
+					break;
 				}
-				else
-				{
-					Console.Write("Новый диапазон: от " + differenceRange[0] + " до " + differenceRange[1] + " и ");
-					Console.WriteLine("от " + differenceRange[2] + " до " + differenceRange[3] + ".");
-				}
+
+				e.Print();
 			}
 
 			Console.ReadKey();

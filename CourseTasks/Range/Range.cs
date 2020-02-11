@@ -28,93 +28,112 @@ namespace Range
 			return x >= From && x <= To;
 		}
 
-		public double[] GetIntersection(double otherFrom, double otherTo)
+		public Range GetIntersection(Range range)
 		{
-			double[] range = new double[] { otherFrom, otherTo };
+			double otherFrom = range.From;
+			double otherTo = range.To;
 
-			if (From > range[1] || To < range[0])
+			if (From >= otherTo || To <= otherFrom)
 			{
 				return null;
 			}
 
-			if (From > range[0])
+			if (From > otherFrom)
 			{
-				range[0] = From;
+				otherFrom = From;
 			}
 
-			if (To < range[1])
+			if (To < otherTo)
 			{
-				range[1] = To;
+				otherTo = To;
 			}
 
-			return range;
+			Range newRange = new Range(otherFrom, otherTo);
+
+			return newRange;
 		}
 
-		public double[] GetUnion(double otherFrom, double otherTo)
+		public Range[] GetUnion(Range range)
 		{
-			double[] range = new double[4] { otherFrom, otherTo, 0, 0 };
+			double otherFrom = range.From;
+			double otherTo = range.To;
 
-			if (From > range[1] || To < range[0])
+			Range[] newRanges = new Range[2];
+
+			if (From > otherTo || To < otherFrom)
 			{
-				range[0] = From;
-				range[1] = To;
-				range[2] = otherFrom;
-				range[3] = otherTo;
-				return range;
+				Range newRange1 = new Range(From, To);
+				Range newRange2 = new Range(otherFrom, otherTo);
+
+				newRanges[0] = newRange1;
+				newRanges[1] = newRange2;
+
+				return newRanges;
 			}
 
-			if (From < range[0])
+			if (From < otherFrom)
 			{
-				range[0] = From;
+				otherFrom = From;
 			}
 
-			if (To > range[1])
+			if (To > range.To)
 			{
-				range[1] = To;
+				otherTo = To;
 			}
 
-			return range;
+			Range newRange = new Range(otherFrom, otherTo);
+			newRanges[0] = newRange;
+
+			return newRanges;
 		}
 
-		public double[] GetDifference(double otherFrom, double otherTo)
+		public Range[] GetDifference(Range range)
 		{
-			double[] range = new double[4] { otherFrom, otherTo, 0, 0 };
+			double otherFrom = range.From;
+			double otherTo = range.To;
 
-			if (From > range[1] || To < range[0])
+			Range[] newRanges = new Range[2];
+
+			if (From >= otherTo || To <= otherFrom)
 			{
-				range[0] = From;
-				range[1] = To;
+				Range newRange1 = new Range(From, To);
+				newRanges[0] = newRange1;
 
-				return range;
+				return newRanges;
 			}
 
-			if (range[0] < From && range[1] > To)
+			if (otherFrom <= From && otherTo >= To)
 			{
-				return null;
+				return newRanges;
 			}
 
-			if (range[0] > From && range[1] < To)
+			if (otherFrom > From && otherTo < To)
 			{
-				range[0] = From;
-				range[1] = otherFrom;
-				range[2] = otherTo;
-				range[3] = To;
+				Range newRange1 = new Range(From, otherFrom);
+				Range newRange2 = new Range(otherTo, To);
+				newRanges[0] = newRange1;
+				newRanges[1] = newRange2;
 
-				return range;
+				return newRanges;
 			}
 
-			if (range[0] < From && range[1] < To)
+			if (otherFrom < From && otherTo < To)
 			{
-				range[0] = range[1];
-				range[1] = To;
+				Range newRange2 = new Range(otherTo, To);
+				newRanges[0] = newRange2;
 
-				return range;
+				return newRanges;
 			}
 
-			range[0] = From;
-			range[1] = range[0];
+			Range newRange = new Range(From, otherFrom);
+			newRanges[0] = newRange;
 
-			return range;
+			return newRanges;
+		}
+
+		public void Print()
+		{
+			Console.WriteLine("[(" + From + ";" + To + ")]");
 		}
 	}
 }

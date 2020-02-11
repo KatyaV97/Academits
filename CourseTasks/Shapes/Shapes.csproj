@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Circle.cs" />
     <Compile Include="IShape.cs" />
+    <Compile Include="ShapesProgram.cs" />
     <Compile Include="Rectangle.cs" />
     <Compile Include="Square.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
