@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Shapes
 {
-	class Rectangle : IShape
+	class Rectangle : IShape, IComparable
 	{
 		public double SideLength1 { get; set; }
 
@@ -36,6 +36,31 @@ namespace Shapes
 		public double GetPerimeter()
 		{
 			return 2 * (SideLength1 + SideLength2);
+		}
+
+		public int CompareTo(object obj)
+		{
+			Rectangle rectangle1 = obj as Rectangle;
+
+			if (rectangle1 != null)
+			{
+				if (this.GetArea() < rectangle1.GetArea())
+				{
+					return -1;
+				}
+				else if(this.GetArea() > rectangle1.GetArea())
+				{
+					return 1;
+				}
+				else
+				{
+					return 0;
+				}
+			}
+			else
+			{
+				throw new Exception("Параметр не является прямоугольником.");
+			}
 		}
 	}
 }

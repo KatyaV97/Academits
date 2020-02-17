@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Range
 {
@@ -52,38 +48,20 @@ namespace Range
 			{
 				Range intersection = range1.GetIntersection(range2);
 
-				intersection.Print();
+				Range.Print(intersection);
 			}
 
 			Console.WriteLine(Environment.NewLine + "Результат объединения диапазонов:");
 
 			Range[] union = range1.GetUnion(range2);
 
-			foreach (Range e in union)
-			{
-				if (e == null)
-				{
-					Console.WriteLine("[]");
-					break;
-				}
-
-				e.Print();
-			}
+			Range.Print(union);
 
 			Console.WriteLine(Environment.NewLine + "Результат разности диапазонов:");
 
 			Range[] difference = range1.GetDifference(range2);
 
-			foreach (Range e in difference)
-			{
-				if (e == null)
-				{
-					Console.WriteLine("[]");
-					break;
-				}
-
-				e.Print();
-			}
+			Range.Print(difference);
 
 			Console.ReadKey();
 		}

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Shapes
 {
-	class Triangle : IShape
+	class Triangle : IShape, IComparable
 	{
 		public double X1 { get; set; }
 
@@ -140,6 +140,31 @@ namespace Shapes
 			double sideLength3 = Math.Sqrt(Math.Pow((X3 - X1), 2) + Math.Pow((Y3 - Y1), 2));
 
 			return sideLength1 + sideLength2 + sideLength3;
+		}
+
+		public int CompareTo(object obj)
+		{
+			Triangle triangle1 = obj as Triangle;
+
+			if (triangle1 != null)
+			{
+				if (this.GetArea() < triangle1.GetArea())
+				{
+					return -1;
+				}
+				else if (this.GetArea() > triangle1.GetArea())
+				{
+					return 1;
+				}
+				else
+				{
+					return 0;
+				}
+			}
+			else
+			{
+				throw new Exception("Параметр не является треугольником.");
+			}
 		}
 	}
 }

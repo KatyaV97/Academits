@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Shapes
 {
-	public class Square : IShape
+	public class Square : IShape, IComparable
 	{
 		public double SideLength { get; set; }
 
@@ -33,6 +33,31 @@ namespace Shapes
 		public double GetPerimeter()
 		{
 			return 2 * SideLength;
+		}
+
+		public int CompareTo(object obj)
+		{
+			Square square1 = obj as Square;
+
+			if (square1 != null)
+			{
+				if (this.GetArea() < square1.GetArea())
+				{
+					return -1;
+				}
+				else if (this.GetArea() > square1.GetArea())
+				{
+					return 1;
+				}
+				else
+				{
+					return 0;
+				}
+			}
+			else
+			{
+				throw new Exception("Параметр не является квадратом.");
+			}
 		}
 	}
 }
