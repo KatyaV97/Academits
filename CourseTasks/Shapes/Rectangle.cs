@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Shapes
+﻿namespace Shapes
 {
-	class Rectangle : IShape, IComparable
+	class Rectangle : IShape
 	{
 		public double SideLength1 { get; set; }
 
@@ -20,12 +14,12 @@ namespace Shapes
 
 		public double GetWidth()
 		{
-			return (SideLength1 < SideLength2)? SideLength1: SideLength1;
+			return SideLength1;
 		}
 
 		public double GetHeight()
 		{
-			return (SideLength1 > SideLength2) ? SideLength1 : SideLength1;
+			return SideLength2;
 		}
 
 		public double GetArea()
@@ -38,29 +32,37 @@ namespace Shapes
 			return 2 * (SideLength1 + SideLength2);
 		}
 
-		public int CompareTo(object obj)
+		public override string ToString()
 		{
-			Rectangle rectangle1 = obj as Rectangle;
+			return "\nТип фигуры: Прямоугольник \nШирина: " + GetWidth() + "\nВысота: " + GetHeight() + "\nПериметр: " + GetPerimeter() + "\nПлощадь: " + GetArea() + "\n";
+		}
 
-			if (rectangle1 != null)
+		public override int GetHashCode()
+		{
+			int prime = 37;
+			int hash = 1;
+
+			hash = prime * hash + SideLength1.GetHashCode();
+			hash = prime * hash + SideLength2.GetHashCode();
+
+			return hash;
+		}
+
+		public override bool Equals(object obj)
+		{
+			if (ReferenceEquals(obj, this))
 			{
-				if (this.GetArea() < rectangle1.GetArea())
-				{
-					return -1;
-				}
-				else if(this.GetArea() > rectangle1.GetArea())
-				{
-					return 1;
-				}
-				else
-				{
-					return 0;
-				}
+				return true;
 			}
-			else
+
+			if (ReferenceEquals(obj, null) || obj.GetType() != this.GetType())
 			{
-				throw new Exception("Параметр не является прямоугольником.");
+				return false;
 			}
+
+			Rectangle newObj = (Rectangle)obj;
+
+			return SideLength1 == newObj.SideLength1 && SideLength2 == newObj.SideLength2;
 		}
 	}
 }

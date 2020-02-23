@@ -24,14 +24,14 @@ namespace Range
 			return x >= From && x <= To;
 		}
 
-		public Range GetIntersection(Range range)
+		public Range[] GetIntersection(Range range)
 		{
 			if (From >= range.To || To <= range.From)
 			{
 				return null;
 			}
 
-			return new Range(Math.Max(From, range.From), Math.Min(To, range.To));
+			return new Range[] { new Range(Math.Max(From, range.From), Math.Min(To, range.To)) };
 		}
 
 		public Range[] GetUnion(Range range)
@@ -69,19 +69,31 @@ namespace Range
 			return new Range[] { new Range(From, range.From) };
 		}
 
-		public static void Print(params Range[] range)
+		public static void Print(Range[] ranges)
 		{
-			if (range.Length == 0)
+			if (ranges.Length == 0)
 			{
 				Console.WriteLine("[]");
 			}
-			else if (range.Length == 1)
+			else if(ranges.Length == 1)
 			{
-				Console.WriteLine("(" + range[0].From + ";" + range[0].To + ")");
+				Console.WriteLine("(" + ranges[0].From + ";" + ranges[0].To + ")");
 			}
 			else
 			{
-				Console.WriteLine("[(" + range[0].From + ";" + range[0].To + "),(" + range[1].From + ";" + range[1].To + ")]");
+				Console.Write("[");
+
+				for (int i = 0; i < ranges.Length; i++)
+				{
+					Console.Write("(" + ranges[i].From + ";" + ranges[i].To + ")");
+
+					if (i < ranges.Length - 1)
+					{
+						Console.Write(",");
+					}
+				}
+
+				Console.WriteLine("]");
 			}
 		}
 	}

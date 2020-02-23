@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Shapes
 {
-	class Triangle : IShape, IComparable
+	class Triangle : IShape
 	{
 		public double X1 { get; set; }
 
@@ -34,96 +30,16 @@ namespace Shapes
 
 		public double GetWidth()
 		{
-			double max;
-			double min;
-
-			if (X1 > X2 && X1 > X3)
-			{
-				max = X1;
-
-				if (X2 < X3)
-				{
-					min = X2;
-				}
-				else
-				{
-					min = X3;
-				}
-			}
-			else if (X2 > X3)
-			{
-				max = X2;
-
-				if (X1 < X3)
-				{
-					min = X1;
-				}
-				else
-				{
-					min = X3;
-				}
-			}
-			else
-			{
-				max = X3;
-
-				if (X1 < X2)
-				{
-					min = X1;
-				}
-				else
-				{
-					min = X2;
-				}
-			}
+			double max = Math.Max(Math.Max(X1, X2), X3);
+			double min = Math.Min(Math.Min(X1, X2), X3);
 
 			return max - min;
 		}
 
 		public double GetHeight()
 		{
-			double max;
-			double min;
-
-			if (Y1 > Y2 && Y1 > Y3)
-			{
-				max = Y1;
-
-				if (Y2 < Y3)
-				{
-					min = Y2;
-				}
-				else
-				{
-					min = Y3;
-				}
-			}
-			else if (Y2 > Y3)
-			{
-				max = Y2;
-
-				if (Y1 < Y3)
-				{
-					min = Y1;
-				}
-				else
-				{
-					min = Y3;
-				}
-			}
-			else
-			{
-				max = Y3;
-
-				if (Y1 < Y2)
-				{
-					min = Y1;
-				}
-				else
-				{
-					min = Y2;
-				}
-			}
+			double max = Math.Max(Math.Max(Y1, Y2), Y3);
+			double min = Math.Min(Math.Min(Y1, Y2), Y3);
 
 			return max - min;
 		}
@@ -135,36 +51,49 @@ namespace Shapes
 
 		public double GetPerimeter()
 		{
-			double sideLength1 = Math.Sqrt(Math.Pow((X2 - X1), 2) + Math.Pow((Y2 - Y1), 2));
-			double sideLength2 = Math.Sqrt(Math.Pow((X3 - X2), 2) + Math.Pow((Y3 - Y2), 2));
-			double sideLength3 = Math.Sqrt(Math.Pow((X3 - X1), 2) + Math.Pow((Y3 - Y1), 2));
-
-			return sideLength1 + sideLength2 + sideLength3;
+			return GetSideLength(X1, X2, Y1, Y2) + GetSideLength(X2, X3, Y2, Y3) + GetSideLength(X1, X3, Y1, Y3);
 		}
 
-		public int CompareTo(object obj)
+		private double GetSideLength(double x1, double x2, double y1, double y2)
 		{
-			Triangle triangle1 = obj as Triangle;
+			return Math.Sqrt(Math.Pow((x2 - x1), 2) + Math.Pow((y2 - y1), 2));
+		}
 
-			if (triangle1 != null)
+		public override string ToString()
+		{
+			return "\nТип фигуры: Треугольник \nШирина: " + GetWidth() + "\nВысота: " + GetHeight() + "\nПериметр: " + GetPerimeter() + "\nПлощадь: " + GetArea() + "\n";
+		}
+
+		public override int GetHashCode()
+		{
+			int prime = 37;
+			int hash = 1;
+
+			hash = prime * hash + X1.GetHashCode();
+			hash = prime * hash + X2.GetHashCode();
+			hash = prime * hash + X3.GetHashCode();
+			hash = prime * hash + Y1.GetHashCode();
+			hash = prime * hash + Y2.GetHashCode();
+			hash = prime * hash + Y3.GetHashCode();
+
+			return hash;
+		}
+
+		public override bool Equals(object obj)
+		{
+			if (ReferenceEquals(obj, this))
 			{
-				if (this.GetArea() < triangle1.GetArea())
-				{
-					return -1;
-				}
-				else if (this.GetArea() > triangle1.GetArea())
-				{
-					return 1;
-				}
-				else
-				{
-					return 0;
-				}
+				return true;
 			}
-			else
+
+			if (ReferenceEquals(obj, null) || obj.GetType() != this.GetType())
 			{
-				throw new Exception("Параметр не является треугольником.");
+				return false;
 			}
+
+			Triangle newObj = (Triangle)obj;
+
+			return X1 == newObj.X1 && X2 == newObj.X2 && X3 == newObj.X3 && Y1 == newObj.Y1 && Y2 == newObj.Y2 && Y3 == newObj.Y3;
 		}
 	}
 }

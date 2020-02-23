@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Shapes
 {
-	class Circle : IShape, IComparable
+	class Circle : IShape
 	{
 		public double Radius { get; set; }
 
@@ -35,29 +31,31 @@ namespace Shapes
 			return 2 * Math.PI * Radius;
 		}
 
-		public int CompareTo(object obj)
+		public override string ToString()
 		{
-			Circle circle1 = obj as Circle;
+			return "\nТип фигуры: Окружность \nШирина: " + GetWidth() + "\nВысота: " + GetHeight() + "\nПериметр: " + GetPerimeter() + "\nПлощадь: " + GetArea() + "\n";
+		}
 
-			if (circle1 != null)
+		public override int GetHashCode()
+		{
+			return Radius.GetHashCode(); ;
+		}
+
+		public override bool Equals(object obj)
+		{
+			if (ReferenceEquals(obj, this))
 			{
-				if (this.GetArea() < circle1.GetArea())
-				{
-					return -1;
-				}
-				else if (this.GetArea() > circle1.GetArea())
-				{
-					return 1;
-				}
-				else
-				{
-					return 0;
-				}
+				return true;
 			}
-			else
+
+			if (ReferenceEquals(obj, null) || obj.GetType() != this.GetType())
 			{
-				throw new Exception("Параметр не является треугольником.");
+				return false;
 			}
+
+			Circle newObj = (Circle)obj;
+
+			return Radius == newObj.Radius;
 		}
 	}
 }

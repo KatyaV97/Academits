@@ -46,7 +46,7 @@ namespace Range
 			}
 			else
 			{
-				Range intersection = range1.GetIntersection(range2);
+				Range[] intersection = range1.GetIntersection(range2);
 
 				Range.Print(intersection);
 			}

@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Shapes
 {
-	public class Square : IShape, IComparable
+	public class Square : IShape
 	{
 		public double SideLength { get; set; }
 
@@ -32,32 +28,34 @@ namespace Shapes
 
 		public double GetPerimeter()
 		{
-			return 2 * SideLength;
+			return 4 * SideLength;
 		}
 
-		public int CompareTo(object obj)
+		public override string ToString()
 		{
-			Square square1 = obj as Square;
+			return "\nТип фигуры: Квадрат \nШирина: " + GetWidth() + "\nВысота: " + GetHeight() + "\nПериметр: " + GetPerimeter() + "\nПлощадь: " + GetArea() + "\n";
+		}
 
-			if (square1 != null)
+		public override int GetHashCode()
+		{
+			return SideLength.GetHashCode(); ;
+		}
+
+		public override bool Equals(object obj)
+		{
+			if (ReferenceEquals(obj, this))
 			{
-				if (this.GetArea() < square1.GetArea())
-				{
-					return -1;
-				}
-				else if (this.GetArea() > square1.GetArea())
-				{
-					return 1;
-				}
-				else
-				{
-					return 0;
-				}
+				return true;
 			}
-			else
+
+			if (ReferenceEquals(obj, null) || obj.GetType() != this.GetType())
 			{
-				throw new Exception("Параметр не является квадратом.");
+				return false;
 			}
+
+			Square newObj = (Square)obj;
+
+			return SideLength == newObj.SideLength;
 		}
 	}
 }

@@ -44,6 +44,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Circle.cs" />
+    <Compile Include="CompareShapesAreas.cs" />
+    <Compile Include="CompareShapesPerimeters.cs" />
     <Compile Include="IShape.cs" />
     <Compile Include="ShapesProgram.cs" />
     <Compile Include="Rectangle.cs" />
