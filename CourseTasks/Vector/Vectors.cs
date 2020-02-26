@@ -29,7 +29,7 @@ namespace Vectors
 			this.Vector = vectorsValues;
 		}
 
-		public Vectors(int n, double[] vectorsValues)
+		public Vectors(int n, double[] vector)
 		{
 			if (n <= 0)
 			{
@@ -42,15 +42,15 @@ namespace Vectors
 
 			int count = 0;
 
-			foreach (int e in vectorsValues)
+			foreach (int e in vector)
 			{
 				Vector[count] = e;
 				count++;
 			}
 
-			if (N > vectorsValues.Length)
+			if (N > vector.Length)
 			{
-				for (int i = vectorsValues.Length; i < N; i++)
+				for (int i = vector.Length; i < N; i++)
 				{
 					Vector[i] = 0;
 				}
@@ -77,15 +77,14 @@ namespace Vectors
 				Vector[i] += vector.Vector[i];
 			}
 
-			if (GetSize() > vector.GetSize())
+			if (vector.GetSize() > GetSize())
 			{
-				for (int i = vectorMinSize; i < vectorMaxSize; i++)
-				{
-					Vector[i] = vector.Vector[i];
-				}
-			}
-			else if (vector.GetSize() > GetSize())
-			{
+				double[] newVector = Vector;
+
+				Array.Resize(ref newVector, vectorMaxSize);
+
+				Vector = newVector;
+
 				for (int i = vectorMinSize; i < vectorMaxSize; i++)
 				{
 					Vector[i] = vector.Vector[i];
