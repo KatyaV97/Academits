@@ -69,45 +69,33 @@ namespace Vectors
 
 		public void AdditionVectors(Vectors vector)
 		{
-			int vectorMaxSize = Math.Max(GetSize(), vector.GetSize());
-			int vectorMinSize = Math.Min(GetSize(), vector.GetSize());
+			int vectorSize = vector.GetSize();
+			int thisVectorSize = GetSize();
 
-			for (int i = 0; i < vectorMinSize; i++)
+			if (vectorSize > thisVectorSize)
 			{
-				Vector[i] += vector.Vector[i];
+				Vector = ResizeArray(Vector, vectorSize);
 			}
 
-			if (vector.GetSize() > GetSize())
+			for (int i = 0; i < vectorSize; i++)
 			{
-				double[] newVector = Vector;
-
-				Array.Resize(ref newVector, vectorMaxSize);
-
-				Vector = newVector;
-
-				for (int i = vectorMinSize; i < vectorMaxSize; i++)
-				{
-					Vector[i] = vector.Vector[i];
-				}
+				Vector[i] += vector.Vector[i];
 			}
 		}
 
 		public void SubtractionVectors(Vectors vector)
 		{
-			int vectorMaxSize = Math.Max(GetSize(), vector.GetSize());
-			int vectorMinSize = Math.Min(GetSize(), vector.GetSize());
+			int vectorSize = vector.GetSize();
+			int thisVectorSize = GetSize();
 
-			for (int i = 0; i < vectorMinSize; i++)
+			if (vectorSize > thisVectorSize)
 			{
-				Vector[i] = Vector[i] - vector.Vector[i];
+				Vector = ResizeArray(Vector, vectorSize);
 			}
 
-			if (vector.GetSize() > GetSize())
+			for (int i = 0; i < vectorSize; i++)
 			{
-				for (int i = vectorMinSize; i < vectorMaxSize; i++)
-				{
-					Vector[i] = 0 - vector.Vector[i];
-				}
+				Vector[i] -= vector.Vector[i];
 			}
 		}
 
@@ -141,26 +129,26 @@ namespace Vectors
 
 		public static Vectors AddVectors(Vectors vector1, Vectors vector2)
 		{
-			int vectorMaxSize = Math.Max(vector1.GetSize(), vector2.GetSize());
-			int vectorMinSize = Math.Min(vector1.GetSize(), vector2.GetSize());
+			int vector1Size = vector1.GetSize();
+			int vector2Size = vector2.GetSize();
 
-			double[] additionResult = new double[vectorMaxSize];
+			double[] additionResult = new double[Math.Max(vector1Size, vector2Size)];
 
-			for (int i = 0; i < vectorMinSize; i++)
+			for (int i = 0; i < Math.Min(vector1Size, vector2Size); i++)
 			{
 				additionResult[i] = vector1.Vector[i] + vector2.Vector[i];
 			}
 
-			if (vector1.GetSize() > vector2.GetSize())
+			if (vector1Size > vector2Size)
 			{
-				for (int i = vectorMinSize; i < vectorMaxSize; i++)
+				for (int i = vector2Size; i < vector1Size; i++)
 				{
 					additionResult[i] = vector1.Vector[i];
 				}
 			}
-			else if (vector2.GetSize() > vector1.GetSize())
+			else if (vector1Size < vector2Size)
 			{
-				for (int i = vectorMinSize; i < vectorMaxSize; i++)
+				for (int i = vector1Size; i < vector2Size; i++)
 				{
 					additionResult[i] = vector2.Vector[i];
 				}
@@ -173,32 +161,44 @@ namespace Vectors
 
 		public static Vectors SubtractVectors(Vectors vector1, Vectors vector2)
 		{
-			int vectorMaxSize = Math.Max(vector1.GetSize(), vector2.GetSize());
-			int vectorMinSize = Math.Min(vector1.GetSize(), vector2.GetSize());
+			int vector1Size = vector1.GetSize();
+			int vector2Size = vector2.GetSize();
 
-			double[] subtractionResult = new double[vectorMaxSize];
+			double[] subtractionResult = new double[Math.Max(vector1Size, vector2Size)];
 
-			for (int i = 0; i < vectorMinSize; i++)
+			for (int i = 0; i < Math.Min(vector1Size, vector2Size); i++)
 			{
 				subtractionResult[i] = vector1.Vector[i] - vector2.Vector[i];
 			}
 
-			if (vector1.GetSize() > vector2.GetSize())
+			if (vector1Size > vector2Size)
 			{
-				for (int i = vectorMinSize; i < vectorMaxSize; i++)
+				for (int i = vector2Size; i < vector1Size; i++)
 				{
 					subtractionResult[i] = vector1.Vector[i];
 				}
 			}
-			else if (vector2.GetSize() > vector1.GetSize())
+			else if (vector1Size < vector2Size)
 			{
-				for (int i = vectorMinSize; i < vectorMaxSize; i++)
+				for (int i = vector1Size; i < vector2Size; i++)
 				{
-					subtractionResult[i] = 0 - vector2.Vector[i];
+					subtractionResult[i] = -vector2.Vector[i];
 				}
 			}
 
 			Vectors newVector = new Vectors(subtractionResult);
+
+			return newVector;
+		}
+
+		public static double[] ResizeArray(double[] vector, int newSize)
+		{
+			double[] newVector = new double[newSize];
+
+			for (int i = 0; i < vector.Length; i++)
+			{
+				newVector[i] = vector[i];
+			}
 
 			return newVector;
 		}

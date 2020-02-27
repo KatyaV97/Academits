@@ -7,7 +7,7 @@ namespace Vectors
 		static void Main(string[] args)
 		{
 			Vectors vector1 = new Vectors(new double[] { 10, 20, 30 });
-			Vectors vector2 = new Vectors(new double[] { 15, 5, 45,12 });
+			Vectors vector2 = new Vectors(new double[] { 15, 5});
 
 			Vectors additionalVectors = Vectors.AddVectors(vector1, vector2);
 
