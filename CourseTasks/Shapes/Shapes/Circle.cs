@@ -13,12 +13,12 @@ namespace Shapes
 
 		public double GetWidth()
 		{
-			return Radius;
+			return 2 * Radius;
 		}
 
 		public double GetHeight()
 		{
-			return Radius;
+			return 2 * Radius;
 		}
 
 		public double GetArea()
@@ -33,12 +33,14 @@ namespace Shapes
 
 		public override string ToString()
 		{
-			return "\nТип фигуры: Окружность \nШирина: " + GetWidth() + "\nВысота: " + GetHeight() + "\nПериметр: " + GetPerimeter() + "\nПлощадь: " + GetArea() + "\n";
+			return "Тип фигуры: Окружность" + Environment.NewLine + "Ширина: " + GetWidth() + Environment.NewLine +
+				"Высота: " + GetHeight() + Environment.NewLine + "Периметр: " + GetPerimeter() + Environment.NewLine +
+				"Площадь: " + GetArea() + Environment.NewLine;
 		}
 
 		public override int GetHashCode()
 		{
-			return Radius.GetHashCode(); ;
+			return Radius.GetHashCode();
 		}
 
 		public override bool Equals(object obj)
@@ -48,7 +50,7 @@ namespace Shapes
 				return true;
 			}
 
-			if (ReferenceEquals(obj, null) || obj.GetType() != this.GetType())
+			if (ReferenceEquals(obj, null) || obj.GetType() != GetType())
 			{
 				return false;
 			}

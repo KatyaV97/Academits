@@ -33,12 +33,14 @@ namespace Shapes
 
 		public override string ToString()
 		{
-			return "\nТип фигуры: Квадрат \nШирина: " + GetWidth() + "\nВысота: " + GetHeight() + "\nПериметр: " + GetPerimeter() + "\nПлощадь: " + GetArea() + "\n";
+			return "Тип фигуры: Квадрат" + Environment.NewLine + "Ширина: " + GetWidth() + Environment.NewLine +
+				"Высота: " + GetHeight() + Environment.NewLine + "Периметр: " + GetPerimeter() + Environment.NewLine +
+				"Площадь: " + GetArea() + Environment.NewLine;
 		}
 
 		public override int GetHashCode()
 		{
-			return SideLength.GetHashCode(); ;
+			return SideLength.GetHashCode();
 		}
 
 		public override bool Equals(object obj)
@@ -48,14 +50,14 @@ namespace Shapes
 				return true;
 			}
 
-			if (ReferenceEquals(obj, null) || obj.GetType() != this.GetType())
+			if (ReferenceEquals(obj, null) || obj.GetType() != GetType())
 			{
 				return false;
 			}
 
-			Square newObj = (Square)obj;
+			Square square = (Square)obj;
 
-			return SideLength == newObj.SideLength;
+			return SideLength == square.SideLength;
 		}
 	}
 }

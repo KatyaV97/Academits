@@ -51,17 +51,19 @@ namespace Shapes
 
 		public double GetPerimeter()
 		{
-			return GetSideLength(X1, X2, Y1, Y2) + GetSideLength(X2, X3, Y2, Y3) + GetSideLength(X1, X3, Y1, Y3);
+			return GetSideLength(X1, Y1, X2, Y2) + GetSideLength(X2, Y2, X3, Y3) + GetSideLength(X1, Y1, X3, Y3);
 		}
 
-		private double GetSideLength(double x1, double x2, double y1, double y2)
+		private static double GetSideLength(double x1, double y1, double x2, double y2)
 		{
 			return Math.Sqrt(Math.Pow((x2 - x1), 2) + Math.Pow((y2 - y1), 2));
 		}
 
 		public override string ToString()
 		{
-			return "\nТип фигуры: Треугольник \nШирина: " + GetWidth() + "\nВысота: " + GetHeight() + "\nПериметр: " + GetPerimeter() + "\nПлощадь: " + GetArea() + "\n";
+			return "Тип фигуры: Треугольник" + Environment.NewLine + "Ширина: " + GetWidth() + Environment.NewLine +
+				"Высота: " + GetHeight() + Environment.NewLine + "Периметр: " + GetPerimeter() + Environment.NewLine +
+				"Площадь: " + GetArea() + Environment.NewLine;
 		}
 
 		public override int GetHashCode()
@@ -86,14 +88,15 @@ namespace Shapes
 				return true;
 			}
 
-			if (ReferenceEquals(obj, null) || obj.GetType() != this.GetType())
+			if (ReferenceEquals(obj, null) || obj.GetType() != GetType())
 			{
 				return false;
 			}
 
-			Triangle newObj = (Triangle)obj;
+			Triangle triangle = (Triangle)obj;
 
-			return X1 == newObj.X1 && X2 == newObj.X2 && X3 == newObj.X3 && Y1 == newObj.Y1 && Y2 == newObj.Y2 && Y3 == newObj.Y3;
+			return X1 == triangle.X1 && X2 == triangle.X2 && X3 == triangle.X3 && Y1 == triangle.Y1 &&
+				Y2 == triangle.Y2 && Y3 == triangle.Y3;
 		}
 	}
 }

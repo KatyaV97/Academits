@@ -165,7 +165,6 @@ namespace Vectors
 			int vector2Size = vector2.GetSize();
 
 			double[] subtractionResult = new double[Math.Max(vector1Size, vector2Size)];
-
 			for (int i = 0; i < Math.Min(vector1Size, vector2Size); i++)
 			{
 				subtractionResult[i] = vector1.Vector[i] - vector2.Vector[i];
