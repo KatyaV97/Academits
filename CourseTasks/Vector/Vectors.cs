@@ -6,8 +6,6 @@ namespace Vectors
 	{
 		public int N { get; set; }
 
-		//public Vectors Vector { get; set; }
-
 		public double[] Vector { get; set; }
 
 		public Vectors(int n)
@@ -19,14 +17,23 @@ namespace Vectors
 
 			N = n;
 
-			this.Vector = new double[N];
+			Vector = new double[N];
 		}
 
-		public Vectors(Vectors vector) { this.Vector = vector.Vector; }
+		public Vectors(Vectors vector)
+		{
+			int vectorLength = vector.Vector.Length;
+			Vector = new double[vectorLength];
+
+			Array.Copy(vector.Vector, Vector, vectorLength);
+		}
 
 		public Vectors(double[] vectorsValues)
 		{
-			this.Vector = vectorsValues;
+			int vectorLength = vectorsValues.Length;
+			Vector = new double[vectorLength];
+
+			Array.Copy(vectorsValues, Vector, vectorLength);
 		}
 
 		public Vectors(int n, double[] vector)
@@ -37,20 +44,18 @@ namespace Vectors
 			}
 
 			N = n;
+			Vector = new double[N];
 
-			this.Vector = new double[N];
+			int vectorLength = vector.Length;
 
-			int count = 0;
-
-			foreach (int e in vector)
+			for (int i = 0; i < vectorLength; i++)
 			{
-				Vector[count] = e;
-				count++;
+				Vector[i] = vector[i];
 			}
 
 			if (N > vector.Length)
 			{
-				for (int i = vector.Length; i < N; i++)
+				for (int i = vectorLength; i < N; i++)
 				{
 					Vector[i] = 0;
 				}
@@ -62,12 +67,7 @@ namespace Vectors
 			return Vector.Length;
 		}
 
-		public override string ToString()
-		{
-			return "{" + string.Join(",", Vector) + "}";
-		}
-
-		public void AdditionVectors(Vectors vector)
+		public void AddVector(Vectors vector)
 		{
 			int vectorSize = vector.GetSize();
 			int thisVectorSize = GetSize();
@@ -83,7 +83,7 @@ namespace Vectors
 			}
 		}
 
-		public void SubtractionVectors(Vectors vector)
+		public void SubtractVector(Vectors vector)
 		{
 			int vectorSize = vector.GetSize();
 			int thisVectorSize = GetSize();
@@ -127,7 +127,7 @@ namespace Vectors
 			return Math.Sqrt(squaresСoordinatesSum);
 		}
 
-		public static Vectors AddVectors(Vectors vector1, Vectors vector2)
+		public static Vectors AdditionVectors(Vectors vector1, Vectors vector2)
 		{
 			int vector1Size = vector1.GetSize();
 			int vector2Size = vector2.GetSize();
@@ -154,12 +154,12 @@ namespace Vectors
 				}
 			}
 
-			Vectors newVector = new Vectors(additionResult);
+			Vectors vectorsResultAddition = new Vectors(additionResult);
 
-			return newVector;
+			return vectorsResultAddition;
 		}
 
-		public static Vectors SubtractVectors(Vectors vector1, Vectors vector2)
+		public static Vectors SubtractionVectors(Vectors vector1, Vectors vector2)
 		{
 			int vector1Size = vector1.GetSize();
 			int vector2Size = vector2.GetSize();
@@ -185,21 +185,81 @@ namespace Vectors
 				}
 			}
 
-			Vectors newVector = new Vectors(subtractionResult);
+			Vectors vectorsResultSubtraction = new Vectors(subtractionResult);
 
-			return newVector;
+			return vectorsResultSubtraction;
 		}
 
 		public static double[] ResizeArray(double[] vector, int newSize)
 		{
-			double[] newVector = new double[newSize];
+			double[] modifiedVector = new double[newSize];
 
 			for (int i = 0; i < vector.Length; i++)
 			{
-				newVector[i] = vector[i];
+				modifiedVector[i] = vector[i];
 			}
 
-			return newVector;
+			return modifiedVector;
+		}
+
+		public double GetComponent(int index)
+		{
+			return Vector[index];
+		}
+
+		public void SetComponent(double component, int index)
+		{
+			Vector[index] = component;
+		}
+
+		public override string ToString()
+		{
+			return "{" + string.Join(",", Vector) + "}";
+		}
+
+		public override int GetHashCode()
+		{
+			int prime = 37;
+			int hash = 1;
+
+			foreach (double e in Vector)
+			{
+				hash = prime * hash + e.GetHashCode();
+			}
+
+			return hash;
+		}
+
+		public override bool Equals(object obj)
+		{
+			if (ReferenceEquals(obj, this))
+			{
+				return true;
+			}
+
+			if (ReferenceEquals(obj, null) || obj.GetType() != GetType())
+			{
+				return false;
+			}
+
+			Vectors vector = (Vectors)obj;
+
+			if (GetSize() != vector.GetSize())
+			{
+				return false;
+			}
+			else
+			{
+				for (int i = 0; i < GetSize(); i++)
+				{
+					if (Vector[i] != vector.Vector[i])
+					{
+						return false;
+					}
+				}
+			}
+
+			return true;
 		}
 	}
 }
