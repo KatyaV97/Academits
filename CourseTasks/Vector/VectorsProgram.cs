@@ -6,10 +6,10 @@ namespace Vectors
 	{
 		static void Main(string[] args)
 		{
-			Vectors vector1 = new Vectors(new double[] { 10, 20, 30 });
-			Vectors vector2 = new Vectors(new double[] { 15, 5 });
+			Vector vector1 = new Vector(new double[] { 10, 20, 30 });
+			Vector vector2 = new Vector(new double[] { 15, 5 });
 
-			Vectors vectorsResultAddition = Vectors.AdditionVectors(vector1, vector2);
+			Vector vectorsResultAddition = Vector.AdditionVectors(vector1, vector2);
 			Console.WriteLine("Результат сложения векторов статическим методом: " + vectorsResultAddition);
 
 			vector1.AddVector(vector2);
@@ -17,7 +17,7 @@ namespace Vectors
 
 			Console.WriteLine(Environment.NewLine);
 
-			Vectors vectorsResultSubtraction = Vectors.SubtractionVectors(vector1, vector2);
+			Vector vectorsResultSubtraction = Vector.SubtractionVectors(vector1, vector2);
 			Console.WriteLine("Результат вычитания векторов статическим методом: " + vectorsResultSubtraction);
 
 			vector1.SubtractVector(vector2);
@@ -36,9 +36,9 @@ namespace Vectors
 			Console.WriteLine("Длина вектора №1: " + vector1Length);
 			Console.WriteLine(Environment.NewLine);
 
-			Vectors vector3 = new Vectors(5);
-			Vectors vector4 = new Vectors(6, new double[] { 3, 4, 9, 6, 7 });
-			Vectors vector5 = new Vectors(vector4);
+			Vector vector3 = new Vector(5);
+			Vector vector4 = new Vector(6, new double[] { 3, 4, 9, 6, 7 });
+			Vector vector5 = new Vector(vector4);
 
 			Console.WriteLine("Вектор №3: " + vector3);
 			Console.WriteLine("Вектор №4: " + vector4);

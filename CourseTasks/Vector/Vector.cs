@@ -2,13 +2,13 @@
 
 namespace Vectors
 {
-	class Vectors
+	class Vector
 	{
 		public int N { get; set; }
 
-		public double[] Vector { get; set; }
+		public double[] VectorValues { get; set; }
 
-		public Vectors(int n)
+		public Vector(int n)
 		{
 			if (n <= 0)
 			{
@@ -17,26 +17,26 @@ namespace Vectors
 
 			N = n;
 
-			Vector = new double[N];
+			VectorValues = new double[N];
 		}
 
-		public Vectors(Vectors vector)
+		public Vector(Vector vector)
 		{
-			int vectorLength = vector.Vector.Length;
-			Vector = new double[vectorLength];
+			int vectorLength = vector.VectorValues.Length;
+			VectorValues = new double[vectorLength];
 
-			Array.Copy(vector.Vector, Vector, vectorLength);
+			Array.Copy(vector.VectorValues, VectorValues, vectorLength);
 		}
 
-		public Vectors(double[] vectorsValues)
+		public Vector(double[] vectorValues)
 		{
-			int vectorLength = vectorsValues.Length;
-			Vector = new double[vectorLength];
+			int vectorLength = vectorValues.Length;
+			VectorValues = new double[vectorLength];
 
-			Array.Copy(vectorsValues, Vector, vectorLength);
+			Array.Copy(vectorValues, VectorValues, vectorLength);
 		}
 
-		public Vectors(int n, double[] vector)
+		public Vector(int n, double[] vector)
 		{
 			if (n <= 0)
 			{
@@ -44,58 +44,58 @@ namespace Vectors
 			}
 
 			N = n;
-			Vector = new double[N];
+			VectorValues = new double[N];
 
 			int vectorLength = vector.Length;
 
 			for (int i = 0; i < vectorLength; i++)
 			{
-				Vector[i] = vector[i];
+				VectorValues[i] = vector[i];
 			}
 
 			if (N > vector.Length)
 			{
 				for (int i = vectorLength; i < N; i++)
 				{
-					Vector[i] = 0;
+					VectorValues[i] = 0;
 				}
 			}
 		}
 
 		public int GetSize()
 		{
-			return Vector.Length;
+			return VectorValues.Length;
 		}
 
-		public void AddVector(Vectors vector)
+		public void AddVector(Vector vector)
 		{
 			int vectorSize = vector.GetSize();
 			int thisVectorSize = GetSize();
 
 			if (vectorSize > thisVectorSize)
 			{
-				Vector = ResizeArray(Vector, vectorSize);
+				VectorValues = ResizeArray(VectorValues, vectorSize);
 			}
 
 			for (int i = 0; i < vectorSize; i++)
 			{
-				Vector[i] += vector.Vector[i];
+				VectorValues[i] += vector.VectorValues[i];
 			}
 		}
 
-		public void SubtractVector(Vectors vector)
+		public void SubtractVector(Vector vector)
 		{
 			int vectorSize = vector.GetSize();
 			int thisVectorSize = GetSize();
 
 			if (vectorSize > thisVectorSize)
 			{
-				Vector = ResizeArray(Vector, vectorSize);
+				VectorValues = ResizeArray(VectorValues, vectorSize);
 			}
 
 			for (int i = 0; i < vectorSize; i++)
 			{
-				Vector[i] -= vector.Vector[i];
+				VectorValues[i] -= vector.VectorValues[i];
 			}
 		}
 
@@ -103,7 +103,7 @@ namespace Vectors
 		{
 			for (int i = 0; i < GetSize(); i++)
 			{
-				Vector[i] *= scalar;
+				VectorValues[i] *= scalar;
 			}
 		}
 
@@ -111,7 +111,7 @@ namespace Vectors
 		{
 			for (int i = 0; i < GetSize(); i++)
 			{
-				Vector[i] *= -1;
+				VectorValues[i] *= -1;
 			}
 		}
 
@@ -121,13 +121,13 @@ namespace Vectors
 
 			for (int i = 0; i < GetSize(); i++)
 			{
-				squaresСoordinatesSum += Math.Pow(Vector[i], 2);
+				squaresСoordinatesSum += Math.Pow(VectorValues[i], 2);
 			}
 
 			return Math.Sqrt(squaresСoordinatesSum);
 		}
 
-		public static Vectors AdditionVectors(Vectors vector1, Vectors vector2)
+		public static Vector AdditionVectors(Vector vector1, Vector vector2)
 		{
 			int vector1Size = vector1.GetSize();
 			int vector2Size = vector2.GetSize();
@@ -136,30 +136,30 @@ namespace Vectors
 
 			for (int i = 0; i < Math.Min(vector1Size, vector2Size); i++)
 			{
-				additionResult[i] = vector1.Vector[i] + vector2.Vector[i];
+				additionResult[i] = vector1.VectorValues[i] + vector2.VectorValues[i];
 			}
 
 			if (vector1Size > vector2Size)
 			{
 				for (int i = vector2Size; i < vector1Size; i++)
 				{
-					additionResult[i] = vector1.Vector[i];
+					additionResult[i] = vector1.VectorValues[i];
 				}
 			}
 			else if (vector1Size < vector2Size)
 			{
 				for (int i = vector1Size; i < vector2Size; i++)
 				{
-					additionResult[i] = vector2.Vector[i];
+					additionResult[i] = vector2.VectorValues[i];
 				}
 			}
 
-			Vectors vectorsResultAddition = new Vectors(additionResult);
+			Vector vectorsResultAddition = new Vector(additionResult);
 
 			return vectorsResultAddition;
 		}
 
-		public static Vectors SubtractionVectors(Vectors vector1, Vectors vector2)
+		public static Vector SubtractionVectors(Vector vector1, Vector vector2)
 		{
 			int vector1Size = vector1.GetSize();
 			int vector2Size = vector2.GetSize();
@@ -167,25 +167,25 @@ namespace Vectors
 			double[] subtractionResult = new double[Math.Max(vector1Size, vector2Size)];
 			for (int i = 0; i < Math.Min(vector1Size, vector2Size); i++)
 			{
-				subtractionResult[i] = vector1.Vector[i] - vector2.Vector[i];
+				subtractionResult[i] = vector1.VectorValues[i] - vector2.VectorValues[i];
 			}
 
 			if (vector1Size > vector2Size)
 			{
 				for (int i = vector2Size; i < vector1Size; i++)
 				{
-					subtractionResult[i] = vector1.Vector[i];
+					subtractionResult[i] = vector1.VectorValues[i];
 				}
 			}
 			else if (vector1Size < vector2Size)
 			{
 				for (int i = vector1Size; i < vector2Size; i++)
 				{
-					subtractionResult[i] = -vector2.Vector[i];
+					subtractionResult[i] = -vector2.VectorValues[i];
 				}
 			}
 
-			Vectors vectorsResultSubtraction = new Vectors(subtractionResult);
+			Vector vectorsResultSubtraction = new Vector(subtractionResult);
 
 			return vectorsResultSubtraction;
 		}
@@ -204,17 +204,17 @@ namespace Vectors
 
 		public double GetComponent(int index)
 		{
-			return Vector[index];
+			return VectorValues[index];
 		}
 
 		public void SetComponent(double component, int index)
 		{
-			Vector[index] = component;
+			VectorValues[index] = component;
 		}
 
 		public override string ToString()
 		{
-			return "{" + string.Join(",", Vector) + "}";
+			return "{" + string.Join(",", VectorValues) + "}";
 		}
 
 		public override int GetHashCode()
@@ -222,7 +222,7 @@ namespace Vectors
 			int prime = 37;
 			int hash = 1;
 
-			foreach (double e in Vector)
+			foreach (double e in VectorValues)
 			{
 				hash = prime * hash + e.GetHashCode();
 			}
@@ -242,7 +242,7 @@ namespace Vectors
 				return false;
 			}
 
-			Vectors vector = (Vectors)obj;
+			Vector vector = (Vector)obj;
 
 			if (GetSize() != vector.GetSize())
 			{
@@ -252,7 +252,7 @@ namespace Vectors
 			{
 				for (int i = 0; i < GetSize(); i++)
 				{
-					if (Vector[i] != vector.Vector[i])
+					if (VectorValues[i] != vector.VectorValues[i])
 					{
 						return false;
 					}
