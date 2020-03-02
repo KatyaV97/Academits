@@ -36,8 +36,6 @@ namespace Vectors
 
 		public Matrix(Vector[] Vector, Vector vector) : base(vector)
 		{
-			//int vectorsCount = Vector.Length;
-
 			for (int i = 0; i < Vector.Length; i++)
 			{
 				for (int j = 0; j < Vector[i].VectorValues.Length; j++)
