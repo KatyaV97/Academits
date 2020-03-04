@@ -2,7 +2,7 @@
 
 namespace Vectors
 {
-	class Vector
+	public class Vector
 	{
 		public int N { get; set; }
 
