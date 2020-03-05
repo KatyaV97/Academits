@@ -43,21 +43,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Shapes\Circle.cs" />
+    <Compile Include="ShapesTypes\Circle.cs" />
     <Compile Include="Comparers\AreasComparer.cs" />
     <Compile Include="Comparers\PerimetersComparer.cs" />
     <Compile Include="IShape.cs" />
     <Compile Include="ShapesProgram.cs" />
-    <Compile Include="Shapes\Rectangle.cs" />
-    <Compile Include="Shapes\Square.cs" />
+    <Compile Include="ShapesTypes\Rectangle.cs" />
+    <Compile Include="ShapesTypes\Square.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Shapes\Triangle.cs" />
+    <Compile Include="ShapesTypes\Triangle.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
