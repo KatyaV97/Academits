@@ -21,38 +21,38 @@ namespace Matrices
 
 		public Matrix(Matrix matrix)
 		{
-			int matrixLength1 = matrix.MatrixValues.GetLength(0);
-			int matrixLength2 = matrix.MatrixValues.GetLength(1);
+			N = matrix.MatrixValues.GetLength(0);
+			M = matrix.MatrixValues.GetLength(1);
 
-			MatrixValues = new double[matrixLength1, matrixLength2];
+			MatrixValues = new double[N, M];
 
 			Array.Copy(matrix.MatrixValues, MatrixValues, matrix.MatrixValues.Length);
 		}
 
 		public Matrix(double[,] matrixValues)
 		{
-			int matrixLength1 = matrixValues.GetLength(0);
-			int matrixLength2 = matrixValues.GetLength(1);
+			N = matrixValues.GetLength(0);
+			M = matrixValues.GetLength(1);
 
-			MatrixValues = new double[matrixLength1, matrixLength2];
+			MatrixValues = new double[N, M];
 
 			Array.Copy(matrixValues, MatrixValues, matrixValues.Length);
 		}
 
 		public Matrix(Vector[] vectors)
 		{
-			int vectorsCount = vectors.Length;
+			M = vectors.Length;
 
-			int vectorMaxSize = 0;
+			N = 0;
 
 			for (int i = 0; i < vectors.Length; i++)
 			{
-				vectorMaxSize = Math.Max(vectorMaxSize, vectors[i].GetSize());
+				N = Math.Max(N, vectors[i].GetSize());
 			}
 
-			MatrixValues = new double[vectorMaxSize, vectorsCount];
+			MatrixValues = new double[N, M];
 
-			for (int i = 0; i < vectorsCount; i++)
+			for (int i = 0; i < N; i++)
 			{
 				for (int j = 0; j < vectors[i].VectorValues.Length; j++)
 				{
@@ -61,6 +61,64 @@ namespace Matrices
 			}
 		}
 
+		public int GetSizeN()
+		{
+			return N;
+		}
+
+		public int GetSizeM()
+		{
+			return M;
+		}
+
+		public void SetVector(Vector vector, int index)
+		{
+			for (int i = 0; i < vector.GetSize(); i++)
+			{
+				MatrixValues[i, index] = vector.VectorValues[i];
+			}
+		}
+
+		public Vector GetVectorRow(int index)
+		{
+			int vectorSize = GetSizeN();
+
+			Vector vector = new Vector(vectorSize);
+
+			for (int i = 0; i < vectorSize; i++)
+			{
+				vector.VectorValues[i] = MatrixValues[i, index];
+			}
+
+			return vector;
+		}
+
+		public Vector GetVectorColumn(int index)
+		{
+			int vectorSize = GetSizeM();
+
+			Vector vector = new Vector(vectorSize);
+
+			for (int i = 0; i < vectorSize; i++)
+			{
+				vector.VectorValues[i] = MatrixValues[index, i];
+			}
+
+			return vector;
+		}
+
+		public void Transpose()
+		{
+			Matrix matrixTransposed = MatrixValues[,];
+
+			for (int i = 0; i < M; i++)
+			{
+				for (int j = 0; j < N; j++)
+				{
+					MatrixValues[i, j] = matrixTransposed.MatrixValues[j, i];
+				}
+			}
+		}
 
 	}
 }
