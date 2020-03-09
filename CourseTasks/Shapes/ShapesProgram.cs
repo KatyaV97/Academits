@@ -1,4 +1,6 @@
 ﻿using System;
+using Shapes.ShapesTypes;
+using Shapes.Comparers;
 
 namespace Shapes
 {
@@ -6,18 +8,18 @@ namespace Shapes
 	{
 		public static IShape GetShapeWithFirstMaxArea(IShape[] shapes)
 		{
-			AreasComparer shapesCompared = new AreasComparer();
+			AreasComparer shapesComparer = new AreasComparer();
 
-			Array.Sort(shapes, shapesCompared);
+			Array.Sort(shapes, shapesComparer);
 
 			return shapes[shapes.Length - 1];
 		}
 
 		public static IShape GetShapeWithSecondMaxPerimeter(IShape[] shapes)
 		{
-			PerimetersComparer shapesCompared = new PerimetersComparer();
+			PerimetersComparer shapesComparer = new PerimetersComparer();
 
-			Array.Sort(shapes, shapesCompared);
+			Array.Sort(shapes, shapesComparer);
 
 			return shapes[shapes.Length - 2];
 		}

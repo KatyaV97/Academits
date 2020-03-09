@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Shapes
+namespace Shapes.ShapesTypes
 {
 	public class Square : IShape
 	{
