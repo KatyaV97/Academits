@@ -6,29 +6,29 @@ namespace Vectors
 	{
 		static void Main(string[] args)
 		{
-			Vector vector1 = new Vector(new double[] { 10, 20, 30 });
-			Vector vector2 = new Vector(new double[] { 15, 5 });
+			Vector vector1 = new Vector(new double[] { 10, 20 });
+			Vector vector2 = new Vector(new double[] { 15, 5, 6, 18, -5 });
 
-			Vector vectorsResultAddition = Vector.AdditionVectors(vector1, vector2);
+			Vector vectorsResultAddition = Vector.Addition(vector1, vector2);
 			Console.WriteLine("Результат сложения векторов статическим методом: " + vectorsResultAddition);
 
-			vector1.AddVector(vector2);
+			vector1.Add(vector2);
 			Console.WriteLine("Результат сложения векторов нестатическим методом: " + vector1);
 
 			Console.WriteLine(Environment.NewLine);
 
-			Vector vectorsResultSubtraction = Vector.SubtractionVectors(vector1, vector2);
+			Vector vectorsResultSubtraction = Vector.Subtraction(vector1, vector2);
 			Console.WriteLine("Результат вычитания векторов статическим методом: " + vectorsResultSubtraction);
 
-			vector1.SubtractVector(vector2);
+			vector1.Subtract(vector2);
 			Console.WriteLine("Результат вычитания векторов статическим методом: " + vector1);
 
 			Console.WriteLine(Environment.NewLine);
 
-			vector1.MultiplyVectorByScalar(12);
+			vector1.MultiplyByScalar(12);
 			Console.WriteLine("Результат усножения вектора №1 на скаляр: " + vector1);
 
-			vector1.ReverseVector();
+			vector1.Reverse();
 			Console.WriteLine("Разворот вектора №1: " + vector1);
 
 			double vector1Length = vector1.GetLength();
@@ -58,7 +58,7 @@ namespace Vectors
 
 			Console.WriteLine(Environment.NewLine);
 
-			vector5.SetComponent(10, 0);
+			vector5.SetComponent(0, 10);
 
 			Console.WriteLine("Вектор №3: " + vector3);
 			Console.WriteLine("Вектор №4: " + vector4);

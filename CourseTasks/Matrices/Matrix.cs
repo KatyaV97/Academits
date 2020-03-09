@@ -54,9 +54,9 @@ namespace Matrices
 
 			for (int i = 0; i < vectorsCount; i++)
 			{
-				for (int j = 0; j < vectors[i].VectorValues.Length; j++)
+				for (int j = 0; j < vectors[i].Values.Length; j++)
 				{
-					MatrixValues[i, j] = vectors[i].VectorValues[j];
+					MatrixValues[i, j] = vectors[i].Values[j];
 				}
 			}
 		}
