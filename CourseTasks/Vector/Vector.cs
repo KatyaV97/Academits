@@ -57,6 +57,11 @@ namespace Vectors
 			Array.Copy(vector, Values, vector.Length);
 		}
 
+		public int GetSize()
+		{
+			return Size;
+		}
+
 		public void Add(Vector vector)
 		{
 			int vectorSize = vector.Size;
