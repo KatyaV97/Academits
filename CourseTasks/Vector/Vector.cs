@@ -6,13 +6,13 @@ namespace Vectors
 	{
 		private int Size;
 
-		private double[] Values;
+		public double[] Values;
 
 		public Vector(int size)
 		{
 			if (size <= 0)
 			{
-				throw new ArgumentException("n должен быть > 0", nameof(size));
+				throw new ArgumentException("Длина вектора должена быть > 0", nameof(size));
 			}
 
 			Size = size;
@@ -35,7 +35,7 @@ namespace Vectors
 
 			if (Size <= 0)
 			{
-				throw new ArgumentException("n должен быть > 0", nameof(Size));
+				throw new ArgumentException("Длина вектора должена быть > 0", nameof(Size));
 			}
 
 			Values = new double[Size];
@@ -47,7 +47,7 @@ namespace Vectors
 		{
 			if (size <= 0)
 			{
-				throw new ArgumentException("n должен быть > 0", nameof(Size));
+				throw new ArgumentException("Длина вектора должена быть > 0", nameof(Size));
 			}
 
 			Size = size;

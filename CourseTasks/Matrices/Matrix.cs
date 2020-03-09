@@ -5,89 +5,87 @@ namespace Matrices
 {
 	class Matrix
 	{
-		public int N { get; set; }
+		private int VectorSize;
 
-		public int M { get; set; }
+		private int VectorsCount;
 
-		public double[,] MatrixValues { get; set; }
+		private double[,] Values;
 
-		public Matrix(int n, int m)
+		public Matrix(int vectorsCount, int vectorSize)
 		{
-			M = m;
-			N = n;
+			VectorsCount = vectorsCount;
+			VectorSize = vectorSize;
 
-			MatrixValues = new double[N, M];
+			Values = new double[VectorsCount, VectorSize];
 		}
 
 		public Matrix(Matrix matrix)
 		{
-			N = matrix.MatrixValues.GetLength(0);
-			M = matrix.MatrixValues.GetLength(1);
+			VectorsCount = matrix.Values.GetLength(0);
+			VectorSize = matrix.Values.GetLength(1);
 
-			MatrixValues = new double[N, M];
+			Values = new double[VectorsCount, VectorSize];
 
-			Array.Copy(matrix.MatrixValues, MatrixValues, matrix.MatrixValues.Length);
+			Array.Copy(matrix.Values, Values, matrix.Values.Length);
 		}
 
 		public Matrix(double[,] matrixValues)
 		{
-			N = matrixValues.GetLength(0);
-			M = matrixValues.GetLength(1);
+			VectorsCount = matrixValues.GetLength(0);
+			VectorSize = matrixValues.GetLength(1);
 
-			MatrixValues = new double[N, M];
+			Values = new double[VectorsCount, VectorSize];
 
-			Array.Copy(matrixValues, MatrixValues, matrixValues.Length);
+			Array.Copy(matrixValues, Values, matrixValues.Length);
 		}
 
 		public Matrix(Vector[] vectors)
 		{
-			M = vectors.Length;
+			VectorsCount = vectors.Length;
 
-			N = 0;
+			VectorSize = 0;
 
 			for (int i = 0; i < vectors.Length; i++)
 			{
-				N = Math.Max(N, vectors[i].GetSize());
+				VectorSize = Math.Max(VectorSize, vectors[i].GetSize());
 			}
 
-			MatrixValues = new double[N, M];
+			Values = new double[VectorsCount, VectorSize];
 
-			for (int i = 0; i < N; i++)
+			for (int i = 0; i < VectorsCount; i++)
 			{
 				for (int j = 0; j < vectors[i].Values.Length; j++)
 				{
-					MatrixValues[i, j] = vectors[i].Values[j];
+					Values[i, j] = vectors[i].Values[j];
 				}
 			}
 		}
 
-		public int GetSizeN()
+		public int GetVectorSize()
 		{
-			return N;
+			return VectorSize;
 		}
 
-		public int GetSizeM()
+		public int GetVectorsCount()
 		{
-			return M;
+			return VectorsCount;
 		}
 
-		public void SetVector(Vector vector, int index)
+		public void SetVector(int index, Vector vector)
 		{
 			for (int i = 0; i < vector.GetSize(); i++)
 			{
-				MatrixValues[i, index] = vector.VectorValues[i];
+				Values[index, i] = vector.Values[i];
 			}
 		}
 
 		public Vector GetVectorRow(int index)
 		{
-			int vectorSize = GetSizeN();
+			Vector vector = new Vector(VectorSize);
 
-			Vector vector = new Vector(vectorSize);
-
-			for (int i = 0; i < vectorSize; i++)
+			for (int i = 0; i < VectorSize; i++)
 			{
-				vector.VectorValues[i] = MatrixValues[i, index];
+				vector.Values[i] = Values[index, i];
 			}
 
 			return vector;
@@ -95,30 +93,78 @@ namespace Matrices
 
 		public Vector GetVectorColumn(int index)
 		{
-			int vectorSize = GetSizeM();
+			Vector vector = new Vector(VectorsCount);
 
-			Vector vector = new Vector(vectorSize);
-
-			for (int i = 0; i < vectorSize; i++)
+			for (int i = 0; i < VectorsCount; i++)
 			{
-				vector.VectorValues[i] = MatrixValues[index, i];
+				vector.Values[i] = Values[i, index];
 			}
 
 			return vector;
 		}
 
-		public void Transpose()
+		public Matrix Transpose()
 		{
-			Matrix matrixTransposed = MatrixValues[,];
+			Matrix matrixTransposed = new Matrix(VectorSize, VectorsCount);
 
-			for (int i = 0; i < M; i++)
+			for (int i = 0; i < VectorsCount; i++)
 			{
-				for (int j = 0; j < N; j++)
+				for (int j = 0; j < VectorSize; j++)
 				{
-					MatrixValues[i, j] = matrixTransposed.MatrixValues[j, i];
+					matrixTransposed.Values[j, i] = Values[i, j];
+				}
+			}
+
+			return matrixTransposed;
+		}
+
+		public void MultiplyByScalar(double scalar)
+		{
+			for (int i = 0; i < VectorsCount; i++)
+			{
+				for (int j = 0; j < VectorSize; j++)
+				{
+					Values[i, j] *= scalar;
 				}
 			}
 		}
 
+		public double GetDeterminant()
+		{
+			if(VectorsCount!=VectorSize)
+			{
+				throw new Exception("Матрица не квадратная", nameof(VectorsCount));
+			}
+
+		}
+
+		public override string ToString()
+		{
+			string printResult = "{";
+
+			for (int i = 0; i < VectorsCount; i++)
+			{
+				printResult += "{";
+
+				for (int j = 0; j < VectorSize; j++)
+				{
+					printResult += Values[i, j];
+
+					if (j < VectorSize - 1)
+					{
+						printResult += ", ";
+					}
+				}
+
+				if (i < VectorsCount - 1)
+				{
+					printResult += "}, ";
+				}
+			}
+
+			printResult += "}}";
+
+			return printResult;
+		}
 	}
 }
