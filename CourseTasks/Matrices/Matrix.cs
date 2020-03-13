@@ -73,14 +73,39 @@ namespace Matrices
 
 		public void SetVector(int index, Vector vector)
 		{
-			for (int i = 0; i < vector.GetSize(); i++)
+			if (index > VectorsCount)
+			{
+				throw new Exception("Индекс находится вне границ матрицы.");
+			}
+
+			int vectorLength = vector.GetSize();
+
+			if (vectorLength > VectorSize)
+			{
+				throw new Exception("Вектор длиннее вектора матрицы.");
+			}
+
+			for (int i = 0; i < vectorLength; i++)
 			{
 				Values[index, i] = vector.Values[i];
+			}
+
+			if (vectorLength < VectorSize)
+			{
+				for (int i = vectorLength; i < VectorSize; i++)
+				{
+					Values[index, i] = 0;
+				}
 			}
 		}
 
 		public Vector GetVectorRow(int index)
 		{
+			if (index >= VectorsCount)
+			{
+				throw new Exception("Индекс находится вне границ матрицы.");
+			}
+
 			Vector vector = new Vector(VectorSize);
 
 			for (int i = 0; i < VectorSize; i++)
@@ -93,6 +118,11 @@ namespace Matrices
 
 		public Vector GetVectorColumn(int index)
 		{
+			if (index >= VectorSize)
+			{
+				throw new Exception("Индекс находится вне границ матрицы.");
+			}
+
 			Vector vector = new Vector(VectorsCount);
 
 			for (int i = 0; i < VectorsCount; i++)
