@@ -26,33 +26,32 @@ namespace ArrayListHome
 
 		public static void RemoveAllEvenNumbers(List<int> numbers)
 		{
-			foreach (int e in numbers)
+			for (int i = 0; i < numbers.Count; i++)
 			{
-				if (e % 2 == 0)
+				if (numbers[i] % 2 == 0)
 				{
-					numbers.Remove(e);
+					numbers.Remove(numbers[i]);
 
-					RemoveAllEvenNumbers(numbers);
-					break;
+					i--;
 				}
 			}
 		}
 
-		public static void RemoveDublicateNumbers(List<int> numbers)
+		public static List<int> RemoveDublicateNumbers(List<int> numbersWithDublicates)
 		{
-			for (int i = 0; i < numbers.Count - 1; i++)
-			{
-				for (int j = i + 1; j < numbers.Count; j++)
-				{
-					if (numbers[i] == numbers[j])
-					{
-						numbers.RemoveAt(j);
+			List<int> numbersWithoutDublicates = new List<int>();
 
-						RemoveDublicateNumbers(numbers);
-						break;
-					}
+			for (int i = 0; i < numbersWithDublicates.Count; i++)
+			{
+				if (numbersWithoutDublicates.Contains(numbersWithDublicates[i]))
+				{
+					continue;
 				}
+
+				numbersWithoutDublicates.Add(numbersWithDublicates[i]);
 			}
+
+			return numbersWithoutDublicates;
 		}
 
 		static void Main(string[] args)
@@ -69,7 +68,7 @@ namespace ArrayListHome
 
 			Console.WriteLine(Environment.NewLine);
 
-			List<int> numbers1 = new List<int> { 5, 2, 6, 9, 2, 10, 11, 19 };
+			List<int> numbers1 = new List<int> { 5, 2, 6, 9, 2, 10, 11, 19, 2 };
 
 			RemoveAllEvenNumbers(numbers1);
 
@@ -80,11 +79,11 @@ namespace ArrayListHome
 
 			Console.WriteLine(Environment.NewLine);
 
-			List<int> numbers2 = new List<int> { 48, 56, 9, 3, 2, 5, 48, 2 };
+			List<int> numbers2 = new List<int> { 0, 2, 0, 2 };
 
-			RemoveDublicateNumbers(numbers2);
+			List<int> numbersWithoutDublicate = RemoveDublicateNumbers(numbers2);
 
-			foreach (int e in numbers2)
+			foreach (int e in numbersWithoutDublicate)
 			{
 				Console.WriteLine(e);
 			}
