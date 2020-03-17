@@ -4,9 +4,9 @@ namespace Vectors
 {
 	public class Vector
 	{
-		private int Size;
+		//private int Size;
 
-		public double[] Values;
+		private double[] Values;
 
 		public Vector(int size)
 		{
@@ -15,9 +15,7 @@ namespace Vectors
 				throw new ArgumentException("Длина вектора должена быть > 0", nameof(size));
 			}
 
-			Size = size;
-
-			Values = new double[Size];
+			Values = new double[size];
 		}
 
 		public Vector(Vector vector)
