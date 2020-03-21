@@ -20,54 +20,61 @@ namespace Vectors
 
 		public Vector(Vector vector)
 		{
-			Size = vector.Size;
+			//Size = vector.Size;
+			int vectorLength = vector.GetSize();
 
-			Values = new double[Size];
+			Values = new double[vectorLength];
 
-			Array.Copy(vector.Values, Values, Size);
+			Array.Copy(vector.Values, Values, vectorLength);
 		}
 
 		public Vector(double[] vectorValues)
 		{
-			Size = vectorValues.Length;
+			int vectorLength = vectorValues.Length;
 
-			if (Size <= 0)
+			if (vectorLength <= 0)
 			{
-				throw new ArgumentException("Длина вектора должена быть > 0", nameof(Size));
+				throw new ArgumentException("Длина вектора должена быть > 0", nameof(vectorLength));
 			}
 
-			Values = new double[Size];
+			Values = new double[vectorLength];
 
-			Array.Copy(vectorValues, Values, Size);
+			Array.Copy(vectorValues, Values, vectorLength);
 		}
 
 		public Vector(int size, double[] vector)
 		{
+			int vectorLength = vector.Length;
+
 			if (size <= 0)
 			{
-				throw new ArgumentException("Длина вектора должена быть > 0", nameof(Size));
+				throw new ArgumentException("Длина вектора должена быть > 0");
 			}
 
-			Size = size;
+			if (vectorLength > size)
+			{
+				throw new ArgumentException("Некорректный ввод данных");
+			}
 
-			Values = new double[Size];
+			Values = new double[size];
 
 			Array.Copy(vector, Values, vector.Length);
 		}
 
 		public int GetSize()
 		{
-			return Size;
+			return Values.Length;
 		}
 
 		public void Add(Vector vector)
 		{
-			int vectorSize = vector.Size;
+			int vectorSize = vector.GetSize();
+			//int currentVectorSize = Values.Length;
 
-			if (vectorSize > Size)
+			if (vectorSize > Values.Length)
 			{
 				Array.Resize(ref Values, vectorSize);
-				Size = vectorSize;
+				//currentVectorSize = vectorSize;
 			}
 
 			for (int i = 0; i < vectorSize; i++)
@@ -78,12 +85,12 @@ namespace Vectors
 
 		public void Subtract(Vector vector)
 		{
-			int vectorSize = vector.Size;
+			int vectorSize = vector.GetSize();
 
-			if (vectorSize > Size)
+			if (vectorSize > Values.Length)
 			{
 				Array.Resize(ref Values, vectorSize);
-				Size = vectorSize;
+				//Size = vectorSize;
 			}
 
 			for (int i = 0; i < vectorSize; i++)
@@ -94,7 +101,7 @@ namespace Vectors
 
 		public void MultiplyByScalar(double scalar)
 		{
-			for (int i = 0; i < Size; i++)
+			for (int i = 0; i < Values.Length; i++)
 			{
 				Values[i] *= scalar;
 			}
@@ -109,7 +116,7 @@ namespace Vectors
 		{
 			double coordinatesSquaresSum = 0;
 
-			foreach (int e in Values)
+			foreach (double e in Values)
 			{
 				coordinatesSquaresSum += Math.Pow(e, 2);
 			}
@@ -137,6 +144,11 @@ namespace Vectors
 
 		public double GetComponent(int index)
 		{
+			if (index < 0 || index >= Values.Length)
+			{
+				throw new ArgumentException("Индекс должен быть меньше длины ветора.");
+			}
+
 			return Values[index];
 		}
 
@@ -176,13 +188,14 @@ namespace Vectors
 			}
 
 			Vector vector = (Vector)obj;
+			int vectorLength = Values.Length;
 
-			if (Size != vector.Size)
+			if (vectorLength != vector.GetSize())
 			{
 				return false;
 			}
 
-			for (int i = 0; i < Size; i++)
+			for (int i = 0; i < vectorLength; i++)
 			{
 				if (Values[i] != vector.Values[i])
 				{
