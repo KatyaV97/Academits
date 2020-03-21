@@ -4,8 +4,6 @@ namespace Vectors
 {
 	public class Vector
 	{
-		//private int Size;
-
 		private double[] Values;
 
 		public Vector(int size)
@@ -20,7 +18,6 @@ namespace Vectors
 
 		public Vector(Vector vector)
 		{
-			//Size = vector.Size;
 			int vectorLength = vector.GetSize();
 
 			Values = new double[vectorLength];
@@ -28,9 +25,9 @@ namespace Vectors
 			Array.Copy(vector.Values, Values, vectorLength);
 		}
 
-		public Vector(double[] vectorValues)
+		public Vector(double[] values)
 		{
-			int vectorLength = vectorValues.Length;
+			int vectorLength = values.Length;
 
 			if (vectorLength <= 0)
 			{
@@ -39,7 +36,7 @@ namespace Vectors
 
 			Values = new double[vectorLength];
 
-			Array.Copy(vectorValues, Values, vectorLength);
+			Array.Copy(values, Values, vectorLength);
 		}
 
 		public Vector(int size, double[] vector)
@@ -68,16 +65,14 @@ namespace Vectors
 
 		public void Add(Vector vector)
 		{
-			int vectorSize = vector.GetSize();
-			//int currentVectorSize = Values.Length;
+			int vectorLength = vector.GetSize();
 
-			if (vectorSize > Values.Length)
+			if (vectorLength > Values.Length)
 			{
-				Array.Resize(ref Values, vectorSize);
-				//currentVectorSize = vectorSize;
+				Array.Resize(ref Values, vectorLength);
 			}
 
-			for (int i = 0; i < vectorSize; i++)
+			for (int i = 0; i < vectorLength; i++)
 			{
 				Values[i] += vector.Values[i];
 			}
@@ -85,15 +80,14 @@ namespace Vectors
 
 		public void Subtract(Vector vector)
 		{
-			int vectorSize = vector.GetSize();
+			int vectorLength = vector.GetSize();
 
-			if (vectorSize > Values.Length)
+			if (vectorLength > Values.Length)
 			{
-				Array.Resize(ref Values, vectorSize);
-				//Size = vectorSize;
+				Array.Resize(ref Values, vectorLength);
 			}
 
-			for (int i = 0; i < vectorSize; i++)
+			for (int i = 0; i < vectorLength; i++)
 			{
 				Values[i] -= vector.Values[i];
 			}
@@ -146,7 +140,7 @@ namespace Vectors
 		{
 			if (index < 0 || index >= Values.Length)
 			{
-				throw new ArgumentException("Индекс должен быть меньше длины ветора.");
+				throw new ArgumentException("Индекс должен быть больше нуля и меньше длины ветора.");
 			}
 
 			return Values[index];
@@ -154,6 +148,11 @@ namespace Vectors
 
 		public void SetComponent(int index, double component)
 		{
+			if (index < 0 || index >= Values.Length)
+			{
+				throw new ArgumentException("Индекс должен быть больше нуля и меньше длины ветора.");
+			}
+
 			Values[index] = component;
 		}
 
@@ -188,6 +187,7 @@ namespace Vectors
 			}
 
 			Vector vector = (Vector)obj;
+
 			int vectorLength = Values.Length;
 
 			if (vectorLength != vector.GetSize())

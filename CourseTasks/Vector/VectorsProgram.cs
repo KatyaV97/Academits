@@ -59,7 +59,7 @@ namespace Vectors
 			Console.WriteLine(Environment.NewLine);
 
 			vector5.SetComponent(0, 10);
-			
+
 			Console.WriteLine("Вектор №3: " + vector3);
 			Console.WriteLine("Вектор №4: " + vector4);
 			Console.WriteLine("Вектор №5: " + vector5);
