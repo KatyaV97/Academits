@@ -10,14 +10,25 @@ namespace ArrayListHome
 		{
 			List<string> lines = new List<string>();
 
-			using (StreamReader reader = new StreamReader(filePath))
+			try
 			{
-				string currentLine;
-
-				while ((currentLine = reader.ReadLine()) != null)
+				using (StreamReader reader = new StreamReader(filePath))
 				{
-					lines.Add(currentLine);
+					string currentLine;
+
+					while ((currentLine = reader.ReadLine()) != null)
+					{
+						lines.Add(currentLine);
+					}
 				}
+			}
+			catch (FileNotFoundException)
+			{
+				Console.WriteLine("Ошибка при чтении файла.");
+			}
+			catch (IOException)
+			{
+				Console.WriteLine("Ошибка при чтении файла.");
 			}
 
 			return lines;
@@ -36,7 +47,7 @@ namespace ArrayListHome
 			}
 		}
 
-		public static List<int> GetNumbersWithoutDuplicate(List<int> numbersWithDuplicates)
+		public static List<int> GetNumbersWithoutDuplicates(List<int> numbersWithDuplicates)
 		{
 			List<int> numbersWithoutDuplicates = new List<int>();
 
@@ -63,6 +74,7 @@ namespace ArrayListHome
 
 			List<int> numbers1 = new List<int> { 5, 2, 6, 9, 2, 10, 11, 19, 2 };
 
+			Console.WriteLine(Environment.NewLine);
 			Console.WriteLine("Список чисел: " + Environment.NewLine);
 
 			foreach (int e in numbers1)
@@ -83,7 +95,7 @@ namespace ArrayListHome
 			Console.WriteLine(Environment.NewLine);
 
 			List<int> numbers2 = new List<int> { 0, 2, 0, 2, 10, 15, 45, 0 };
-			List<int> numbers2WithoutDuplicate = GetNumbersWithoutDuplicate(numbers2);
+			List<int> numbers2WithoutDuplicate = GetNumbersWithoutDuplicates(numbers2);
 
 			Console.WriteLine("Список чисел: " + Environment.NewLine);
 
