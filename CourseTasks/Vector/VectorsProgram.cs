@@ -6,8 +6,11 @@ namespace Vectors
 	{
 		static void Main(string[] args)
 		{
-			Vector vector1 = new Vector(new double[] { 10, 20 });
-			Vector vector2 = new Vector(new double[] { 15, 5, 6, 18, -5 });
+			Vector vector1 = new Vector(new double[] { 1, 2, 3, 5 });
+			Vector vector2 = new Vector(new double[] { 5, 4, 3, 2 });
+
+			Console.WriteLine("Результат умножения вектора №1 на вектор №2: " + Vector.GetScalarMultiplication(vector1, vector2));
+			Console.WriteLine(Environment.NewLine);
 
 			Vector vectorsResultAddition = Vector.Addition(vector1, vector2);
 			Console.WriteLine("Результат сложения векторов статическим методом: " + vectorsResultAddition);
@@ -26,7 +29,7 @@ namespace Vectors
 			Console.WriteLine(Environment.NewLine);
 
 			vector1.MultiplyByScalar(12);
-			Console.WriteLine("Результат усножения вектора №1 на скаляр: " + vector1);
+			Console.WriteLine("Результат умножения вектора №1 на скаляр: " + vector1);
 
 			vector1.Reverse();
 			Console.WriteLine("Разворот вектора №1: " + vector1);
