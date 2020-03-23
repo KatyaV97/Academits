@@ -13,6 +13,11 @@ namespace List
 			SinglyLinkedList<int> itemsNumbers = new SinglyLinkedList<int>(3);
 
 			itemsNumbers.AddFirst(10);
+			itemsNumbers.AddFirst(2);
+
+			int value1 = itemsNumbers.GetValue(2);
+
+			int value2 = itemsNumbers.SetValue(1, 6);
 		}
 	}
 }

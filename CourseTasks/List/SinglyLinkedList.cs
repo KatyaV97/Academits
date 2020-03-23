@@ -8,60 +8,88 @@ namespace List
 {
 	class SinglyLinkedList<T>
 	{
-		public ListItem<T> Head;
+		private ListItem<T> head;
 
-		public ListItem<T>[] Items = new ListItem<T>[10];
-
-		private int Count;
-
-		public ListItem<T> this[int index]
-		{
-			get { return Items[index]; }
-
-			set { Items[index] = value; }
-		}
+		private int count;
 
 		public SinglyLinkedList(T data)
 		{
-			ListItem<T> item = new ListItem<T>(data, null);
+			head = new ListItem<T>(data, null);
 
-			Head = item;
-			Items[0] = item;
-			Count++;
+			count++;
 		}
-		/*
-		public SinglyLinkedList(ListItem<T> head)
-		{
-			Head = head;
-		}
-		*/
+
 		public int GetSize()
 		{
-			return Items.Length;
+			return count;
 		}
 
 		public T GetFirstValue()
 		{
-			return Head.Data;
+			return head.Data;
+		}
+
+		public T GetValue(int index)
+		{
+			if (index <= 0 || index >= count)
+			{
+				throw new ArgumentOutOfRangeException("Индекс должен быть > 0 и <  " + count + ". Индекс = " + index);
+			}
+
+			ListItem<T> tempList = head;
+
+			for (int i = 1; i <= index; i++)
+			{
+				tempList = tempList.Next;
+			}
+
+			return tempList.Data;
+		}
+
+		public T SetValue(int index, T value)
+		{
+			if (index <= 0 || index >= count)
+			{
+				throw new ArgumentOutOfRangeException("Индекс должен быть > 0 и <  " + count + ". Индекс = " + index);
+			}
+
+			ListItem<T> tempList = head;
+			ListItem<T> prev = null;
+
+			for (int i = 0; i < index; i++)
+			{
+				prev = tempList;
+				tempList = tempList.Next;
+			}
+
+			T oldValue = tempList.Data;
+
+			ListItem<T> newNode = new ListItem<T>(value, tempList.Next);
+
+			if (prev == null)
+			{
+				head = newNode;
+			}
+			else
+			{
+				prev.Next = newNode;
+			}
+
+			return oldValue;
 		}
 
 		public void AddFirst(T data)
 		{
-			ListItem<T> item = new ListItem<T>(data, Head);
-			
-			for (ListItem<T> i = Head, prev = i.Next; i != null; i = i.Next, prev = i.Next.Next)
-			{
-				prev = i;
-			}
+			ListItem<T> temp = new ListItem<T>(data, head);
 
-			Items[0] = item; 
-			Head = item;
-			Count++;
+			head = temp;
+			count++;
 		}
 
-		public void Add(int index)
-		{
 
-		}
+
+
+
+
 	}
 }
