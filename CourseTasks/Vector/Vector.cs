@@ -157,9 +157,11 @@ namespace Vectors
 
 		public double GetComponent(int index)
 		{
-			if (index < 0 || index >= values.Length)
+			int vectorLength = values.Length;
+
+			if (index < 0 || index >= vectorLength)
 			{
-				throw new IndexOutOfRangeException("Индекс должен быть больше нуля и меньше длины ветора.");
+				throw new IndexOutOfRangeException("Индекс должен быть больше нуля и меньше длины ветора = " + vectorLength + ". Индекс = " + index);
 			}
 
 			return values[index];
@@ -167,9 +169,11 @@ namespace Vectors
 
 		public void SetComponent(int index, double component)
 		{
-			if (index < 0 || index >= values.Length)
+			int vectorLength = values.Length;
+
+			if (index < 0 || index >= vectorLength)
 			{
-				throw new IndexOutOfRangeException("Индекс должен быть больше нуля и меньше длины ветора.");
+				throw new IndexOutOfRangeException("Индекс должен быть больше нуля и меньше длины ветора = " + vectorLength + ". Индекс = " + index);
 			}
 
 			values[index] = component;
