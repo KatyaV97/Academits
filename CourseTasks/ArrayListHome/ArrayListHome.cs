@@ -24,7 +24,7 @@ namespace ArrayListHome
 			}
 			catch (FileNotFoundException)
 			{
-				Console.WriteLine("Файл не может быть загружен.");
+				Console.WriteLine("Файл не найден.");
 			}
 			catch (IOException)
 			{
