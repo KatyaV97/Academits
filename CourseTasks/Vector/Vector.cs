@@ -10,7 +10,7 @@ namespace Vectors
 		{
 			if (size <= 0)
 			{
-				throw new ArgumentException("Длина вектора должена быть > 0", nameof(size));
+				throw new ArgumentException("Длина вектора должена быть > 0", nameof(size) + " = " + size);
 			}
 
 			values = new double[size];
@@ -31,7 +31,7 @@ namespace Vectors
 
 			if (vectorLength <= 0)
 			{
-				throw new ArgumentException("Длина вектора должена быть > 0", nameof(vectorLength));
+				throw new ArgumentException("Длина вектора должена быть > 0", nameof(vectorLength) + " = " + vectorLength);
 			}
 
 			this.values = new double[vectorLength];
@@ -50,7 +50,7 @@ namespace Vectors
 
 			if (vectorLength > size)
 			{
-				throw new ArgumentException("Некорректный ввод данных");
+				throw new ArgumentException("Длина вектора = " + vectorLength + " должна быть меньше, либо равна размеру результурющего вектора = " + size);
 			}
 
 			values = new double[size];
@@ -142,7 +142,7 @@ namespace Vectors
 
 			if (vector1Length != vector2.GetSize())
 			{
-				throw new Exception("Перемножаемые ветора должны быть одинаковой длины.");
+				throw new ArgumentException("Перемножаемые ветора должны быть одинаковой длины.");
 			}
 
 			double sum = 0;
@@ -159,7 +159,7 @@ namespace Vectors
 		{
 			if (index < 0 || index >= values.Length)
 			{
-				throw new ArgumentException("Индекс должен быть больше нуля и меньше длины ветора.");
+				throw new IndexOutOfRangeException("Индекс должен быть больше нуля и меньше длины ветора.");
 			}
 
 			return values[index];
@@ -169,7 +169,7 @@ namespace Vectors
 		{
 			if (index < 0 || index >= values.Length)
 			{
-				throw new ArgumentException("Индекс должен быть больше нуля и меньше длины ветора.");
+				throw new IndexOutOfRangeException("Индекс должен быть больше нуля и меньше длины ветора.");
 			}
 
 			values[index] = component;
