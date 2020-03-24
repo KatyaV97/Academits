@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace List
 {
@@ -31,48 +28,48 @@ namespace List
 
 		public T GetValue(int index)
 		{
-			if (index <= 0 || index >= count)
+			if (index < 0 || index >= count)
 			{
-				throw new ArgumentOutOfRangeException("Индекс должен быть > 0 и <  " + count + ". Индекс = " + index);
+				throw new IndexOutOfRangeException("Индекс должен быть >= 0 и <  " + count + ". Индекс = " + index);
 			}
 
-			ListItem<T> tempList = head;
+			ListItem<T> tempNode = head;
 
-			for (int i = 1; i <= index; i++)
+			for (int i = 0; i < index; i++)
 			{
-				tempList = tempList.Next;
+				tempNode = tempNode.Next;
 			}
 
-			return tempList.Data;
+			return tempNode.Data;
 		}
 
 		public T SetValue(int index, T value)
 		{
-			if (index <= 0 || index >= count)
+			if (index < 0 || index >= count)
 			{
-				throw new ArgumentOutOfRangeException("Индекс должен быть > 0 и <  " + count + ". Индекс = " + index);
+				throw new IndexOutOfRangeException("Индекс должен быть >= 0 и <  " + count + ". Индекс = " + index);
 			}
 
-			ListItem<T> tempList = head;
-			ListItem<T> prev = null;
+			ListItem<T> tempNode = head;
+			ListItem<T> prevNode = null;
 
 			for (int i = 0; i < index; i++)
 			{
-				prev = tempList;
-				tempList = tempList.Next;
+				prevNode = tempNode;
+				tempNode = tempNode.Next;
 			}
 
-			T oldValue = tempList.Data;
+			T oldValue = tempNode.Data;
 
-			ListItem<T> newNode = new ListItem<T>(value, tempList.Next);
+			ListItem<T> newNode = new ListItem<T>(value, tempNode.Next);
 
-			if (prev == null)
+			if (prevNode == null)
 			{
 				head = newNode;
 			}
 			else
 			{
-				prev.Next = newNode;
+				prevNode.Next = newNode;
 			}
 
 			return oldValue;
@@ -80,15 +77,128 @@ namespace List
 
 		public void AddFirst(T data)
 		{
-			ListItem<T> temp = new ListItem<T>(data, head);
+			ListItem<T> tempNode = new ListItem<T>(data, head);
 
-			head = temp;
+			head = tempNode;
 			count++;
 		}
 
+		public void Add(int index, T value)
+		{
+			if (index < 0 || index > count)
+			{
+				throw new IndexOutOfRangeException("Индекс должен быть >= 0 и <=  " + count + ". Индекс = " + index);
+			}
 
 
+			ListItem<T> tempNode = head;
+			ListItem<T> prevNode = null;
 
+			for (int i = 0; i < index; i++)
+			{
+				prevNode = tempNode;
+				tempNode = tempNode.Next;
+			}
+
+			ListItem<T> newNode = new ListItem<T>(value, tempNode);
+
+			if (prevNode == null)
+			{
+				head = newNode;
+			}
+			else
+			{
+				prevNode.Next = newNode;
+			}
+
+			count++;
+		}
+
+		public T Remove(int index)
+		{
+			if (index < 0 || index >= count)
+			{
+				throw new IndexOutOfRangeException("Индекс должен быть >= 0 и <  " + count + ". Индекс = " + index);
+			}
+
+			ListItem<T> tempNode = head;
+			ListItem<T> prevNode = null;
+
+			for (int i = 0; i < index; i++)
+			{
+				prevNode = tempNode;
+				tempNode = tempNode.Next;
+			}
+
+			T oldValue = tempNode.Data;
+			prevNode.Next = tempNode.Next;
+
+			count--;
+
+			return oldValue;
+		}
+
+		public bool Remove(T value)
+		{
+			for (ListItem<T> tempNode = head, prevNode = null; tempNode != null; prevNode = tempNode, tempNode = tempNode.Next)
+			{
+				if (tempNode.Data.Equals(value))
+				{
+					prevNode.Next = tempNode.Next;
+					count--;
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		public T RemoveFirst()
+		{
+			ListItem<T> tempNode = head;
+			head = tempNode.Next;
+			count--;
+
+			return tempNode.Data;
+		}
+
+		public void Reverse()
+		{
+			for (ListItem<T> tempNode = head, prevNode = null; tempNode != null; prevNode = tempNode, tempNode = tempNode.Next)
+			{
+				tempNode.Next = prevNode;
+			}
+		}
+
+		public SinglyLinkedList<T> Copy()
+		{
+			SinglyLinkedList<T> newNodes = new SinglyLinkedList<T>(head.Data);
+			int counter = 1;
+
+			for (ListItem<T> tempNode = head; tempNode != null; tempNode = tempNode.Next)
+			{
+				newNodes.Add(counter, tempNode.Data);
+			}
+
+			newNodes.count = count;
+
+			return newNodes;
+		}
+
+		public override string ToString()
+		{
+			StringBuilder printResult = new StringBuilder();
+			printResult.Append("[");
+
+			for (ListItem<T> tempNode = head; tempNode != null; tempNode = tempNode.Next)
+			{
+				printResult.Append(tempNode.Data + ", ");
+			}
+
+			printResult.Append("]");
+
+			return printResult.ToString();
+		}
 
 
 	}
