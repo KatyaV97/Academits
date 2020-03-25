@@ -72,7 +72,7 @@ namespace Matrices
 			Vectors.Vector vector10 = new Vectors.Vector(new double[] { 3, 8, 5 });
 			matrix1.SetRow(2, vector10);
 
-			Console.WriteLine("Матрица №1 после установки вектора №10 на 2 позицию: " + matrix1);
+			Console.WriteLine("Матрица №1 после установки вектора №10 на 3 позицию: " + matrix1);
 			Console.WriteLine(Environment.NewLine);
 
 			Console.WriteLine("Определитель матрицы №8 = " + matrix8.GetDeterminant());
