@@ -24,7 +24,7 @@ namespace List
 			Console.WriteLine("Измененный список: " + itemsNumbers + " после установки нового значения на позицию 2. Старое значение = " + value2);
 			Console.WriteLine(Environment.NewLine);
 
-			itemsNumbers.Add(1, 8);
+			itemsNumbers.Add(3, 8);
 			itemsNumbers.Add(4, 11);
 			itemsNumbers.Add(3, 0);
 
@@ -61,8 +61,9 @@ namespace List
 
 			Console.WriteLine(Environment.NewLine);
 
-			newItemsNumbers.Reverse();
-			Console.WriteLine("Разворот списка: " + newItemsNumbers);
+			SinglyLinkedList<int>  reverseResulting = newItemsNumbers.Reverse();
+
+			Console.WriteLine("Разворот списка: " + reverseResulting);
 			Console.WriteLine(Environment.NewLine);
 
 			Console.WriteLine("Первый элемент списка: " + newItemsNumbers.GetFirstValue());

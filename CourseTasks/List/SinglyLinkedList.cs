@@ -80,6 +80,7 @@ namespace List
 			ListItem<T> tempNode = new ListItem<T>(data, head);
 
 			head = tempNode;
+
 			count++;
 		}
 
@@ -144,7 +145,9 @@ namespace List
 				if (tempNode.Data.Equals(value))
 				{
 					prevNode.Next = tempNode.Next;
+
 					count--;
+
 					return true;
 				}
 			}
@@ -156,21 +159,24 @@ namespace List
 		{
 			ListItem<T> tempNode = head;
 			head = tempNode.Next;
+
 			count--;
 
 			return tempNode.Data;
 		}
 
-		public void Reverse()
+		public SinglyLinkedList<T> Reverse()
 		{
-			SinglyLinkedList<T> tempNodes = Copy();
-			head.Next = null;
+			SinglyLinkedList<T> newNodes = new SinglyLinkedList<T>(head.Data);
 
-			for (ListItem<T> prevNode = tempNode; tempNode != null; prevNode = prevNode.Next)
+			for (ListItem<T> tempNode = head.Next; tempNode != null; tempNode = tempNode.Next)
 			{
-				tempNode = tempNode.Next;
-				tempNode.Next = prevNode;
+				newNodes.AddFirst(tempNode.Data);
 			}
+
+			newNodes.count = count;
+
+			return newNodes;
 		}
 
 		public SinglyLinkedList<T> Copy()
