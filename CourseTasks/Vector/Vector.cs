@@ -50,7 +50,7 @@ namespace Vectors
 
 			if (vectorLength > size)
 			{
-				throw new ArgumentException("Длина вектора = " + vectorLength + " должна быть меньше, либо равна размеру результурющего вектора = " + size);
+				throw new ArgumentException("Длина вектора = " + vectorLength + " должна быть меньше, либо равна размеру результирующего вектора = " + size);
 			}
 
 			values = new double[size];

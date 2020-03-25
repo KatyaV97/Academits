@@ -46,6 +46,7 @@ namespace Matrices
 			matrix3.Subtract(matrix4);
 
 			Console.WriteLine("Результат вычитания матрицы №4 из матрицы №3 нестатическим методом = " + matrix3);
+			Console.WriteLine(Environment.NewLine);
 
 			Vectors.Vector vector2 = new Vectors.Vector(new double[] { 5, 2, 0, 9 });
 			Vectors.Vector vector3 = new Vectors.Vector(new double[] { 7, 10, 12, 1 });
@@ -69,7 +70,7 @@ namespace Matrices
 			Console.WriteLine(Environment.NewLine);
 
 			Vectors.Vector vector10 = new Vectors.Vector(new double[] { 3, 8,5});
-			matrix1.SetRow(3, vector10);
+			matrix1.SetRow(2, vector10);
 
 			Console.WriteLine("Матрица №1 после установки вектора №10 на 2 позицию: " + matrix1);
 			Console.WriteLine(Environment.NewLine);

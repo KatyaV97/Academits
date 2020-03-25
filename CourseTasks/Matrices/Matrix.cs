@@ -12,12 +12,12 @@ namespace Matrices
 		{
 			if (rowsCount <= 0)
 			{
-				throw new ArgumentException("Количество строк должно быть > 0", nameof(rowsCount) + " = " + rowsCount);
+				throw new ArgumentException("Количество строк = " + rowsCount + " должно быть > 0", nameof(rowsCount));
 			}
 
 			if (columnsCount <= 0)
 			{
-				throw new ArgumentException("Количество столбцов должено быть > 0", nameof(columnsCount) + " = " + columnsCount);
+				throw new ArgumentException("Количество столбцов  = " + columnsCount + "должно быть > 0", nameof(columnsCount));
 			}
 
 			valuesVectorsRows = new Vector[rowsCount];
@@ -67,7 +67,7 @@ namespace Matrices
 
 			if (vectorsCount <= 0)
 			{
-				throw new ArgumentException("Количество векторов должен быть > 0", nameof(vectorsCount) + " = " + vectorsCount);
+				throw new ArgumentException("Количество векторов = " + vectorsCount + " должно быть > 0", nameof(vectorsCount));
 			}
 
 			int vectorMaxLength = 0;
@@ -122,8 +122,8 @@ namespace Matrices
 
 			if (vectorLength != columnsCount)
 			{
-				throw new ArgumentException("Вектор должен быть равен длине векторов матрицы = " + columnsCount,
-					nameof(vectorLength) + " = " + vectorLength);
+				throw new ArgumentException("Длина ветора = " + vectorLength  + " должна быть равна длине векторов матрицы = " + columnsCount,
+					nameof(vectorLength));
 			}
 
 			valuesVectorsRows[index] = vector;
@@ -303,7 +303,7 @@ namespace Matrices
 			if (rowsCount != vectorLength)
 			{
 				throw new ArgumentException("Умножаемая матрица не соответсвтует требованиям. Количество строк = " + rowsCount + " должно быть равно длине ветора = "
-					+ vectorLength);
+					+ vectorLength, nameof(vectorLength));
 			}
 
 			Vector[] vectorsResulting = new Vector[rowsCount];
