@@ -31,7 +31,7 @@ namespace Vectors
 
 			if (vectorLength <= 0)
 			{
-				throw new ArgumentException("Длина вектора должена быть > 0", nameof(vectorLength) + " = " + vectorLength);
+				throw new ArgumentException("Длина вектора = " + vectorLength + " должена быть > 0", nameof(vectorLength));
 			}
 
 			this.values = new double[vectorLength];
@@ -47,15 +47,22 @@ namespace Vectors
 			{
 				throw new ArgumentException("Длина вектора должена быть > 0");
 			}
-
+			/*
 			if (vectorLength > size)
 			{
 				throw new ArgumentException("Длина вектора = " + vectorLength + " должна быть меньше, либо равна размеру результирующего вектора = " + size);
 			}
-
+			*/
 			values = new double[size];
 
-			Array.Copy(vector, values, vector.Length);
+			if(size > vectorLength)
+			{
+				Array.Copy(vector, values, vectorLength);
+			}
+			else
+			{
+				Array.Copy(vector, values, size);
+			}
 		}
 
 		public int GetSize()

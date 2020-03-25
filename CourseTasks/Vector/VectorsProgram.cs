@@ -40,7 +40,7 @@ namespace Vectors
 			Console.WriteLine(Environment.NewLine);
 
 			Vector vector3 = new Vector(5);
-			Vector vector4 = new Vector(6, new double[] { 3, 4, 9, 6, 7 });
+			Vector vector4 = new Vector(6, new double[] { });
 			Vector vector5 = new Vector(vector4);
 
 			Console.WriteLine("Вектор №3: " + vector3);
