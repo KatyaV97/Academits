@@ -10,7 +10,7 @@ namespace Vectors
 		{
 			if (size <= 0)
 			{
-				throw new ArgumentException("Длина вектора должена быть > 0", nameof(size) + " = " + size);
+				throw new ArgumentException("Длина вектора = " + size + " должена быть > 0", nameof(size));
 			}
 
 			values = new double[size];

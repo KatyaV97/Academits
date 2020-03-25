@@ -122,7 +122,7 @@ namespace Matrices
 
 			if (vectorLength != columnsCount)
 			{
-				throw new ArgumentException("Длина ветора = " + vectorLength  + " должна быть равна длине векторов матрицы = " + columnsCount,
+				throw new ArgumentException("Длина ветора = " + vectorLength + " должна быть равна длине векторов матрицы = " + columnsCount,
 					nameof(vectorLength));
 			}
 

@@ -69,7 +69,7 @@ namespace Matrices
 			Console.WriteLine("Результат умножения матрицы №6 на матрицу №7  = " + Matrix.Multiply(matrix6, matrix7));
 			Console.WriteLine(Environment.NewLine);
 
-			Vectors.Vector vector10 = new Vectors.Vector(new double[] { 3, 8,5});
+			Vectors.Vector vector10 = new Vectors.Vector(new double[] { 3, 8, 5 });
 			matrix1.SetRow(2, vector10);
 
 			Console.WriteLine("Матрица №1 после установки вектора №10 на 2 позицию: " + matrix1);
