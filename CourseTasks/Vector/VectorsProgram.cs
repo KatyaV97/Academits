@@ -40,7 +40,7 @@ namespace Vectors
 			Console.WriteLine(Environment.NewLine);
 
 			Vector vector3 = new Vector(5);
-			Vector vector4 = new Vector(6, new double[] { });
+			Vector vector4 = new Vector(6, new double[] { 7, 5, 6, 9, 10, 15, 20 });
 			Vector vector5 = new Vector(vector4);
 
 			Console.WriteLine("Вектор №3: " + vector3);
@@ -48,7 +48,7 @@ namespace Vectors
 			Console.WriteLine("Вектор №5: " + vector5);
 			Console.WriteLine(Environment.NewLine);
 
-			Console.WriteLine("Первый элемент вектора №5 = " + vector5.GetComponent(5));
+			Console.WriteLine("Первый элемент вектора №5 = " + vector5.GetComponent(0));
 
 			if (vector4.Equals(vector5))
 			{

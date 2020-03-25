@@ -10,7 +10,7 @@ namespace Vectors
 		{
 			if (size <= 0)
 			{
-				throw new ArgumentException("Длина вектора = " + size + " должена быть > 0", nameof(size));
+				throw new ArgumentException("Длина вектора = " + size + " должна быть > 0", nameof(size));
 			}
 
 			values = new double[size];
@@ -31,7 +31,7 @@ namespace Vectors
 
 			if (vectorLength <= 0)
 			{
-				throw new ArgumentException("Длина вектора = " + vectorLength + " должена быть > 0", nameof(vectorLength));
+				throw new ArgumentException("Длина массива значений = " + vectorLength + " должна быть > 0", nameof(vectorLength));
 			}
 
 			this.values = new double[vectorLength];
@@ -45,17 +45,12 @@ namespace Vectors
 
 			if (size <= 0)
 			{
-				throw new ArgumentException("Длина вектора должена быть > 0");
+				throw new ArgumentException("Длина вектора =  " + size + " должна быть > 0", nameof(size));
 			}
-			/*
-			if (vectorLength > size)
-			{
-				throw new ArgumentException("Длина вектора = " + vectorLength + " должна быть меньше, либо равна размеру результирующего вектора = " + size);
-			}
-			*/
+
 			values = new double[size];
 
-			if(size > vectorLength)
+			if (size >= vectorLength)
 			{
 				Array.Copy(vector, values, vectorLength);
 			}
@@ -146,17 +141,22 @@ namespace Vectors
 		public static double GetScalarMultiplication(Vector vector1, Vector vector2)
 		{
 			int vector1Length = vector1.GetSize();
-
-			if (vector1Length != vector2.GetSize())
-			{
-				throw new ArgumentException("Перемножаемые ветора должны быть одинаковой длины.");
-			}
-
+			int vector2Length = vector2.GetSize();
 			double sum = 0;
 
-			for (int i = 0; i < vector1Length; i++)
+			if (vector1Length <= vector2Length)
 			{
-				sum += vector1.values[i] * vector2.values[i];
+				for (int i = 0; i < vector1Length; i++)
+				{
+					sum += vector1.values[i] * vector2.values[i];
+				}
+			}
+			else
+			{
+				for (int i = 0; i < vector2Length; i++)
+				{
+					sum += vector1.values[i] * vector2.values[i];
+				}
 			}
 
 			return sum;
@@ -168,7 +168,7 @@ namespace Vectors
 
 			if (index < 0 || index >= vectorLength)
 			{
-				throw new IndexOutOfRangeException("Индекс должен быть больше нуля и меньше длины ветора = " + vectorLength + ". Индекс = " + index);
+				throw new IndexOutOfRangeException("Индекс должен быть больше нуля и меньше длины вектора = " + vectorLength + ". Индекс = " + index);
 			}
 
 			return values[index];
@@ -180,7 +180,7 @@ namespace Vectors
 
 			if (index < 0 || index >= vectorLength)
 			{
-				throw new IndexOutOfRangeException("Индекс должен быть больше нуля и меньше длины ветора = " + vectorLength + ". Индекс = " + index);
+				throw new IndexOutOfRangeException("Индекс должен быть больше нуля и меньше длины вектора = " + vectorLength + ". Индекс = " + index);
 			}
 
 			values[index] = component;

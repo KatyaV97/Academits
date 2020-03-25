@@ -90,7 +90,6 @@ namespace List
 				throw new IndexOutOfRangeException("Индекс должен быть >= 0 и <=  " + count + ". Индекс = " + index);
 			}
 
-
 			ListItem<T> tempNode = head;
 			ListItem<T> prevNode = null;
 
@@ -114,7 +113,7 @@ namespace List
 			count++;
 		}
 
-		public T Remove(int index)
+		public T RemoveAt(int index)
 		{
 			if (index < 0 || index >= count)
 			{
@@ -164,8 +163,12 @@ namespace List
 
 		public void Reverse()
 		{
-			for (ListItem<T> tempNode = head, prevNode = null; tempNode != null; prevNode = tempNode, tempNode = tempNode.Next)
+			SinglyLinkedList<T> tempNodes = Copy();
+			head.Next = null;
+
+			for (ListItem<T> prevNode = tempNode; tempNode != null; prevNode = prevNode.Next)
 			{
+				tempNode = tempNode.Next;
 				tempNode.Next = prevNode;
 			}
 		}
@@ -175,9 +178,10 @@ namespace List
 			SinglyLinkedList<T> newNodes = new SinglyLinkedList<T>(head.Data);
 			int counter = 1;
 
-			for (ListItem<T> tempNode = head; tempNode != null; tempNode = tempNode.Next)
+			for (ListItem<T> tempNode = head.Next; tempNode != null; tempNode = tempNode.Next)
 			{
 				newNodes.Add(counter, tempNode.Data);
+				counter++;
 			}
 
 			newNodes.count = count;
@@ -189,17 +193,16 @@ namespace List
 		{
 			StringBuilder printResult = new StringBuilder();
 			printResult.Append("[");
+			ListItem<T> tempNode = head;
 
-			for (ListItem<T> tempNode = head; tempNode != null; tempNode = tempNode.Next)
+			for (int i = 0; i < count - 1; i++, tempNode = tempNode.Next)
 			{
 				printResult.Append(tempNode.Data + ", ");
 			}
 
-			printResult.Append("]");
+			printResult.Append(tempNode.Data + "]");
 
 			return printResult.ToString();
 		}
-
-
 	}
 }
