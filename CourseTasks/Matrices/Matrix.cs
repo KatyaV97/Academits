@@ -297,12 +297,13 @@ namespace Matrices
 
 		public Vector MultiplyByVector(Vector vector)
 		{
+			int columnsCount = valuesVectorsRows[0].GetSize();
 			int rowsCount = valuesVectorsRows.Length;
 			int vectorLength = vector.GetSize();
 
-			if (rowsCount != vectorLength)
+			if (columnsCount != vectorLength)
 			{
-				throw new ArgumentException("Умножаемая матрица не соответсвтует требованиям. Количество строк = " + rowsCount + " должно быть равно длине ветора = "
+				throw new ArgumentException("Количество столбцов матрицы = " + columnsCount + " должно быть равно длине вектора = "
 					+ vectorLength, nameof(vectorLength));
 			}
 
@@ -310,7 +311,7 @@ namespace Matrices
 
 			for (int i = 0; i < rowsCount; i++)
 			{
-				vectorResulting.SetComponent(i, valuesVectorsRows[i].GetComponent(0) * vector.GetComponent(i));
+				vectorResulting.SetComponent(i, Vector.GetScalarMultiplication(valuesVectorsRows[i], vector));
 			}
 
 			return vectorResulting;

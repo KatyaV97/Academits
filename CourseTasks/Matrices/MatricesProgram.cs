@@ -30,9 +30,9 @@ namespace Matrices
 			Console.WriteLine("Результат транспонирования матрицы №4: " + matrix4.Transpose());
 			Console.WriteLine(Environment.NewLine);
 
-			Vectors.Vector vector1 = new Vectors.Vector(new double[] { 3, 8, 9 });
+			Vectors.Vector vector1 = new Vectors.Vector(new double[] { 3, 8, 9, 5 });
 
-			Console.WriteLine("Результат умножения матрицы №5 на вектор №1 = " + matrix5.MultiplyByVector(vector1));
+			Console.WriteLine("Результат умножения матрицы №4 на вектор №1 = " + matrix4.MultiplyByVector(vector1));
 			Console.WriteLine(Environment.NewLine);
 
 			Console.WriteLine("Результат сложения матрицы №3 с матрицей №4 статическим методом = " + Matrix.Addition(matrix3, matrix4));
