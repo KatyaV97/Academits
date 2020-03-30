@@ -14,7 +14,7 @@ namespace MyList
 
 		public int Count { get; private set; }
 
-		public int  Capacity { get; set; }
+		public int Capacity { get; private set; }
 
 		public T this[int index]
 		{
@@ -52,11 +52,16 @@ namespace MyList
 			Count = 0;
 			Capacity = 10;
 
-			items =  new T[Capacity];
+			items = new T[Capacity];
 		}
 
 		public MyList(int capacity)
 		{
+			if (capacity <= 0)
+			{
+				throw new ArgumentException("Вместимость = " + capacity + " должна быть > 0.", nameof(capacity));
+			}
+
 			Capacity = capacity;
 
 			items = new T[Capacity];
@@ -175,8 +180,7 @@ namespace MyList
 			{
 				if (items[i].Equals(item))
 				{
-					Count--;
-					modCount++;
+					RemoveAt(i);
 
 					return true;
 				}

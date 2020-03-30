@@ -63,22 +63,41 @@ namespace MyList
 
 			Console.WriteLine(Environment.NewLine);
 
-			
+
 			int[] customesrCount = new int[customersPerDayCount.Count];
 
 			customersPerDayCount.CopyTo(customesrCount, 0);
 
-			Console.WriteLine("Количество покупателей: ");
+			Console.Write("Количество покупателей: ");
 
 			foreach (int e in customesrCount)
 			{
 				Console.Write(e + " ");
 			}
+
 			Console.WriteLine(Environment.NewLine);
 
 			customers.Insert(customers.IndexOf("Александр"), "Саша");
 
 			Console.WriteLine("Первые покупатели: " + customers);
+			Console.WriteLine(Environment.NewLine);
+
+			var countries = new MyList<string>(5)
+			{
+				[0] = "Russia",
+				[1] = "USA",
+				[2] = "Canada",
+				[3] = "Australia"
+			};
+
+			Console.WriteLine("Страны: " + countries);
+			Console.WriteLine("Вместимость: " + countries.Capacity);
+			Console.WriteLine("Количество стран: " + countries.Count);
+			Console.WriteLine(Environment.NewLine);
+
+			countries.Remove("Russia");
+
+			Console.WriteLine("Страны после удаления России: " + countries);
 
 			Console.ReadKey();
 		}
