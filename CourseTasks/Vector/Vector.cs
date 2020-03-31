@@ -41,8 +41,6 @@ namespace Vectors
 
 		public Vector(int size, double[] vector)
 		{
-			int vectorLength = vector.Length;
-
 			if (size <= 0)
 			{
 				throw new ArgumentException("Длина вектора =  " + size + " должна быть > 0", nameof(size));
@@ -50,14 +48,9 @@ namespace Vectors
 
 			values = new double[size];
 
-			if (size >= vectorLength)
-			{
-				Array.Copy(vector, values, vectorLength);
-			}
-			else
-			{
-				Array.Copy(vector, values, size);
-			}
+			int newVectorLength = Math.Min(size, vector.Length);
+
+			Array.Copy(vector, values, newVectorLength);
 		}
 
 		public int GetSize()
@@ -140,23 +133,12 @@ namespace Vectors
 
 		public static double GetScalarMultiplication(Vector vector1, Vector vector2)
 		{
-			int vector1Length = vector1.GetSize();
-			int vector2Length = vector2.GetSize();
+			int vectorLength = Math.Min(vector1.GetSize(), vector2.GetSize());
 			double sum = 0;
 
-			if (vector1Length <= vector2Length)
+			for (int i = 0; i < vectorLength; i++)
 			{
-				for (int i = 0; i < vector1Length; i++)
-				{
-					sum += vector1.values[i] * vector2.values[i];
-				}
-			}
-			else
-			{
-				for (int i = 0; i < vector2Length; i++)
-				{
-					sum += vector1.values[i] * vector2.values[i];
-				}
+				sum += vector1.values[i] * vector2.values[i];
 			}
 
 			return sum;
