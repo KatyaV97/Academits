@@ -177,7 +177,7 @@ namespace Matrices
 		{
 			Matrix tempMatrix = new Matrix(rows);
 
-			if (GetColumnsCount() > GetRowsCount() || GetColumnsCount() < GetRowsCount())
+			if (GetColumnsCount() != GetRowsCount())
 			{
 				Array.Resize(ref rows, GetColumnsCount());
 			}
@@ -203,7 +203,7 @@ namespace Matrices
 
 			if (rowsCount != columnsCount)
 			{
-				throw new RankException("Матрица не квадратная. Количество строк = " + rowsCount +
+				throw new InvalidOperationException("Матрица не квадратная. Количество строк = " + rowsCount +
 					" должно быть равно количеству столбцов = " + columnsCount);
 			}
 
@@ -214,8 +214,7 @@ namespace Matrices
 
 			if (rowsCount == 2)
 			{
-				return rows[0].GetComponent(0) * rows[1].GetComponent(1) -
-					rows[0].GetComponent(1) * rows[1].GetComponent(0);
+				return rows[0].GetComponent(0) * rows[1].GetComponent(1) - (rows[0].GetComponent(1) * rows[1].GetComponent(0));
 			}
 
 			double[,] matrixValues = new double[rowsCount, columnsCount];
@@ -232,7 +231,7 @@ namespace Matrices
 
 			for (int i = 0; i < columnsCount; i++)
 			{
-				determinant += Math.Pow(-1, 1 + i) * rows[0].GetComponent(i) * GetMinor(i, matrixValues);
+				determinant += Math.Pow(-1, 2 + i) * rows[0].GetComponent(i) * GetMinor(i, matrixValues);
 			}
 
 			return determinant;
@@ -240,44 +239,51 @@ namespace Matrices
 
 		private static double GetMinor(int index, double[,] matrixValues)
 		{
-			int rowsCount = matrixValues.GetLength(0);
+			var newValuesMatrix = GetValuesMatrixForCalcMinor(index, matrixValues);
 
-			double[,] matrixValuesForGetMinor = new double[rowsCount - 1, rowsCount - 1];
-			int values2Length = matrixValuesForGetMinor.GetLength(0);
+			if (newValuesMatrix.GetLength(0) == 1)
+			{
+				return newValuesMatrix[0, 0];
+			}
 
-			for (int i = 0; i < values2Length; i++)
+			if (newValuesMatrix.GetLength(0) == 2)
+			{
+				return newValuesMatrix[0, 0] * newValuesMatrix[1, 1] - (newValuesMatrix[0, 1] * newValuesMatrix[1, 0]);
+			}
+
+			double determinant = 0;
+
+			for (int i = 0; i < newValuesMatrix.GetLength(0); i++)
+			{
+				determinant += Math.Pow(-1, 2 + i) * newValuesMatrix[0, i] * GetMinor(i, newValuesMatrix);
+			}
+
+			return determinant;
+		}
+
+		private static double[,] GetValuesMatrixForCalcMinor(int index, double[,] matrix)
+		{
+			int matrixLength = matrix.GetLength(0);
+			double[,] resultMutrix = new double[matrixLength - 1, matrixLength - 1];
+
+			int resultMutrixLength = resultMutrix.GetLength(0);
+
+			for (int i = 0; i < resultMutrixLength; i++)
 			{
 				int nextIndexFlag = 0;
 
-				for (int j = 0; j < values2Length; j++)
+				for (int j = 0; j < resultMutrixLength; j++)
 				{
 					if (j == index)
 					{
 						nextIndexFlag++;
 					}
 
-					matrixValuesForGetMinor[i, j] = matrixValues[i + 1, j + nextIndexFlag];
+					resultMutrix[i, j] = matrix[i + 1, j + nextIndexFlag];
 				}
 			}
 
-			if (values2Length == 1)
-			{
-				return matrixValuesForGetMinor[0, 0];
-			}
-
-			if (values2Length == 2)
-			{
-				return matrixValuesForGetMinor[0, 0] * matrixValuesForGetMinor[1, 1] - matrixValuesForGetMinor[0, 1] * matrixValuesForGetMinor[1, 0];
-			}
-
-			double determinant = 0;
-
-			for (int i = 0; i < values2Length; i++)
-			{
-				determinant += Math.Pow(-1, 1 + i) * matrixValuesForGetMinor[0, i] * GetMinor(i, matrixValuesForGetMinor);
-			}
-
-			return determinant;
+			return resultMutrix;
 		}
 
 		public override string ToString()
@@ -289,10 +295,10 @@ namespace Matrices
 
 			for (int i = 0; i < rowsCount - 1; i++)
 			{
-				printResult.Append(rows[i] + ", ");
+				printResult.AppendFormat("{0}, ", rows[i]);
 			}
 
-			printResult.Append(rows[rowsCount - 1] + "}");
+			printResult.AppendFormat("{0}}}", rows[rowsCount - 1]);
 
 			return printResult.ToString();
 		}
