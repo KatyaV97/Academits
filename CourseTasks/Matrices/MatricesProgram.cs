@@ -14,7 +14,7 @@ namespace Matrices
 
 			var matrix3 = new Matrix(values1);
 
-			var vectors1 = new Vectors.Vector[] { new Vectors.Vector(new double[] { 8, 9 }), new Vectors.Vector(new double[] { 5, 9 }), new Vectors.Vector(new double[] {6,8 }), new Vectors.Vector(new double[] { 11,12 }) };
+			var vectors1 = new Vectors.Vector[] { new Vectors.Vector(new double[] { 8, 9 }), new Vectors.Vector(new double[] { 5, 9 }), new Vectors.Vector(new double[] { 6, 8 }), new Vectors.Vector(new double[] { 11, 12 }) };
 			var vectors2 = new Vectors.Vector[] { new Vectors.Vector(new double[] { 8 }), new Vectors.Vector(new double[] { 5 }), new Vectors.Vector(new double[] { 9 }) };
 
 			var matrix4 = new Matrix(vectors1);
@@ -32,14 +32,14 @@ namespace Matrices
 			Console.WriteLine("Результат транспонирования матрицы №4: " + matrix4);
 			Console.WriteLine(Environment.NewLine);
 
-			var vector1 = new Vectors.Vector(new double[] { 3, 8,9,10});
+			var vector1 = new Vectors.Vector(new double[] { 3, 8, 9, 10 });
 
 			Console.WriteLine("Результат умножения матрицы №4 на вектор №1 = " + matrix4.MultiplyByVector(vector1));
 			Console.WriteLine(Environment.NewLine);
 
-			Console.WriteLine("Результат сложения матрицы №3 с матрицей №4 статическим методом = " + Matrix.Addition(matrix3, matrix4));
+			Console.WriteLine("Результат сложения матрицы №3 с матрицей №4 статическим методом = " + Matrix.GetAdd(matrix3, matrix4));
 
-			Console.WriteLine("Результат вычитания матрицы №4 из матрицы №3 статическим методом = " + Matrix.Subtraction(matrix3, matrix4));
+			Console.WriteLine("Результат вычитания матрицы №4 из матрицы №3 статическим методом = " + Matrix.GetSubtract(matrix3, matrix4));
 
 			matrix3.Add(matrix4);
 
@@ -92,7 +92,7 @@ namespace Matrices
 			vector2.SetComponent(1, 25);
 			matrix8.SetRow(3, vector2);
 
-			Console.WriteLine("Матрица №8  после установки вектора №2 на 3 строку: " + matrix8);
+			Console.WriteLine("Матрица №8  после установки вектора №2 на 4 строку: " + matrix8);
 			Console.WriteLine("Матрица №9: " + matrix9);
 			Console.WriteLine(Environment.NewLine);
 
