@@ -260,18 +260,20 @@ namespace Matrices
 
 		public override string ToString()
 		{
-			StringBuilder printResult = new StringBuilder();
+			StringBuilder stringBuilder = new StringBuilder();
 
-			printResult.Append("{");
+			stringBuilder.Append("{");
 
 			for (int i = 0; i < GetRowsCount() - 1; i++)
 			{
-				printResult.AppendFormat("{0}, ", rows[i]);
+				stringBuilder.Append(rows[i]);
+				stringBuilder.Append(", ");
 			}
 
-			printResult.AppendFormat("{0}}}", rows[GetRowsCount() - 1]);
+			stringBuilder.Append(rows[GetRowsCount() - 1]);
+			stringBuilder.Append("}");
 
-			return printResult.ToString();
+			return stringBuilder.ToString();
 		}
 
 		public Vector MultiplyByVector(Vector vector)
