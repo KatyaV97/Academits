@@ -6,67 +6,104 @@ namespace List
 	{
 		static void Main(string[] args)
 		{
-			SinglyLinkedList<int> itemsNumbers = new SinglyLinkedList<int>(3);
+			var charactersList = new SinglyLinkedList<string>();
+			Console.WriteLine("Список символов: " + charactersList);
+			charactersList.Remove("");
 
-			itemsNumbers.AddFirst(10);
-			itemsNumbers.AddFirst(2);
+			charactersList.AddFirst("a");
+			charactersList.Add(1, null);
+			charactersList.Add(2, "c");
 
-			Console.WriteLine("Односвязный список: " + itemsNumbers);
+			var list1Value1 = charactersList.GetValue(1);
+			var list1Value2 = charactersList.GetValue(2);
+
+			Console.WriteLine("Значение под индексом 1: " + list1Value1);
+			Console.WriteLine("Значение под индексом 2: " + list1Value2);
 			Console.WriteLine(Environment.NewLine);
 
-			int value1 = itemsNumbers.GetValue(2);
+			charactersList.SetValue(1, "b");
+			charactersList.Add(0, "e");
+			charactersList.Add(2, "f");
+			charactersList.Add(5, "g");
 
-			Console.WriteLine("Значение №3 в списке = " + value1);
+			charactersList.Add(null);
+			charactersList.SetValue(0, null);
+
+			Console.WriteLine("Список символов: " + charactersList);
+
+			charactersList.Remove(null);
+			charactersList.RemoveAt(2);
+			charactersList.Remove("g");
+
+			Console.WriteLine("Измененный список символов: " + charactersList);
+
+			charactersList.Reverse();
+
+			Console.WriteLine("Список символов после разворота: " + charactersList);
 			Console.WriteLine(Environment.NewLine);
 
-			int value2 = itemsNumbers.SetValue(1, 6);
+			var numbersList1 = new SinglyLinkedList<int>(3);
 
-			Console.WriteLine("Измененный список: " + itemsNumbers + " после установки нового значения на позицию 2. Старое значение = " + value2);
+			numbersList1.AddFirst(10);
+			numbersList1.AddFirst(2);
+
+			Console.WriteLine("Список №1: " + numbersList1);
 			Console.WriteLine(Environment.NewLine);
 
-			itemsNumbers.Add(3, 8);
-			itemsNumbers.Add(4, 11);
-			itemsNumbers.Add(3, 0);
+			int list2Value2 = numbersList1.GetValue(2);
 
-			Console.WriteLine("Измененный список: " + itemsNumbers);
-			Console.WriteLine("Размер списка: " + itemsNumbers.GetSize());
+			Console.WriteLine("Значение по индексу 2 в списке №1 = " + list2Value2);
 			Console.WriteLine(Environment.NewLine);
 
-			itemsNumbers.RemoveAt(1);
+			int list2Value1 = numbersList1.SetValue(1, 6);
 
-			Console.WriteLine("Измененный список, после удаления элемента с позиции №2: " + itemsNumbers);
+			Console.WriteLine("Измененный список №1: " + numbersList1 +
+				" после установки нового значения по индексу 1. Старое значение = " + list2Value1);
 			Console.WriteLine(Environment.NewLine);
 
-			itemsNumbers.RemoveFirst();
+			numbersList1.Add(3, 8);
+			numbersList1.Add(4, 11);
+			numbersList1.Add(3, 0);
 
-			Console.WriteLine("Измененный список, после удаления элемента с первой позиции: " + itemsNumbers);
+			Console.WriteLine("Измененный список №1: " + numbersList1);
+			Console.WriteLine("Размер списка №1: " + numbersList1.Count);
 			Console.WriteLine(Environment.NewLine);
 
-			SinglyLinkedList<int> newItemsNumbers = itemsNumbers.Copy();
+			numbersList1.RemoveAt(1);
 
-			newItemsNumbers.Add(2, 16);
+			Console.WriteLine("Измененный список №1, после удаления элемента по индексу 1: " + numbersList1);
+			Console.WriteLine(Environment.NewLine);
 
-			Console.WriteLine("Старый список: " + itemsNumbers);
-			Console.WriteLine("Новый список: " + newItemsNumbers);
-			Console.WriteLine("Размер нового списка: " + newItemsNumbers.GetSize());
+			numbersList1.RemoveFirst();
 
-			if (newItemsNumbers.Remove(0))
+			Console.WriteLine("Измененный список №1, после удаления элемента по индексу 0: " + numbersList1);
+			Console.WriteLine(Environment.NewLine);
+
+			var numbersList2 = numbersList1.Copy();
+
+			numbersList2.Add(2, 16);
+
+			Console.WriteLine("Список №1: " + numbersList1);
+			Console.WriteLine("Список №2: " + numbersList2);
+			Console.WriteLine(Environment.NewLine);
+
+			var itemsList2Count = numbersList2.Count;
+			Console.WriteLine("Размер списка №2: " + itemsList2Count);
+
+			if (numbersList2.Remove(0))
 			{
-				Console.WriteLine("Измененный список после удаления значения = 0: " + newItemsNumbers);
+				Console.WriteLine("Измененный список №2 после удаления значения = 0: " + numbersList2);
 			}
 			else
 			{
-				Console.WriteLine("Список не был изменен: " + newItemsNumbers);
+				Console.WriteLine("Список №2 не был изменен: " + numbersList2);
 			}
 
 			Console.WriteLine(Environment.NewLine);
 
-			SinglyLinkedList<int>  reverseResulting = newItemsNumbers.Reverse();
+			var listFirstValue = numbersList2.GetFirstValue();
 
-			Console.WriteLine("Разворот списка: " + reverseResulting);
-			Console.WriteLine(Environment.NewLine);
-
-			Console.WriteLine("Первый элемент списка: " + newItemsNumbers.GetFirstValue());
+			Console.WriteLine("Первый элемент списка №2: " + listFirstValue);
 
 			Console.ReadKey();
 		}
