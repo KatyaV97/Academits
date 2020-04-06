@@ -266,12 +266,14 @@ namespace Matrices
 
 			for (int i = 0; i < GetRowsCount() - 1; i++)
 			{
-				stringBuilder.Append(rows[i]);
-				stringBuilder.Append(", ");
+				stringBuilder
+					.Append(rows[i])
+					.Append(", ");
 			}
 
-			stringBuilder.Append(rows[GetRowsCount() - 1]);
-			stringBuilder.Append("}");
+			stringBuilder
+				.Append(rows[GetRowsCount() - 1])
+				.Append("}");
 
 			return stringBuilder.ToString();
 		}
