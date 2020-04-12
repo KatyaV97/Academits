@@ -238,11 +238,7 @@ namespace List
 				tempNode = tempNode.Next;
 			}
 
-			stringBuilder
-				.Append(tempNode.Data)
-				.Append("]");
-
-			return stringBuilder.ToString();
+			return stringBuilder.Append(tempNode.Data).Append("]").ToString();
 		}
 	}
 }
