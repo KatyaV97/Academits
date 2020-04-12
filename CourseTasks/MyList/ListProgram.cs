@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyList
 {
@@ -19,20 +15,7 @@ namespace MyList
 			Console.WriteLine("Первые покупатели: " + customers);
 			Console.WriteLine(Environment.NewLine);
 
-			var customersPerDayCount = new MyList<int>();
-
-			customersPerDayCount.Add(25);
-			customersPerDayCount.Add(55);
-			customersPerDayCount.Add(85);
-			customersPerDayCount[3] = 36;
-			customersPerDayCount[4] = 42;
-			customersPerDayCount[5] = 3;
-			customersPerDayCount[6] = 24;
-			customersPerDayCount[7] = 24;
-			customersPerDayCount[8] = 24;
-			customersPerDayCount[9] = 24;
-			customersPerDayCount[10] = 6;
-			customersPerDayCount[11] = 8;
+			var customersPerDayCount = new MyList<int>() { 25, 55, 85, 36, 42, 3, 24, 6, 8, 4, 9, 12, 18 };
 
 			Console.WriteLine("Количество покупателей в день: " + customersPerDayCount);
 			Console.WriteLine("Вместимость: " + customersPerDayCount.Capacity);
@@ -64,13 +47,13 @@ namespace MyList
 			Console.WriteLine(Environment.NewLine);
 
 
-			int[] customesrCount = new int[customersPerDayCount.Count];
+			var customersCount = new int[3];
 
-			customersPerDayCount.CopyTo(customesrCount, 0);
+			customersPerDayCount.CopyTo(customersCount, 0);
 
 			Console.Write("Количество покупателей: ");
 
-			foreach (int e in customesrCount)
+			foreach (int e in customersCount)
 			{
 				Console.Write(e + " ");
 			}
@@ -84,10 +67,10 @@ namespace MyList
 
 			var countries = new MyList<string>(5)
 			{
-				[0] = "Russia",
-				[1] = "USA",
-				[2] = "Canada",
-				[3] = "Australia"
+				"Russia",
+				 "USA",
+				"Canada",
+				"Australia"
 			};
 
 			Console.WriteLine("Страны: " + countries);
@@ -98,6 +81,10 @@ namespace MyList
 			countries.Remove("Russia");
 
 			Console.WriteLine("Страны после удаления России: " + countries);
+			Console.WriteLine(Environment.NewLine);
+
+			countries.Insert(3, "UK");
+			Console.WriteLine("Страны после добавления Великобритании: " + countries);
 
 			Console.ReadKey();
 		}

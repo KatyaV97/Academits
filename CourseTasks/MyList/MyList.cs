@@ -14,13 +14,13 @@ namespace MyList
 
 		public int Count { get; private set; }
 
-		public int Capacity { get; private set; }
+		public int Capacity { get; set; }
 
 		public T this[int index]
 		{
 			get
 			{
-				if (index > Count)
+				if (index < 0 || Count < index)
 				{
 					throw new IndexOutOfRangeException("Индекс = " + index + " должен быть > 0 и < " +
 						Count);
@@ -31,7 +31,7 @@ namespace MyList
 
 			set
 			{
-				if (index > Count)
+				if (index < 0 || Count < index)
 				{
 					throw new IndexOutOfRangeException("Индекс = " + index + " должен быть > 0 и < " +
 						Count);
@@ -81,9 +81,10 @@ namespace MyList
 		private void IncreaseCapacity()
 		{
 			T[] oldItems = items;
+
 			Capacity *= 2;
 
-			items = new T[Capacity];
+			Array.Resize(ref items, Capacity);
 			Array.Copy(oldItems, items, Count);
 		}
 
@@ -109,30 +110,42 @@ namespace MyList
 
 		public bool Contains(T item)
 		{
-			for (int i = 0; i < Count; i++)
+			if (IndexOf(item) == -1)
 			{
-				if (items[i].Equals(item))
-				{
-					return true;
-				}
+				return false;
 			}
 
-			return false;
+			return true;
 		}
 
 		public void CopyTo(T[] array, int arrayIndex)
 		{
-			for (int i = arrayIndex; i < Count; i++)
+			if (array == null)
 			{
-				array.SetValue(items[i], arrayIndex++);
+				throw new ArgumentNullException("Массив имеет значение null.");
 			}
+
+			if (arrayIndex < 0)
+			{
+				throw new ArgumentOutOfRangeException("Значение параметра индекса = " + arrayIndex + " < 0.",
+					nameof(arrayIndex));
+			}
+
+			if (array.Length - arrayIndex < Count)
+			{
+				throw new ArgumentException("Число элементов в исходной коллекции = " + Count +
+					" больше доступного места от положения, заданного значением параметра = " + arrayIndex +
+					", до конца массива, длина которого = " + array.Length + ".");
+			}
+
+			Array.Copy(items, 0, array, arrayIndex, Count);
 		}
 
 		public IEnumerator<T> GetEnumerator()
 		{
-			int oldModCount = modCount;
+			var oldModCount = modCount;
 
-			for (int i = 0; i < Count; i++)
+			for (var i = 0; i < Count; i++)
 			{
 				if (oldModCount != modCount)
 				{
@@ -150,9 +163,10 @@ namespace MyList
 
 		public int IndexOf(T item)
 		{
-			for (int i = 0; i < Count; i++)
+			for (var i = 0; i < Count; i++)
 			{
-				if (items[i].Equals(item))
+				if (items[i] != null && items[i].Equals(item) ||
+					(items[i] == null && item == null))
 				{
 					return i;
 				}
@@ -163,44 +177,52 @@ namespace MyList
 
 		public void Insert(int index, T item)
 		{
-			if (index >= Count)
+			if (index < 0 || Count < index)
 			{
-				throw new IndexOutOfRangeException("Индекс = " + index + " должен быть > 0 и < " +
+				throw new IndexOutOfRangeException("Индекс = " + index + " должен быть >= 0 и <= " +
 					Count);
 			}
 
+			if (Count >= Capacity)
+			{
+				IncreaseCapacity();
+			}
+
+			if (index == Count)
+			{
+				Add(item);
+				return;
+			}
+
+			Array.Copy(items, index, items, index + 1, Count - index);
 			items[index] = item;
 
+			Count++;
 			modCount++;
 		}
 
 		public bool Remove(T item)
 		{
-			for (int i = 0; i < Count; i++)
-			{
-				if (items[i].Equals(item))
-				{
-					RemoveAt(i);
+			var itemIndex = IndexOf(item);
 
-					return true;
-				}
+			if (itemIndex == -1)
+			{
+				return false;
 			}
 
-			return false;
+			RemoveAt(itemIndex);
+			return true;
 		}
 
 		public void RemoveAt(int index)
 		{
-			if (index >= Count)
+			if (index < 0 || Count <= index)
 			{
-				throw new IndexOutOfRangeException("Индекс = " + index + " должен быть > 0 и < " +
+				throw new IndexOutOfRangeException("Индекс = " + index + " должен быть >= 0 и < " +
 					Count);
 			}
 
-			for (int i = index; i < Count - 1; i++)
-			{
-				items[i] = items[i + 1];
-			}
+			Array.Copy(items, index + 1, items, index, Count - index - 1);
 
 			Count--;
 			modCount++;
@@ -208,17 +230,22 @@ namespace MyList
 
 		public override string ToString()
 		{
-			StringBuilder printResult = new StringBuilder();
-			printResult.Append("[");
-
-			for (int i = 0; i < Count - 1; i++)
+			if (Count == 0)
 			{
-				printResult.Append(items[i] + " , ");
+				return "[]";
 			}
 
-			printResult.Append(items[Count - 1] + "]");
+			StringBuilder stringBuilder = new StringBuilder();
+			stringBuilder.Append("[");
 
-			return printResult.ToString();
+			for (var i = 0; i < Count - 1; i++)
+			{
+				stringBuilder
+					.Append(items[i])
+					.Append(", ");
+			}
+
+			return stringBuilder.Append(items[Count - 1]).Append("]").ToString();
 		}
 	}
 }
