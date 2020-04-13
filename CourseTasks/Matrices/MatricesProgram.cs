@@ -1,4 +1,5 @@
 ﻿using System;
+using Vectors;
 
 namespace Matrices
 {
@@ -14,8 +15,16 @@ namespace Matrices
 
 			var matrix3 = new Matrix(values1);
 
-			var vectors1 = new Vectors.Vector[] { new Vectors.Vector(new double[] { 8, 9 }), new Vectors.Vector(new double[] { 5, 9 }), new Vectors.Vector(new double[] { 6, 8 }), new Vectors.Vector(new double[] { 11, 12 }) };
-			var vectors2 = new Vectors.Vector[] { new Vectors.Vector(new double[] { 8 }), new Vectors.Vector(new double[] { 5 }), new Vectors.Vector(new double[] { 9 }) };
+			var vectors1 = new Vector[] {
+				new Vector(new double[] { 8, 9 }),
+				new Vector(new double[] { 5, 9 }),
+				new Vector(new double[] { 6, 8 }),
+				new Vector(new double[] { 11, 12 }) };
+
+			var vectors2 = new Vector[] {
+				new Vector(new double[] { 8 }),
+				new Vector(new double[] { 5 }),
+				new Vector(new double[] { 9 }) };
 
 			var matrix4 = new Matrix(vectors1);
 			var matrix5 = new Matrix(vectors2);
@@ -32,14 +41,14 @@ namespace Matrices
 			Console.WriteLine("Результат транспонирования матрицы №4: " + matrix4);
 			Console.WriteLine(Environment.NewLine);
 
-			var vector1 = new Vectors.Vector(new double[] { 3, 8, 9, 10 });
+			var vector1 = new Vector(new double[] { 3, 8, 9, 10 });
 
 			Console.WriteLine("Результат умножения матрицы №4 на вектор №1 = " + matrix4.MultiplyByVector(vector1));
 			Console.WriteLine(Environment.NewLine);
 
-			Console.WriteLine("Результат сложения матрицы №3 с матрицей №4 статическим методом = " + Matrix.GetAdd(matrix3, matrix4));
+			Console.WriteLine("Результат сложения матрицы №3 с матрицей №4 статическим методом = " + Matrix.GetSum(matrix3, matrix4));
 
-			Console.WriteLine("Результат вычитания матрицы №4 из матрицы №3 статическим методом = " + Matrix.GetSubtract(matrix3, matrix4));
+			Console.WriteLine("Результат вычитания матрицы №4 из матрицы №3 статическим методом = " + Matrix.GetDifference(matrix3, matrix4));
 
 			matrix3.Add(matrix4);
 
@@ -50,18 +59,18 @@ namespace Matrices
 			Console.WriteLine("Результат вычитания матрицы №4 из матрицы №3 нестатическим методом = " + matrix3);
 			Console.WriteLine(Environment.NewLine);
 
-			var vector2 = new Vectors.Vector(new double[] { 5, 2, 0, 7 });
-			var vector3 = new Vectors.Vector(new double[] { 7, 10, 12, 1 });
-			var vector4 = new Vectors.Vector(new double[] { 2, 15, 22, 14 });
-			var vector5 = new Vectors.Vector(new double[] { 14, 2 });
-			var vector6 = new Vectors.Vector(new double[] { 18, 1 });
-			var vector7 = new Vectors.Vector(new double[] { 45, 3 });
-			var vector8 = new Vectors.Vector(new double[] { 3, 7 });
-			var vector9 = new Vectors.Vector(new double[] { 7, 8, 5, 6 });
+			var vector2 = new Vector(new double[] { 5, 2, 0, 7 });
+			var vector3 = new Vector(new double[] { 7, 10, 12, 1 });
+			var vector4 = new Vector(new double[] { 2, 15, 22, 14 });
+			var vector5 = new Vector(new double[] { 14, 2 });
+			var vector6 = new Vector(new double[] { 18, 1 });
+			var vector7 = new Vector(new double[] { 45, 3 });
+			var vector8 = new Vector(new double[] { 3, 7 });
+			var vector9 = new Vector(new double[] { 7, 8, 5, 6 });
 
-			var vectors3 = new Vectors.Vector[] { vector2, vector3, vector4 };
-			var vectors4 = new Vectors.Vector[] { vector5, vector6, vector7, vector8 };
-			var vectors5 = new Vectors.Vector[] { vector2, vector3, vector4, vector9 };
+			var vectors3 = new Vector[] { vector2, vector3, vector4 };
+			var vectors4 = new Vector[] { vector5, vector6, vector7, vector8 };
+			var vectors5 = new Vector[] { vector2, vector3, vector4, vector9 };
 
 			var matrix6 = new Matrix(vectors3);
 			var matrix7 = new Matrix(vectors4);
@@ -72,7 +81,7 @@ namespace Matrices
 			Console.WriteLine("Результат умножения матрицы №6 на матрицу №7  = " + Matrix.Multiply(matrix6, matrix7));
 			Console.WriteLine(Environment.NewLine);
 
-			var vector10 = new Vectors.Vector(new double[] { 3, 8, 5 });
+			var vector10 = new Vector(new double[] { 3, 8, 5 });
 			matrix1.SetRow(2, vector10);
 
 			Console.WriteLine("Матрица №1 после установки вектора №10 на 3 позицию: " + matrix1);
