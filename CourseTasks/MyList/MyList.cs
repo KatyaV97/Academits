@@ -28,11 +28,7 @@ namespace MyList
 			set
 			{
 				CheckIndex(index);
-
-				if (Count >= Capacity)
-				{
-					IncreaseCapacity();
-				}
+				CheckExcessCapacity();
 
 				items[index] = value;
 				Count++;
@@ -82,10 +78,7 @@ namespace MyList
 
 		public void Add(T item)
 		{
-			if (Count >= Capacity)
-			{
-				IncreaseCapacity();
-			}
+			CheckExcessCapacity();
 
 			items[Count] = item;
 
@@ -157,7 +150,7 @@ namespace MyList
 		{
 			for (var i = 0; i < Count; i++)
 			{
-				if (object.Equals(items[i],item))
+				if (object.Equals(items[i], item))
 				{
 					return i;
 				}
@@ -169,11 +162,7 @@ namespace MyList
 		public void Insert(int index, T item)
 		{
 			CheckIndex(index);
-
-			if (Count >= Capacity)
-			{
-				IncreaseCapacity();
-			}
+			CheckExcessCapacity();
 
 			if (index == Count)
 			{
@@ -241,6 +230,14 @@ namespace MyList
 			{
 				throw new IndexOutOfRangeException("Индекс = " + index + " должен быть >= 0 и <= " +
 					Count);
+			}
+		}
+
+		private void CheckExcessCapacity()
+		{
+			if (Count >= Capacity)
+			{
+				IncreaseCapacity();
 			}
 		}
 	}
