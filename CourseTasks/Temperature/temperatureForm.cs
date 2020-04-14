@@ -20,7 +20,7 @@ namespace Temperature
 				var conversionResult = new TemperatureConversion(Convert.ToDouble(initialValue.Text), initialUnit.Text, resultingUnit.Text);
 				resultingValue.Text = (conversionResult.GetConversion()).ToString();
 			}
-			catch
+			catch (FormatException)
 			{
 				MessageBox.Show(
 					"Некорректное значение исходной температуры",
