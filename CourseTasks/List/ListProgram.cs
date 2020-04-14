@@ -6,9 +6,10 @@ namespace List
 	{
 		static void Main(string[] args)
 		{
-			var charactersList = new SinglyLinkedList<string>();
+			var charactersList = new SinglyLinkedList<string>("a");
+			charactersList.AddFirst(null);
 			Console.WriteLine("Список символов: " + charactersList);
-			charactersList.Remove("");
+			charactersList.Remove(null);
 
 			charactersList.AddFirst("a");
 			charactersList.Add(1, null);

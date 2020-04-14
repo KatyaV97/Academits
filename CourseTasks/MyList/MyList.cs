@@ -20,22 +20,14 @@ namespace MyList
 		{
 			get
 			{
-				if (index < 0 || Count < index)
-				{
-					throw new IndexOutOfRangeException("Индекс = " + index + " должен быть > 0 и < " +
-						Count);
-				}
+				CheckIndex(index);
 
 				return items[index];
 			}
 
 			set
 			{
-				if (index < 0 || Count < index)
-				{
-					throw new IndexOutOfRangeException("Индекс = " + index + " должен быть > 0 и < " +
-						Count);
-				}
+				CheckIndex(index);
 
 				if (Count >= Capacity)
 				{
@@ -165,8 +157,7 @@ namespace MyList
 		{
 			for (var i = 0; i < Count; i++)
 			{
-				if (items[i] != null && items[i].Equals(item) ||
-					(items[i] == null && item == null))
+				if (object.Equals(items[i],item))
 				{
 					return i;
 				}
@@ -177,11 +168,7 @@ namespace MyList
 
 		public void Insert(int index, T item)
 		{
-			if (index < 0 || Count < index)
-			{
-				throw new IndexOutOfRangeException("Индекс = " + index + " должен быть >= 0 и <= " +
-					Count);
-			}
+			CheckIndex(index);
 
 			if (Count >= Capacity)
 			{
@@ -246,6 +233,15 @@ namespace MyList
 			}
 
 			return stringBuilder.Append(items[Count - 1]).Append("]").ToString();
+		}
+
+		private void CheckIndex(int index)
+		{
+			if (index < 0 || Count < index)
+			{
+				throw new IndexOutOfRangeException("Индекс = " + index + " должен быть >= 0 и <= " +
+					Count);
+			}
 		}
 	}
 }

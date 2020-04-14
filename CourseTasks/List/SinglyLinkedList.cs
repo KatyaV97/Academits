@@ -30,10 +30,7 @@ namespace List
 
 		public T GetValue(int index)
 		{
-			if (index < 0 || index >= Count)
-			{
-				throw new IndexOutOfRangeException("Индекс должен быть >= 0 и <  " + Count + ". Индекс = " + index);
-			}
+			CheckIndex(index);
 
 			return GetNodeByIndex(index).Data;
 		}
@@ -42,7 +39,7 @@ namespace List
 		{
 			var currentNode = head;
 
-			for (int i = 0; i < index; i++)
+			for (var i = 0; i < index; i++)
 			{
 				currentNode = currentNode.Next;
 			}
@@ -50,18 +47,15 @@ namespace List
 			return currentNode;
 		}
 
-		public T SetValue(int index, T value)
+		public T SetValue(int index, T data)
 		{
-			if (index < 0 || index >= Count)
-			{
-				throw new IndexOutOfRangeException("Индекс должен быть >= 0 и <  " + Count + ". Индекс = " + index);
-			}
+			CheckIndex(index);
 
 			var currentNode = GetNodeByIndex(index);
-			var oldValue = currentNode.Data;
-			currentNode.Data = value;
+			var oldData = currentNode.Data;
+			currentNode.Data = data;
 
-			return oldValue;
+			return oldData;
 		}
 
 		public void AddFirst(T data)
@@ -73,7 +67,7 @@ namespace List
 			Count++;
 		}
 
-		public void Add(int index, T value)
+		public void Add(int index, T data)
 		{
 			if (index < 0 || index > Count)
 			{
@@ -82,7 +76,7 @@ namespace List
 
 			if (index == 0)
 			{
-				AddFirst(value);
+				AddFirst(data);
 
 				return;
 			}
@@ -90,25 +84,21 @@ namespace List
 			var previousNode = GetNodeByIndex(index - 1);
 			var currentNode = previousNode.Next;
 
-			var newNode = new ListItem<T>(value, currentNode);
-			previousNode.Next = newNode;
+			previousNode.Next = new ListItem<T>(data, currentNode);
 
 			Count++;
 		}
 
-		public void Add(T value)
+		public void Add(T data)
 		{
-			GetNodeByIndex(Count - 1).Next = new ListItem<T>(value);
+			GetNodeByIndex(Count - 1).Next = new ListItem<T>(data);
 
 			Count++;
 		}
 
 		public T RemoveAt(int index)
 		{
-			if (index < 0 || index >= Count)
-			{
-				throw new IndexOutOfRangeException("Индекс должен быть >= 0 и <  " + Count + ". Индекс = " + index);
-			}
+			CheckIndex(index);
 
 			if (index == 0)
 			{
@@ -118,23 +108,24 @@ namespace List
 			var previousNode = GetNodeByIndex(index - 1);
 			var currentNode = previousNode.Next;
 
-			T oldValue = currentNode.Data;
+			T oldData = currentNode.Data;
 			previousNode.Next = currentNode.Next;
 
 			Count--;
 
-			return oldValue;
+			return oldData;
 		}
 
-		public bool Remove(T value)
+		public bool Remove(T data)
 		{
 			if (head == null)
 			{
-				throw new InvalidOperationException("Список пуст. Невозможно удалить значение.");
+				return false;
 			}
 
-			if (head.Data != null && head.Data.Equals(value) ||
-				(head.Data == null && value == null))
+			//Object headData = (T)head.Data;
+
+			if (Object.Equals(head.Data, data))
 			{
 				head = head.Next;
 
@@ -146,8 +137,8 @@ namespace List
 			for (ListItem<T> currentNode = head.Next, previousNode = head; currentNode != null;
 				previousNode = currentNode, currentNode = currentNode.Next)
 			{
-				if (currentNode.Data != null && currentNode.Data.Equals(value) ||
-					(currentNode.Data == null && value == null))
+				if (currentNode.Data != null && currentNode.Data.Equals(data) ||
+					(currentNode.Data == null && data == null))
 				{
 					previousNode.Next = currentNode.Next;
 
@@ -239,6 +230,14 @@ namespace List
 			}
 
 			return stringBuilder.Append(tempNode.Data).Append("]").ToString();
+		}
+		
+		private void CheckIndex(int index)
+		{
+			if (index < 0 || index >= Count)
+			{
+				throw new IndexOutOfRangeException("Индекс должен быть >= 0 и <  " + Count + ". Индекс = " + index);
+			}
 		}
 	}
 }

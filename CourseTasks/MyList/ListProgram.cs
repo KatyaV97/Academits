@@ -70,6 +70,7 @@ namespace MyList
 				"Russia",
 				 "USA",
 				"Canada",
+				null,
 				"Australia"
 			};
 
@@ -85,6 +86,9 @@ namespace MyList
 
 			countries.Insert(3, "UK");
 			Console.WriteLine("Страны после добавления Великобритании: " + countries);
+
+			var emptyIndex = countries.IndexOf(null);
+			Console.WriteLine("Индекс пустого элемента: " + emptyIndex);
 
 			Console.ReadKey();
 		}
