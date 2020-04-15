@@ -9,7 +9,9 @@ namespace List
 
 		public int Count { get; private set; }
 
-		public SinglyLinkedList() { }
+		public SinglyLinkedList()
+		{
+		}
 
 		public SinglyLinkedList(T data)
 		{
@@ -91,6 +93,13 @@ namespace List
 
 		public void Add(T data)
 		{
+			if (head == null)
+			{
+				AddFirst(data);
+
+				return;
+			}
+
 			GetNodeByIndex(Count - 1).Next = new ListItem<T>(data);
 
 			Count++;
@@ -123,9 +132,7 @@ namespace List
 				return false;
 			}
 
-			//Object headData = (T)head.Data;
-
-			if (Object.Equals(head.Data, data))
+			if (object.Equals(head.Data, data))
 			{
 				head = head.Next;
 
@@ -137,8 +144,7 @@ namespace List
 			for (ListItem<T> currentNode = head.Next, previousNode = head; currentNode != null;
 				previousNode = currentNode, currentNode = currentNode.Next)
 			{
-				if (currentNode.Data != null && currentNode.Data.Equals(data) ||
-					(currentNode.Data == null && data == null))
+				if (object.Equals(currentNode.Data, data))
 				{
 					previousNode.Next = currentNode.Next;
 
@@ -198,9 +204,7 @@ namespace List
 			for (ListItem<T> oldCurrentNode = head.Next, newPreviousNode = newList.head;
 				oldCurrentNode != null; oldCurrentNode = oldCurrentNode.Next, newPreviousNode = newPreviousNode.Next)
 			{
-				var newCurrentNode = new ListItem<T>(oldCurrentNode.Data, oldCurrentNode.Next);
-
-				newPreviousNode.Next = newCurrentNode;
+				newPreviousNode.Next = new ListItem<T>(oldCurrentNode.Data, oldCurrentNode.Next);
 			}
 
 			newList.Count = Count;
@@ -216,22 +220,30 @@ namespace List
 			}
 
 			var stringBuilder = new StringBuilder();
-			var tempNode = head;
+			var currentNode = head;
 
 			stringBuilder.Append("[");
 
-			while (tempNode.Next != null)
+			while (currentNode != null)
 			{
-				stringBuilder
-					.Append(tempNode.Data)
-					.Append(", ");
+				if (object.Equals(currentNode.Data, null))
+				{
+					stringBuilder.Append("null");
+				}
+				else
+				{
+					stringBuilder.Append(currentNode.Data);
+				}
 
-				tempNode = tempNode.Next;
+				stringBuilder.Append(", ");
+
+				currentNode = currentNode.Next;
 			}
 
-			return stringBuilder.Append(tempNode.Data).Append("]").ToString();
+
+			return stringBuilder.Remove(stringBuilder.Length - 2, 2).Append("]").ToString();
 		}
-		
+
 		private void CheckIndex(int index)
 		{
 			if (index < 0 || index >= Count)

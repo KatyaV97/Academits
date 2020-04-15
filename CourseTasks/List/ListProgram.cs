@@ -6,14 +6,13 @@ namespace List
 	{
 		static void Main(string[] args)
 		{
-			var charactersList = new SinglyLinkedList<string>("a");
-			charactersList.AddFirst(null);
+			var charactersList = new SinglyLinkedList<string>();
 			Console.WriteLine("Список символов: " + charactersList);
-			charactersList.Remove(null);
+
 
 			charactersList.AddFirst("a");
 			charactersList.Add(1, null);
-			charactersList.Add(2, "c");
+			charactersList.Add(1, "c");
 
 			var list1Value1 = charactersList.GetValue(1);
 			var list1Value2 = charactersList.GetValue(2);
@@ -25,7 +24,7 @@ namespace List
 			charactersList.SetValue(1, "b");
 			charactersList.Add(0, "e");
 			charactersList.Add(2, "f");
-			charactersList.Add(5, "g");
+			charactersList.Add(4, "g");
 
 			charactersList.Add(null);
 			charactersList.SetValue(0, null);
@@ -35,6 +34,7 @@ namespace List
 			charactersList.Remove(null);
 			charactersList.RemoveAt(2);
 			charactersList.Remove("g");
+			charactersList.Remove(null);
 
 			Console.WriteLine("Измененный список символов: " + charactersList);
 
