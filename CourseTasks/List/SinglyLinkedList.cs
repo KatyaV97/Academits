@@ -20,7 +20,7 @@ namespace List
 			Count++;
 		}
 
-		public T GetFirstValue()
+		public T GetFirstData()
 		{
 			if (Count == 0)
 			{
@@ -30,11 +30,22 @@ namespace List
 			return head.Data;
 		}
 
-		public T GetValue(int index)
+		public T GetData(int index)
 		{
 			CheckIndex(index);
 
 			return GetNodeByIndex(index).Data;
+		}
+
+		public T SetData(int index, T data)
+		{
+			CheckIndex(index);
+
+			var currentNode = GetNodeByIndex(index);
+			var oldData = currentNode.Data;
+			currentNode.Data = data;
+
+			return oldData;
 		}
 
 		private ListItem<T> GetNodeByIndex(int index)
@@ -47,17 +58,6 @@ namespace List
 			}
 
 			return currentNode;
-		}
-
-		public T SetValue(int index, T data)
-		{
-			CheckIndex(index);
-
-			var currentNode = GetNodeByIndex(index);
-			var oldData = currentNode.Data;
-			currentNode.Data = data;
-
-			return oldData;
 		}
 
 		public void AddFirst(T data)
@@ -141,7 +141,9 @@ namespace List
 				return true;
 			}
 
-			for (ListItem<T> currentNode = head.Next, previousNode = head; currentNode != null;
+			var previousNode = head;
+
+			for (var currentNode = head.Next; currentNode != null;
 				previousNode = currentNode, currentNode = currentNode.Next)
 			{
 				if (object.Equals(currentNode.Data, data))
@@ -182,7 +184,7 @@ namespace List
 			var currentNode = head;
 			ListItem<T> previousNode = null;
 
-			for (ListItem<T> nextNode = head.Next; nextNode != null;
+			for (var nextNode = head.Next; nextNode != null;
 				previousNode = currentNode, currentNode = nextNode, nextNode = nextNode.Next)
 			{
 				currentNode.Next = previousNode;
@@ -200,9 +202,10 @@ namespace List
 			}
 
 			var newList = new SinglyLinkedList<T>(head.Data);
+			var newPreviousNode = newList.head;
 
-			for (ListItem<T> oldCurrentNode = head.Next, newPreviousNode = newList.head;
-				oldCurrentNode != null; oldCurrentNode = oldCurrentNode.Next, newPreviousNode = newPreviousNode.Next)
+			for (var oldCurrentNode = head.Next; oldCurrentNode != null; 
+				oldCurrentNode = oldCurrentNode.Next, newPreviousNode = newPreviousNode.Next)
 			{
 				newPreviousNode.Next = new ListItem<T>(oldCurrentNode.Data, oldCurrentNode.Next);
 			}
@@ -226,7 +229,7 @@ namespace List
 
 			while (currentNode != null)
 			{
-				if (object.Equals(currentNode.Data, null))
+				if (currentNode.Data == null)
 				{
 					stringBuilder.Append("null");
 				}
@@ -239,8 +242,7 @@ namespace List
 
 				currentNode = currentNode.Next;
 			}
-
-
+			
 			return stringBuilder.Remove(stringBuilder.Length - 2, 2).Append("]").ToString();
 		}
 

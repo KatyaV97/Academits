@@ -8,26 +8,25 @@ namespace List
 		{
 			var charactersList = new SinglyLinkedList<string>();
 			Console.WriteLine("Список символов: " + charactersList);
-
-
+			
 			charactersList.AddFirst("a");
 			charactersList.Add(1, null);
 			charactersList.Add(1, "c");
 
-			var list1Value1 = charactersList.GetValue(1);
-			var list1Value2 = charactersList.GetValue(2);
+			var list1Value1 = charactersList.GetData(1);
+			var list1Value2 = charactersList.GetData(2);
 
 			Console.WriteLine("Значение под индексом 1: " + list1Value1);
 			Console.WriteLine("Значение под индексом 2: " + list1Value2);
 			Console.WriteLine(Environment.NewLine);
 
-			charactersList.SetValue(1, "b");
+			charactersList.SetData(1, "b");
 			charactersList.Add(0, "e");
 			charactersList.Add(2, "f");
 			charactersList.Add(4, "g");
 
 			charactersList.Add(null);
-			charactersList.SetValue(0, null);
+			charactersList.SetData(0, null);
 
 			Console.WriteLine("Список символов: " + charactersList);
 
@@ -51,12 +50,12 @@ namespace List
 			Console.WriteLine("Список №1: " + numbersList1);
 			Console.WriteLine(Environment.NewLine);
 
-			int list2Value2 = numbersList1.GetValue(2);
+			int list2Value2 = numbersList1.GetData(2);
 
 			Console.WriteLine("Значение по индексу 2 в списке №1 = " + list2Value2);
 			Console.WriteLine(Environment.NewLine);
 
-			int list2Value1 = numbersList1.SetValue(1, 6);
+			int list2Value1 = numbersList1.SetData(1, 6);
 
 			Console.WriteLine("Измененный список №1: " + numbersList1 +
 				" после установки нового значения по индексу 1. Старое значение = " + list2Value1);
@@ -102,7 +101,7 @@ namespace List
 
 			Console.WriteLine(Environment.NewLine);
 
-			var listFirstValue = numbersList2.GetFirstValue();
+			var listFirstValue = numbersList2.GetFirstData();
 
 			Console.WriteLine("Первый элемент списка №2: " + listFirstValue);
 

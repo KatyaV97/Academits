@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Temperature", "Temperature\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HashTable", "HashTable\HashTable.csproj", "{0B15FB30-3F8C-448A-85A4-78EBA5C62EE6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Csv", "Csv\Csv.csproj", "{9020D740-973F-43C7-9786-43C708567C90}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +77,10 @@ Global
 		{0B15FB30-3F8C-448A-85A4-78EBA5C62EE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0B15FB30-3F8C-448A-85A4-78EBA5C62EE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0B15FB30-3F8C-448A-85A4-78EBA5C62EE6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9020D740-973F-43C7-9786-43C708567C90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9020D740-973F-43C7-9786-43C708567C90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9020D740-973F-43C7-9786-43C708567C90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9020D740-973F-43C7-9786-43C708567C90}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
