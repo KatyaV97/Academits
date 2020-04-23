@@ -9,19 +9,20 @@ namespace HashTable
 	{
 		private List<T>[] items;
 		private int modCount;
+		private int capacity;
 
 		public int Count { get; private set; }
 
-		public int Capacity { get; set; }
+		//public int capacity { get; set; }
 
 		public bool IsReadOnly => false;
 
 		public MyHashTable()
 		{
 			Count = 0;
-			Capacity = 100;
+			capacity = 100;
 
-			items = new List<T>[Capacity];
+			items = new List<T>[capacity];
 		}
 
 		public MyHashTable(int capacity)
@@ -31,14 +32,14 @@ namespace HashTable
 				throw new ArgumentException("Вместимость = " + capacity + " должна быть > 0.", nameof(capacity));
 			}
 
-			Capacity = capacity;
+			this.capacity = capacity;
 
-			items = new List<T>[Capacity];
+			items = new List<T>[this.capacity];
 		}
 
-		private int GetIndexForArray(T item)
+		private int GetArrayIndex(T item)
 		{
-			return Math.Abs(item.GetHashCode() % Capacity);
+			return Math.Abs(item.GetHashCode() % capacity);
 		}
 
 		private void CheckItem(T item)
@@ -49,25 +50,20 @@ namespace HashTable
 			}
 		}
 
-		private bool HasItemsInList(int index)
+		private bool HasItemsInList(List<T> item)
 		{
-			return items[index] != null && items[index].Count != 0;
+			return item != null && item.Count != 0;
 		}
 
 		public void Add(T item)
 		{
-			CheckItem(item);
+			//CheckItem(item);
 
-			var index = GetIndexForArray(item);
+			var index = GetArrayIndex(item);
 
 			if (items[index] == null)
 			{
 				items[index] = new List<T>();
-			}
-
-			if (items[index].Contains(item))
-			{
-				return;
 			}
 
 			items[index].Add(item);
@@ -85,7 +81,7 @@ namespace HashTable
 
 			Count = 0;
 
-			for (var i = 0; i < Capacity; i++)
+			for (var i = 0; i < capacity; i++)
 			{
 				if (items[i] != null)
 				{
@@ -98,27 +94,22 @@ namespace HashTable
 
 		public bool Contains(T item)
 		{
-			CheckItem(item);
+			//CheckItem(item);
 
-			if (items[GetIndexForArray(item)] != null && items[GetIndexForArray(item)].Contains(item))
-			{
-				return true;
-			}
-
-			return false;
+			return items[GetArrayIndex(item)].Contains(item);
 		}
 
 		public void CopyTo(T[] array, int arrayIndex)
 		{
 			if (array == null)
 			{
-				throw new ArgumentNullException("Массив имеет значение null.");
+				throw new ArgumentNullException(nameof(array), "Массив равен null.");
 			}
 
 			if (arrayIndex < 0)
 			{
-				throw new ArgumentOutOfRangeException("Значение параметра индекса = " + arrayIndex + " < 0.",
-					nameof(arrayIndex));
+				throw new ArgumentOutOfRangeException(nameof(arrayIndex),
+					"Значение параметра индекса = " + arrayIndex + " < 0.");
 			}
 
 			if (array.Length - arrayIndex < Count)
@@ -128,15 +119,15 @@ namespace HashTable
 					", до конца массива, длина которого = " + array.Length + ".");
 			}
 
-			var addedItemsCount = 0;
+			var index = arrayIndex;
 
-			for (var i = 0; i < Capacity; i++)
+			foreach (var currentItems in items)
 			{
-				if (HasItemsInList(i))
+				if (HasItemsInList(currentItems))
 				{
-					items[i].CopyTo(array, arrayIndex + addedItemsCount);
+					currentItems.CopyTo(array, index);
 
-					addedItemsCount += items[i].Count;
+					index += currentItems.Count;
 				}
 			}
 		}
@@ -145,16 +136,16 @@ namespace HashTable
 		{
 			var oldModCount = modCount;
 
-			for (var i = 0; i < Capacity; i++)
+			foreach (var currentItems in items)
 			{
 				if (oldModCount != modCount)
 				{
 					throw new InvalidOperationException("Список был изменен после создания перечисления.");
 				}
 
-				if (HasItemsInList(i))
+				if (HasItemsInList(currentItems))
 				{
-					foreach (var item in items[i])
+					foreach (var item in currentItems)
 					{
 						yield return item;
 					}
@@ -164,9 +155,9 @@ namespace HashTable
 
 		public bool Remove(T item)
 		{
-			CheckItem(item);
+			//CheckItem(item);
 
-			if (items[GetIndexForArray(item)] != null && items[GetIndexForArray(item)].Remove(item))
+			if (items[GetArrayIndex(item)] != null && items[GetArrayIndex(item)].Remove(item))
 			{
 				modCount++;
 				return true;
@@ -190,7 +181,7 @@ namespace HashTable
 			StringBuilder stringBuilder = new StringBuilder();
 			stringBuilder.Append("[");
 
-			for (var i = 0; i < Capacity; i++)
+			for (var i = 0; i < capacity; i++)
 			{
 				if (HasItemsInList(i))
 				{

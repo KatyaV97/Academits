@@ -132,7 +132,7 @@ namespace List
 				return false;
 			}
 
-			if (object.Equals(head.Data, data))
+			if (Equals(head.Data, data))
 			{
 				head = head.Next;
 
@@ -146,7 +146,7 @@ namespace List
 			for (var currentNode = head.Next; currentNode != null;
 				previousNode = currentNode, currentNode = currentNode.Next)
 			{
-				if (object.Equals(currentNode.Data, data))
+				if (Equals(currentNode.Data, data))
 				{
 					previousNode.Next = currentNode.Next;
 

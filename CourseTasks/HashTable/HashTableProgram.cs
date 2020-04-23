@@ -8,7 +8,7 @@ namespace HashTable
 		{
 			var words = new MyHashTable<string>();
 
-			words.Add("long");
+			words.Add(null);
 			words.Add("blue");
 			words.Add("long");
 
@@ -34,7 +34,7 @@ namespace HashTable
 				Console.WriteLine("Таблица не содержит слово: word." + Environment.NewLine);
 			}
 
-			for (var i = 0; i < words.Capacity / 10; i++)
+			for (var i = 0; i < words.capacity / 10; i++)
 			{
 				words.Add("word" + i);
 			}
@@ -59,20 +59,20 @@ namespace HashTable
 
 			Console.WriteLine("Слова из хэш таблицы после удаления нескольких слов: " + words + Environment.NewLine);
 
-			var numbersArrays = new MyHashTable<double[]>(50);
+			var numbers = new MyHashTable<double[]>(50);
 
-			numbersArrays.Add(new double[] { 2, 9, 3 });
-			numbersArrays.Add(new double[] { 48, 36, 36, 45, 20 });
-			numbersArrays.Add(new double[] { 10, 25 });
-			numbersArrays.Add(new double[] { 7, 3 });
+			numbers.Add(new double[] { 2, 9, 3 });
+			numbers.Add(new double[] { 48, 36, 36, 45, 20 });
+			numbers.Add(new double[] { 10, 25 });
+			numbers.Add(new double[] { 7, 3 });
 
 			Console.WriteLine("Числа из хэш таблицы:" + Environment.NewLine);
 
-			foreach (var numbers in numbersArrays)
+			foreach (var values in numbers)
 			{
-				foreach (var number in numbers)
+				foreach (var value in values)
 				{
-					Console.Write(number + " ");
+					Console.Write(value + " ");
 				}
 
 				Console.WriteLine(Environment.NewLine);
@@ -80,15 +80,15 @@ namespace HashTable
 
 			var currentNumbers = new double[4][];
 
-			numbersArrays.CopyTo(currentNumbers, 0);
+			numbers.CopyTo(currentNumbers, 0);
 
 			Console.WriteLine("Числа из массива:" + Environment.NewLine);
 
-			foreach (var numbers in currentNumbers)
+			foreach (var values in currentNumbers)
 			{
-				foreach (var number in numbers)
+				foreach (var value in values)
 				{
-					Console.Write(number + " ");
+					Console.Write(value + " ");
 				}
 
 				Console.WriteLine(Environment.NewLine);

@@ -28,10 +28,15 @@ namespace MyList
 			set
 			{
 				CheckIndex(index);
-				CheckExcessCapacity();
+
+				if (index == Count)
+				{
+					Add(value);
+					return;
+				}
 
 				items[index] = value;
-				Count++;
+				modCount++;
 			}
 		}
 
@@ -45,9 +50,9 @@ namespace MyList
 
 		public MyList(int capacity)
 		{
-			if (capacity <= 0)
+			if (capacity < 0)
 			{
-				throw new ArgumentException("Вместимость = " + capacity + " должна быть > 0.", nameof(capacity));
+				throw new ArgumentException("Вместимость = " + capacity + " должна быть >= 0.", nameof(capacity));
 			}
 
 			Capacity = capacity;
@@ -64,16 +69,15 @@ namespace MyList
 
 			Capacity = Count;
 			Array.Resize(ref items, Capacity);
+
+			modCount++;
 		}
 
 		private void IncreaseCapacity()
 		{
-			T[] oldItems = items;
-
 			Capacity *= 2;
 
 			Array.Resize(ref items, Capacity);
-			Array.Copy(oldItems, items, Count);
 		}
 
 		public void Add(T item)
@@ -95,12 +99,7 @@ namespace MyList
 
 		public bool Contains(T item)
 		{
-			if (IndexOf(item) == -1)
-			{
-				return false;
-			}
-
-			return true;
+			return IndexOf(item) != -1;
 		}
 
 		public void CopyTo(T[] array, int arrayIndex)
@@ -150,7 +149,7 @@ namespace MyList
 		{
 			for (var i = 0; i < Count; i++)
 			{
-				if (object.Equals(items[i], item))
+				if (Equals(items[i], item))
 				{
 					return i;
 				}
