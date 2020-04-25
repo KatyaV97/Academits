@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Text;
 
 namespace MyList
 {
@@ -14,7 +13,23 @@ namespace MyList
 
 		public int Count { get; private set; }
 
-		public int Capacity { get; set; }
+		public int Capacity
+		{
+			get
+			{
+				return items.Length;
+			}
+			set
+			{
+				if (value < Count)
+				{
+					throw new ArgumentOutOfRangeException(nameof(value), "Вместимость = " + value +
+						" должна быть >= количеству заполненных элементов = " + Count);
+				}
+
+				Array.Resize(ref items, value);
+			}
+		}
 
 		public T this[int index]
 		{
@@ -36,8 +51,9 @@ namespace MyList
 
 		public MyList()
 		{
-			Count = 0;
 			Capacity = 10;
+			Count = 0;
+
 
 			items = new T[Capacity];
 		}
@@ -51,7 +67,7 @@ namespace MyList
 
 			Capacity = capacity;
 
-			items = new T[Capacity];
+			items = new T[this.Capacity];
 		}
 
 		public void TrimExcess()
@@ -69,7 +85,7 @@ namespace MyList
 
 		private void IncreaseCapacity()
 		{
-			Capacity *= 2;
+			Capacity += 10;
 
 			Array.Resize(ref items, Capacity);
 		}
@@ -86,6 +102,8 @@ namespace MyList
 
 		public void Clear()
 		{
+			Array.Clear(items, 0, Count);
+
 			Count = 0;
 
 			modCount++;
@@ -105,8 +123,8 @@ namespace MyList
 
 			if (arrayIndex < 0)
 			{
-				throw new ArgumentOutOfRangeException("Значение параметра индекса = " + arrayIndex + " < 0.",
-					nameof(arrayIndex));
+				throw new ArgumentOutOfRangeException(nameof(arrayIndex), "Значение параметра индекса = " +
+					arrayIndex + " < 0.");
 			}
 
 			if (array.Length - arrayIndex < Count)
@@ -159,7 +177,7 @@ namespace MyList
 				throw new IndexOutOfRangeException("Индекс = " + index + " должен быть >= 0 и <= " +
 					Count);
 			}
-			
+
 			CheckExcessCapacity();
 
 			if (index == Count)
@@ -216,8 +234,7 @@ namespace MyList
 		{
 			if (index < 0 || index >= Count)
 			{
-				throw new IndexOutOfRangeException("Индекс = " + index + " должен быть >= 0 и < " +
-					Count);
+				throw new IndexOutOfRangeException("Индекс = " + index + " должен быть >= 0 и < " + Count);
 			}
 		}
 

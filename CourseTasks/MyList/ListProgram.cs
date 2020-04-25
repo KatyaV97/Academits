@@ -6,33 +6,30 @@ namespace MyList
 	{
 		static void Main()
 		{
-			var customers1 = new MyList<string>();
-			customers1.Add(null);
+			var customers = new MyList<string> { "Игорь", "Александр", "Иван" };
 
-			var customers = new MyList<string> {"Игорь", "Александр", "Иван" };
-			
 			Console.WriteLine("Первые покупатели: " + customers);
 			Console.WriteLine(Environment.NewLine);
 
 			var customersPerDayCount = new MyList<int>() { 25, 55, 85, 36, 42, 3, 24, 6, 8, 4, 9, 12, 18 };
 
 			Console.WriteLine("Количество покупателей в день: " + customersPerDayCount);
-			Console.WriteLine("Вместимость: " + customersPerDayCount.Capacity);
+			Console.WriteLine("Вместимость списка: " + customersPerDayCount.Capacity);
 			Console.WriteLine("Количество заполненных дней: " + customersPerDayCount.Count);
 			Console.WriteLine(Environment.NewLine);
 
 			customersPerDayCount.TrimExcess();
 
 			Console.WriteLine("Количество покупателей в день: " + customersPerDayCount);
-			Console.WriteLine("Вместимость: " + customersPerDayCount.Capacity);
+			Console.WriteLine("Вместимость списка: " + customersPerDayCount.Capacity);
 			Console.WriteLine("Количество заполненных дней: " + customersPerDayCount.Count);
 			Console.WriteLine(Environment.NewLine);
-
+					   
 			customersPerDayCount.Clear();
 
-			customersPerDayCount[0] = 36;
-			customersPerDayCount[1] = 42;
-			customersPerDayCount[2] = 52;
+			customersPerDayCount.Add(36);
+			customersPerDayCount.Add(42);
+			customersPerDayCount.Add(52);
 
 			if (customersPerDayCount.Contains(0))
 			{
@@ -45,14 +42,13 @@ namespace MyList
 
 			Console.WriteLine(Environment.NewLine);
 
-
 			var customersCount = new int[3];
 
 			customersPerDayCount.CopyTo(customersCount, 0);
 
 			Console.Write("Количество покупателей: ");
 
-			foreach (int e in customersCount)
+			foreach (var e in customersCount)
 			{
 				Console.Write(e + " ");
 			}
@@ -74,7 +70,6 @@ namespace MyList
 			};
 
 			Console.WriteLine("Страны: " + countries);
-			Console.WriteLine("Вместимость: " + countries.Capacity);
 			Console.WriteLine("Количество стран: " + countries.Count);
 			Console.WriteLine(Environment.NewLine);
 
