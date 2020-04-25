@@ -6,6 +6,9 @@ namespace MyList
 	{
 		static void Main()
 		{
+			var customers1 = new MyList<string>();
+			customers1.Add(null);
+
 			var customers = new MyList<string> {"Игорь", "Александр", "Иван" };
 			
 			Console.WriteLine("Первые покупатели: " + customers);

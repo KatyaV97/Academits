@@ -165,17 +165,14 @@ namespace Matrices
 
 		public void Transpose()
 		{
-			Matrix tempMatrix = new Matrix(rows);
+			Vector[] vectors = new Vector[GetColumnsCount()];
 
-			if (GetColumnsCount() != GetRowsCount())
+			for (int i = 0; i < GetColumnsCount(); i++)
 			{
-				Array.Resize(ref rows, GetColumnsCount());
+				vectors[i] = GetColumn(i);
 			}
 
-			for (int i = 0; i < tempMatrix.GetColumnsCount(); i++)
-			{
-				rows[i] = tempMatrix.GetColumn(i);
-			}
+			rows = vectors;
 		}
 
 		public void MultiplyByScalar(double scalar)

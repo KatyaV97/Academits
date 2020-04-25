@@ -29,12 +29,6 @@ namespace MyList
 			{
 				CheckIndex(index);
 
-				if (index == Count)
-				{
-					Add(value);
-					return;
-				}
-
 				items[index] = value;
 				modCount++;
 			}
@@ -160,7 +154,12 @@ namespace MyList
 
 		public void Insert(int index, T item)
 		{
-			CheckIndex(index);
+			if (index < 0 || index > Count)
+			{
+				throw new IndexOutOfRangeException("Индекс = " + index + " должен быть >= 0 и <= " +
+					Count);
+			}
+			
 			CheckExcessCapacity();
 
 			if (index == Count)
@@ -210,24 +209,14 @@ namespace MyList
 				return "[]";
 			}
 
-			StringBuilder stringBuilder = new StringBuilder();
-			stringBuilder.Append("[");
-
-			for (var i = 0; i < Count - 1; i++)
-			{
-				stringBuilder
-					.Append(items[i])
-					.Append(", ");
-			}
-
-			return stringBuilder.Append(items[Count - 1]).Append("]").ToString();
+			return "[" + string.Join(", ", this) + "]";
 		}
 
 		private void CheckIndex(int index)
 		{
-			if (index < 0 || Count < index)
+			if (index < 0 || index >= Count)
 			{
-				throw new IndexOutOfRangeException("Индекс = " + index + " должен быть >= 0 и <= " +
+				throw new IndexOutOfRangeException("Индекс = " + index + " должен быть >= 0 и < " +
 					Count);
 			}
 		}
