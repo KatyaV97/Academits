@@ -7,13 +7,11 @@ namespace HashTable
 {
 	class MyHashTable<T> : ICollection<T>
 	{
-		private List<T>[] items;
+		private readonly List<T>[] items;
+		private readonly int capacity;
 		private int modCount;
-		private int capacity;
 
 		public int Count { get; private set; }
-
-		//public int capacity { get; set; }
 
 		public bool IsReadOnly => false;
 
@@ -39,15 +37,12 @@ namespace HashTable
 
 		private int GetArrayIndex(T item)
 		{
-			return Math.Abs(item.GetHashCode() % capacity);
-		}
-
-		private void CheckItem(T item)
-		{
 			if (item == null)
 			{
-				throw new ArgumentNullException("Аргумент = null.");
+				return 0;
 			}
+
+			return Math.Abs(item.GetHashCode() % capacity);
 		}
 
 		private bool HasItemsInList(List<T> item)
@@ -57,8 +52,6 @@ namespace HashTable
 
 		public void Add(T item)
 		{
-			//CheckItem(item);
-
 			var index = GetArrayIndex(item);
 
 			if (items[index] == null)
@@ -79,24 +72,23 @@ namespace HashTable
 				return;
 			}
 
-			Count = 0;
-
-			for (var i = 0; i < capacity; i++)
+			foreach (var currentItems in items)
 			{
-				if (items[i] != null)
+				if (HasItemsInList(currentItems))
 				{
-					items[i].Clear();
+					currentItems.Clear();
 				}
 			}
 
+			Count = 0;
 			modCount++;
 		}
 
 		public bool Contains(T item)
 		{
-			//CheckItem(item);
+			var index = GetArrayIndex(item);
 
-			return items[GetArrayIndex(item)].Contains(item);
+			return HasItemsInList(items[index]) && items[index].Contains(item);
 		}
 
 		public void CopyTo(T[] array, int arrayIndex)
@@ -155,9 +147,9 @@ namespace HashTable
 
 		public bool Remove(T item)
 		{
-			//CheckItem(item);
+			var index = GetArrayIndex(item);
 
-			if (items[GetArrayIndex(item)] != null && items[GetArrayIndex(item)].Remove(item))
+			if (items[index] != null && items[index].Remove(item))
 			{
 				modCount++;
 				return true;
@@ -178,20 +170,14 @@ namespace HashTable
 				return "[]";
 			}
 
-			StringBuilder stringBuilder = new StringBuilder();
+			var stringBuilder = new StringBuilder();
 			stringBuilder.Append("[");
 
-			for (var i = 0; i < capacity; i++)
+			foreach (var item in this)
 			{
-				if (HasItemsInList(i))
-				{
-					foreach (var item in items[i])
-					{
-						stringBuilder
+				stringBuilder
 									.Append(item)
 									.Append(", ");
-					}
-				}
 			}
 
 			return stringBuilder.Remove(stringBuilder.Length - 2, 2).Append("]").ToString();

@@ -6,7 +6,7 @@ namespace HashTable
 	{
 		static void Main(string[] args)
 		{
-			var words = new MyHashTable<string>();
+			var words = new MyHashTable<string>() { };
 
 			words.Add(null);
 			words.Add("blue");
@@ -34,7 +34,7 @@ namespace HashTable
 				Console.WriteLine("Таблица не содержит слово: word." + Environment.NewLine);
 			}
 
-			for (var i = 0; i < words.capacity / 10; i++)
+			for (var i = 0; i < 10; i++)
 			{
 				words.Add("word" + i);
 			}
@@ -59,36 +59,37 @@ namespace HashTable
 
 			Console.WriteLine("Слова из хэш таблицы после удаления нескольких слов: " + words + Environment.NewLine);
 
-			var numbers = new MyHashTable<double[]>(50);
-
-			numbers.Add(new double[] { 2, 9, 3 });
-			numbers.Add(new double[] { 48, 36, 36, 45, 20 });
-			numbers.Add(new double[] { 10, 25 });
-			numbers.Add(new double[] { 7, 3 });
+			var numbers = new MyHashTable<double[]>(50)
+			{
+				new double[] { 2, 9, 3 },
+				new double[] { 48, 36, 36, 45, 20 },
+				new double[] { 10, 25 },
+				new double[] { 7, 3 }
+			};
 
 			Console.WriteLine("Числа из хэш таблицы:" + Environment.NewLine);
 
-			foreach (var values in numbers)
+			foreach (var numbersLine in numbers)
 			{
-				foreach (var value in values)
+				foreach (var number in numbersLine)
 				{
-					Console.Write(value + " ");
+					Console.Write(number + " ");
 				}
 
 				Console.WriteLine(Environment.NewLine);
 			}
 
-			var currentNumbers = new double[4][];
+			var numbersCopies = new double[4][];
 
-			numbers.CopyTo(currentNumbers, 0);
+			numbers.CopyTo(numbersCopies, 0);
 
 			Console.WriteLine("Числа из массива:" + Environment.NewLine);
 
-			foreach (var values in currentNumbers)
+			foreach (var numbersLine in numbersCopies)
 			{
-				foreach (var value in values)
+				foreach (var number in numbersLine)
 				{
-					Console.Write(value + " ");
+					Console.Write(number + " ");
 				}
 
 				Console.WriteLine(Environment.NewLine);
