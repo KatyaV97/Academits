@@ -47,7 +47,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="TemperatureConversion.cs" />
+    <Compile Include="Units\Celsius.cs" />
+    <Compile Include="Units\Fahrenheit.cs" />
+    <Compile Include="Units\Kelvin.cs" />
     <Compile Include="TemperatureForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -56,6 +58,7 @@
     </Compile>
     <Compile Include="TemperatureProgram.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Units\Unit.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

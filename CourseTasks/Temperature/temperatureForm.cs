@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using Temperature.Units;
 
 namespace Temperature
 {
@@ -17,8 +18,23 @@ namespace Temperature
 		{
 			try
 			{
-				var conversionResult = new TemperatureConversion(Convert.ToDouble(initialValue.Text), initialUnit.Text, resultingUnit.Text);
-				resultingValue.Text = (conversionResult.GetConversion()).ToString();
+				var temperatureValue = Convert.ToDouble(initialValue.Text);
+
+				switch (initialUnit.Text.ToString())
+				{
+					case "Кельвин":
+						var kelvin = new Kelvin(temperatureValue);
+						resultingValue.Text = kelvin.ConvertTo(resultingUnit.Text).ToString();
+						break;
+					case "Градус Цельсия":
+						var celsius = new Celsius(temperatureValue);
+						resultingValue.Text = celsius.ConvertTo(resultingUnit.Text).ToString();
+						break;
+					case "Градус Фаренгейта":
+						var fahrenheit = new Fahrenheit(temperatureValue);
+						resultingValue.Text = fahrenheit.ConvertTo(resultingUnit.Text).ToString();
+						break;
+				}
 			}
 			catch (FormatException)
 			{

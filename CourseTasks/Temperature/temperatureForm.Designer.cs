@@ -123,7 +123,7 @@
 			this.converterButton.UseVisualStyleBackColor = false;
 			this.converterButton.Click += new System.EventHandler(this.ConverterButton_Click);
 			// 
-			// temperatureForm
+			// TemperatureForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -136,7 +136,8 @@
 			this.Controls.Add(this.initialUnit);
 			this.Controls.Add(this.resultingValue);
 			this.Controls.Add(this.initialValueLabel);
-			this.Name = "temperatureForm";
+			this.MaximizeBox = false;
+			this.Name = "TemperatureForm";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "Temperature Converter";
 			this.ResumeLayout(false);
