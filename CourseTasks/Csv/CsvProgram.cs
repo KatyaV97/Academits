@@ -13,14 +13,47 @@ namespace Csv
 		{
 			try
 			{
-				using (StreamReader reader = new StreamReader(csvPath))
+				using (var writer = new StreamWriter(htmlPath))
 				{
-					string currentLine;
+					writer.Write("<table>");
 
-					while ((currentLine = reader.ReadLine()) != null)
+					using (var reader = new StreamReader(csvPath))
 					{
-						
+						string currentLine;
+
+						while ((currentLine = reader.ReadLine()) != null)
+						{
+							writer.Write("<tr>");
+
+							if (!HasQuotes(currentLine))
+							{
+								var cellsData = currentLine.Split(new string[] { "," }, StringSplitOptions.None);
+
+								foreach (var data in cellsData)
+								{
+									writer.Write("<td>" + data + "</td>");
+								}
+							}
+							else
+							{
+								var startIndex = 0;
+								var endIndex = currentLine.Length;
+
+								while (currentLine.Length != 0)
+								{
+									currentLine = currentLine.Substring(startIndex, endIndex);
+
+									writer.Write("<td>" + GetCellData(currentLine) + "</td>");
+
+									startIndex = currentLine.Length;
+								}
+							}
+							writer.Write("</tr>");
+						}
+
 					}
+
+					writer.Write("</table>");
 				}
 			}
 			catch (FileNotFoundException)
@@ -33,12 +66,62 @@ namespace Csv
 			}
 		}
 
+		private static bool HasQuotes(string line)
+		{
+			return line.Contains("\"");
+		}
+
+		private static string GetCellData(string line)
+		{
+			var quotesIndex = line.IndexOf("\"");
+			var commaIndex = line.IndexOf(",");
+
+			//Перенос строки
+			if (quotesIndex > commaIndex)
+			{
+				return line.Substring(0, commaIndex);
+			}
+			else if (quotesIndex < commaIndex)
+			{
+				var cellData = line.Substring(0, quotesIndex);
+				line.Substring(quotesIndex);
+
+				ChangeLine(line);
+			}
+		}
+			   
+		private static string ChangeLine(string line)
+		{
+			if (line.StartsWith("\",\""))
+			{
+				return line.Replace("\",\"", ",");
+			}
+
+			if (line.StartsWith("\"\"\"\""))
+			{
+				return line.Replace("\"\"\"\"", "\"");
+			}
+
+			if (line.StartsWith("\"\",\""))
+			{
+				return line.Replace("\"\",\"", "\",");
+			}
+
+			if (line.StartsWith("\""))
+			{
+				return line.Replace("\"", "");
+			}
+
+			return line;
+		}
+
 		static void Main(string[] args)
 		{
-			string csvPath = "..\\..\\test.csv";
-			string htmlPath = "..\\..\\test1.html";
+			var csvPath = "..\\..\\test.csv";
+			var htmlPath = "..\\..\\test1.html";
 
 			TransformCsvToHtml(csvPath, htmlPath);
 		}
 	}
 }
+
