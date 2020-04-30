@@ -41,26 +41,23 @@ namespace Matrices
 
 		public Matrix(double[,] matrixValues)
 		{
-			int rowsCount = matrixValues.GetLength(0);
-			int columnsCount = matrixValues.GetLength(1);
-
-			if (rowsCount == 0)
+			if (matrixValues.GetLength(0) == 0)
 			{
-				throw new ArgumentException("Количество строк массива должно быть > 0.", nameof(rowsCount));
+				throw new ArgumentException("Количество строк массива должно быть > 0.", nameof(matrixValues));
 			}
 
-			if (columnsCount == 0)
+			if (matrixValues.GetLength(1) == 0)
 			{
-				throw new ArgumentException("Количество столбцов массива должно быть > 0.", nameof(columnsCount));
+				throw new ArgumentException("Количество столбцов массива должно быть > 0.", nameof(matrixValues));
 			}
 
-			rows = new Vector[rowsCount];
+			rows = new Vector[matrixValues.GetLength(0)];
 
-			for (int i = 0; i < rowsCount; i++)
+			for (int i = 0; i < matrixValues.GetLength(0); i++)
 			{
-				double[] vectorValues = new double[columnsCount];
+				double[] vectorValues = new double[matrixValues.GetLength(1)];
 
-				for (int j = 0; j < columnsCount; j++)
+				for (int j = 0; j < matrixValues.GetLength(1); j++)
 				{
 					vectorValues[j] = matrixValues[i, j];
 				}
