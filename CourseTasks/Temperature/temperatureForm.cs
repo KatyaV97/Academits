@@ -37,7 +37,7 @@ namespace Temperature
 			catch (FormatException)
 			{
 				MessageBox.Show(
-					"Некорректное значение исходной температуры",
+					"Некорректное значение исходной температуры!",
 					"Ошибка",
 					MessageBoxButtons.OK,
 					MessageBoxIcon.Error,

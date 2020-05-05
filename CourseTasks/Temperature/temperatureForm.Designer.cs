@@ -47,7 +47,7 @@
             "Кельвин",
             "Градус Цельсия",
             "Градус Фаренгейта"});
-			this.resultingScale.Location = new System.Drawing.Point(417, 97);
+			this.resultingScale.Location = new System.Drawing.Point(404, 97);
 			this.resultingScale.Name = "resultingScale";
 			this.resultingScale.Size = new System.Drawing.Size(326, 21);
 			this.resultingScale.TabIndex = 5;
@@ -58,7 +58,7 @@
 			this.initialValueLabel.Anchor = System.Windows.Forms.AnchorStyles.Top;
 			this.initialValueLabel.AutoSize = true;
 			this.initialValueLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.initialValueLabel.Location = new System.Drawing.Point(12, 9);
+			this.initialValueLabel.Location = new System.Drawing.Point(19, 9);
 			this.initialValueLabel.Name = "initialValueLabel";
 			this.initialValueLabel.Size = new System.Drawing.Size(220, 26);
 			this.initialValueLabel.TabIndex = 0;
@@ -68,7 +68,7 @@
 			// resultingValue
 			// 
 			this.resultingValue.Anchor = System.Windows.Forms.AnchorStyles.Top;
-			this.resultingValue.Location = new System.Drawing.Point(417, 54);
+			this.resultingValue.Location = new System.Drawing.Point(404, 54);
 			this.resultingValue.Name = "resultingValue";
 			this.resultingValue.ReadOnly = true;
 			this.resultingValue.ShortcutsEnabled = false;
@@ -84,7 +84,7 @@
             "Кельвин",
             "Градус Цельсия",
             "Градус Фаренгейта"});
-			this.initialScale.Location = new System.Drawing.Point(17, 97);
+			this.initialScale.Location = new System.Drawing.Point(24, 97);
 			this.initialScale.Name = "initialScale";
 			this.initialScale.Size = new System.Drawing.Size(326, 21);
 			this.initialScale.TabIndex = 2;
@@ -95,7 +95,7 @@
 			this.resultingValueLabel.Anchor = System.Windows.Forms.AnchorStyles.Top;
 			this.resultingValueLabel.AutoSize = true;
 			this.resultingValueLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.resultingValueLabel.Location = new System.Drawing.Point(412, 9);
+			this.resultingValueLabel.Location = new System.Drawing.Point(407, 9);
 			this.resultingValueLabel.Name = "resultingValueLabel";
 			this.resultingValueLabel.Size = new System.Drawing.Size(305, 26);
 			this.resultingValueLabel.TabIndex = 3;
@@ -104,7 +104,7 @@
 			// initialValue
 			// 
 			this.initialValue.Anchor = System.Windows.Forms.AnchorStyles.Top;
-			this.initialValue.Location = new System.Drawing.Point(17, 54);
+			this.initialValue.Location = new System.Drawing.Point(24, 54);
 			this.initialValue.Name = "initialValue";
 			this.initialValue.Size = new System.Drawing.Size(326, 20);
 			this.initialValue.TabIndex = 4;
@@ -115,7 +115,7 @@
 			this.converterButton.BackColor = System.Drawing.Color.Lime;
 			this.converterButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
 			this.converterButton.ForeColor = System.Drawing.Color.Black;
-			this.converterButton.Location = new System.Drawing.Point(306, 149);
+			this.converterButton.Location = new System.Drawing.Point(293, 149);
 			this.converterButton.Name = "converterButton";
 			this.converterButton.Size = new System.Drawing.Size(151, 45);
 			this.converterButton.TabIndex = 6;
@@ -128,7 +128,7 @@
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.AutoScroll = true;
-			this.ClientSize = new System.Drawing.Size(770, 233);
+			this.ClientSize = new System.Drawing.Size(764, 231);
 			this.Controls.Add(this.converterButton);
 			this.Controls.Add(this.resultingScale);
 			this.Controls.Add(this.initialValue);
@@ -136,7 +136,7 @@
 			this.Controls.Add(this.initialScale);
 			this.Controls.Add(this.resultingValue);
 			this.Controls.Add(this.initialValueLabel);
-			this.MaximizeBox = false;
+			this.MinimumSize = new System.Drawing.Size(780, 270);
 			this.Name = "TemperatureForm";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "Temperature Converter";
