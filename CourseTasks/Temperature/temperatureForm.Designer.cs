@@ -28,30 +28,30 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.resultingUnit = new System.Windows.Forms.ComboBox();
+			this.resultingScale = new System.Windows.Forms.ComboBox();
 			this.initialValueLabel = new System.Windows.Forms.Label();
 			this.resultingValue = new System.Windows.Forms.TextBox();
-			this.initialUnit = new System.Windows.Forms.ComboBox();
+			this.initialScale = new System.Windows.Forms.ComboBox();
 			this.resultingValueLabel = new System.Windows.Forms.Label();
 			this.initialValue = new System.Windows.Forms.TextBox();
 			this.converterButton = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
-			// resultingUnit
+			// resultingScale
 			// 
-			this.resultingUnit.AllowDrop = true;
-			this.resultingUnit.Anchor = System.Windows.Forms.AnchorStyles.Top;
-			this.resultingUnit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.resultingUnit.FormattingEnabled = true;
-			this.resultingUnit.Items.AddRange(new object[] {
+			this.resultingScale.AllowDrop = true;
+			this.resultingScale.Anchor = System.Windows.Forms.AnchorStyles.Top;
+			this.resultingScale.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.resultingScale.FormattingEnabled = true;
+			this.resultingScale.Items.AddRange(new object[] {
             "Кельвин",
             "Градус Цельсия",
             "Градус Фаренгейта"});
-			this.resultingUnit.Location = new System.Drawing.Point(417, 97);
-			this.resultingUnit.Name = "resultingUnit";
-			this.resultingUnit.Size = new System.Drawing.Size(326, 21);
-			this.resultingUnit.TabIndex = 5;
-			this.resultingUnit.TabStop = false;
+			this.resultingScale.Location = new System.Drawing.Point(417, 97);
+			this.resultingScale.Name = "resultingScale";
+			this.resultingScale.Size = new System.Drawing.Size(326, 21);
+			this.resultingScale.TabIndex = 5;
+			this.resultingScale.TabStop = false;
 			// 
 			// initialValueLabel
 			// 
@@ -75,20 +75,20 @@
 			this.resultingValue.Size = new System.Drawing.Size(326, 20);
 			this.resultingValue.TabIndex = 1;
 			// 
-			// initialUnit
+			// initialScale
 			// 
-			this.initialUnit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
-			this.initialUnit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.initialUnit.FormattingEnabled = true;
-			this.initialUnit.Items.AddRange(new object[] {
+			this.initialScale.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+			this.initialScale.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.initialScale.FormattingEnabled = true;
+			this.initialScale.Items.AddRange(new object[] {
             "Кельвин",
             "Градус Цельсия",
             "Градус Фаренгейта"});
-			this.initialUnit.Location = new System.Drawing.Point(17, 97);
-			this.initialUnit.Name = "initialUnit";
-			this.initialUnit.Size = new System.Drawing.Size(326, 21);
-			this.initialUnit.TabIndex = 2;
-			this.initialUnit.TabStop = false;
+			this.initialScale.Location = new System.Drawing.Point(17, 97);
+			this.initialScale.Name = "initialScale";
+			this.initialScale.Size = new System.Drawing.Size(326, 21);
+			this.initialScale.TabIndex = 2;
+			this.initialScale.TabStop = false;
 			// 
 			// resultingValueLabel
 			// 
@@ -130,10 +130,10 @@
 			this.AutoScroll = true;
 			this.ClientSize = new System.Drawing.Size(770, 233);
 			this.Controls.Add(this.converterButton);
-			this.Controls.Add(this.resultingUnit);
+			this.Controls.Add(this.resultingScale);
 			this.Controls.Add(this.initialValue);
 			this.Controls.Add(this.resultingValueLabel);
-			this.Controls.Add(this.initialUnit);
+			this.Controls.Add(this.initialScale);
 			this.Controls.Add(this.resultingValue);
 			this.Controls.Add(this.initialValueLabel);
 			this.MaximizeBox = false;
@@ -149,11 +149,11 @@
 
 		private System.Windows.Forms.Label initialValueLabel;
 		private System.Windows.Forms.TextBox resultingValue;
-		private System.Windows.Forms.ComboBox initialUnit;
+		private System.Windows.Forms.ComboBox initialScale;
 		private System.Windows.Forms.Label resultingValueLabel;
 		private System.Windows.Forms.TextBox initialValue;
 		private System.Windows.Forms.Button converterButton;
-		private System.Windows.Forms.ComboBox resultingUnit;
+		private System.Windows.Forms.ComboBox resultingScale;
 	}
 }
 

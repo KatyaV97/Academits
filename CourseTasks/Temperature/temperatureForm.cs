@@ -1,17 +1,22 @@
 ﻿using System;
 using System.Windows.Forms;
-using Temperature.Units;
+using Temperature.Scales;
+using System.Collections.Generic;
 
 namespace Temperature
 {
 	public partial class TemperatureForm : Form
 	{
+		private readonly List<ITemperatureScale> temperatureScales;
+
 		public TemperatureForm()
 		{
 			InitializeComponent();
 
-			initialUnit.SelectedItem = "Кельвин";
-			resultingUnit.SelectedItem = "Кельвин";
+			initialScale.SelectedItem = "Кельвин";
+			resultingScale.SelectedItem = "Кельвин";
+
+			temperatureScales = new List<ITemperatureScale> { new KelvinScale(), new CelsiusScale(), new FahrenheitScale() };
 		}
 
 		private void ConverterButton_Click(object sender, EventArgs e)
@@ -20,20 +25,13 @@ namespace Temperature
 			{
 				var temperatureValue = Convert.ToDouble(initialValue.Text);
 
-				switch (initialUnit.Text.ToString())
+				foreach (var scale in temperatureScales)
 				{
-					case "Кельвин":
-						var kelvin = new Kelvin(temperatureValue);
-						resultingValue.Text = kelvin.ConvertTo(resultingUnit.Text).ToString();
+					if (scale.Name == initialScale.Text)
+					{
+						resultingValue.Text = (scale.ConvertFromCelsius(temperatureValue, resultingScale.Text)).ToString();
 						break;
-					case "Градус Цельсия":
-						var celsius = new Celsius(temperatureValue);
-						resultingValue.Text = celsius.ConvertTo(resultingUnit.Text).ToString();
-						break;
-					case "Градус Фаренгейта":
-						var fahrenheit = new Fahrenheit(temperatureValue);
-						resultingValue.Text = fahrenheit.ConvertTo(resultingUnit.Text).ToString();
-						break;
+					}
 				}
 			}
 			catch (FormatException)
