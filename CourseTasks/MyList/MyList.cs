@@ -31,6 +31,22 @@ namespace MyList
 			}
 		}
 
+		public MyList()
+		{
+			Capacity = 10;
+			Count = 0;
+		}
+
+		public MyList(int capacity)
+		{
+			if (capacity < 0)
+			{
+				throw new ArgumentException("Вместимость = " + capacity + " должна быть >= 0.", nameof(capacity));
+			}
+
+			Capacity = capacity;
+		}
+
 		public T this[int index]
 		{
 			get
@@ -49,27 +65,6 @@ namespace MyList
 			}
 		}
 
-		public MyList()
-		{
-			Capacity = 10;
-			Count = 0;
-
-
-			items = new T[Capacity];
-		}
-
-		public MyList(int capacity)
-		{
-			if (capacity < 0)
-			{
-				throw new ArgumentException("Вместимость = " + capacity + " должна быть >= 0.", nameof(capacity));
-			}
-
-			Capacity = capacity;
-
-			items = new T[this.Capacity];
-		}
-
 		public void TrimExcess()
 		{
 			if (Count == Capacity)
@@ -78,16 +73,18 @@ namespace MyList
 			}
 
 			Capacity = Count;
-			Array.Resize(ref items, Capacity);
-
 			modCount++;
 		}
 
 		private void IncreaseCapacity()
 		{
-			Capacity += 10;
+			if (Capacity == 0)
+			{
+				Capacity = 10;
+				return;
+			}
 
-			Array.Resize(ref items, Capacity);
+			Capacity *= 2;
 		}
 
 		public void Add(T item)
@@ -208,11 +205,7 @@ namespace MyList
 
 		public void RemoveAt(int index)
 		{
-			if (index < 0 || Count <= index)
-			{
-				throw new IndexOutOfRangeException("Индекс = " + index + " должен быть >= 0 и < " +
-					Count);
-			}
+			CheckIndex(index);
 
 			Array.Copy(items, index + 1, items, index, Count - index - 1);
 

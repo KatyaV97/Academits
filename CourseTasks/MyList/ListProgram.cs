@@ -24,7 +24,7 @@ namespace MyList
 			Console.WriteLine("Вместимость списка: " + customersPerDayCount.Capacity);
 			Console.WriteLine("Количество заполненных дней: " + customersPerDayCount.Count);
 			Console.WriteLine(Environment.NewLine);
-					   
+
 			customersPerDayCount.Clear();
 
 			customersPerDayCount.Add(36);
