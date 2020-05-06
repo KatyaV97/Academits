@@ -7,8 +7,7 @@ namespace HashTable
 {
 	class MyHashTable<T> : ICollection<T>
 	{
-		private readonly List<T>[] items;
-		private readonly int capacity;
+		private readonly List<T>[] hashTable;
 		private int modCount;
 
 		public int Count { get; private set; }
@@ -18,48 +17,45 @@ namespace HashTable
 		public MyHashTable()
 		{
 			Count = 0;
-			capacity = 100;
 
-			items = new List<T>[capacity];
+			hashTable = new List<T>[100];
 		}
 
-		public MyHashTable(int capacity)
+		public MyHashTable(int tableSize)
 		{
-			if (capacity <= 0)
+			if (tableSize <= 0)
 			{
-				throw new ArgumentException("Вместимость = " + capacity + " должна быть > 0.", nameof(capacity));
+				throw new ArgumentException("Размер таблицы = " + tableSize + " должен быть > 0.", nameof(tableSize));
 			}
 
-			this.capacity = capacity;
-
-			items = new List<T>[this.capacity];
+			hashTable = new List<T>[tableSize];
 		}
 
-		private int GetArrayIndex(T item)
+		private int GetTableHash(T item)
 		{
 			if (item == null)
 			{
 				return 0;
 			}
 
-			return Math.Abs(item.GetHashCode() % capacity);
+			return Math.Abs(item.GetHashCode() % hashTable.Length);
 		}
 
-		private bool HasItemsInList(List<T> item)
+		private static bool HasItemsInList(List<T> itemsList)
 		{
-			return item != null && item.Count != 0;
+			return itemsList != null && itemsList.Count != 0;
 		}
 
 		public void Add(T item)
 		{
-			var index = GetArrayIndex(item);
+			var hash = GetTableHash(item);
 
-			if (items[index] == null)
+			if (hashTable[hash] == null)
 			{
-				items[index] = new List<T>();
+				hashTable[hash] = new List<T>();
 			}
 
-			items[index].Add(item);
+			hashTable[hash].Add(item);
 
 			Count++;
 			modCount++;
@@ -72,11 +68,11 @@ namespace HashTable
 				return;
 			}
 
-			foreach (var currentItems in items)
+			foreach (var itemsList in hashTable)
 			{
-				if (HasItemsInList(currentItems))
+				if (HasItemsInList(itemsList))
 				{
-					currentItems.Clear();
+					itemsList.Clear();
 				}
 			}
 
@@ -86,9 +82,9 @@ namespace HashTable
 
 		public bool Contains(T item)
 		{
-			var index = GetArrayIndex(item);
+			var hash = GetTableHash(item);
 
-			return HasItemsInList(items[index]) && items[index].Contains(item);
+			return HasItemsInList(hashTable[hash]) && hashTable[hash].Contains(item);
 		}
 
 		public void CopyTo(T[] array, int arrayIndex)
@@ -113,13 +109,13 @@ namespace HashTable
 
 			var index = arrayIndex;
 
-			foreach (var currentItems in items)
+			foreach (var itemsList in hashTable)
 			{
-				if (HasItemsInList(currentItems))
+				if (HasItemsInList(itemsList))
 				{
-					currentItems.CopyTo(array, index);
+					itemsList.CopyTo(array, index);
 
-					index += currentItems.Count;
+					index += itemsList.Count;
 				}
 			}
 		}
@@ -128,16 +124,16 @@ namespace HashTable
 		{
 			var oldModCount = modCount;
 
-			foreach (var currentItems in items)
+			foreach (var itemsList in hashTable)
 			{
 				if (oldModCount != modCount)
 				{
 					throw new InvalidOperationException("Список был изменен после создания перечисления.");
 				}
 
-				if (HasItemsInList(currentItems))
+				if (HasItemsInList(itemsList))
 				{
-					foreach (var item in currentItems)
+					foreach (var item in itemsList)
 					{
 						yield return item;
 					}
@@ -147,11 +143,13 @@ namespace HashTable
 
 		public bool Remove(T item)
 		{
-			var index = GetArrayIndex(item);
+			var hash = GetTableHash(item);
 
-			if (items[index] != null && items[index].Remove(item))
+			if (hashTable[hash] != null && hashTable[hash].Remove(item))
 			{
+				Count--;
 				modCount++;
+
 				return true;
 			}
 
@@ -175,9 +173,17 @@ namespace HashTable
 
 			foreach (var item in this)
 			{
-				stringBuilder
-									.Append(item)
-									.Append(", ");
+				if (item == null)
+				{
+					stringBuilder
+						.Append("null, ");
+				}
+				else
+				{
+					stringBuilder
+						.Append(item)
+						.Append(", ");
+				}
 			}
 
 			return stringBuilder.Remove(stringBuilder.Length - 2, 2).Append("]").ToString();
