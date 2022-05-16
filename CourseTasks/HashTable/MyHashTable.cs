@@ -7,7 +7,7 @@ namespace HashTable
 {
 	class MyHashTable<T> : ICollection<T>
 	{
-		private readonly List<T>[] hashTable;
+		private readonly List<T>[] hashList;
 		private int modCount;
 
 		public int Count { get; private set; }
@@ -16,9 +16,7 @@ namespace HashTable
 
 		public MyHashTable()
 		{
-			Count = 0;
-
-			hashTable = new List<T>[100];
+			hashList = new List<T>[100];
 		}
 
 		public MyHashTable(int tableSize)
@@ -28,17 +26,17 @@ namespace HashTable
 				throw new ArgumentException("Размер таблицы = " + tableSize + " должен быть > 0.", nameof(tableSize));
 			}
 
-			hashTable = new List<T>[tableSize];
+			hashList = new List<T>[tableSize];
 		}
 
-		private int GetTableHash(T item)
+		private int GetListIndex(T item)
 		{
 			if (item == null)
 			{
 				return 0;
 			}
 
-			return Math.Abs(item.GetHashCode() % hashTable.Length);
+			return Math.Abs(item.GetHashCode() % hashList.Length);
 		}
 
 		private static bool HasItemsInList(List<T> itemsList)
@@ -48,14 +46,14 @@ namespace HashTable
 
 		public void Add(T item)
 		{
-			var hash = GetTableHash(item);
+			var index = GetListIndex(item);
 
-			if (hashTable[hash] == null)
+			if (hashList[index] == null)
 			{
-				hashTable[hash] = new List<T>();
+				hashList[index] = new List<T>();
 			}
 
-			hashTable[hash].Add(item);
+			hashList[index].Add(item);
 
 			Count++;
 			modCount++;
@@ -68,7 +66,7 @@ namespace HashTable
 				return;
 			}
 
-			foreach (var itemsList in hashTable)
+			foreach (var itemsList in hashList)
 			{
 				if (HasItemsInList(itemsList))
 				{
@@ -82,9 +80,9 @@ namespace HashTable
 
 		public bool Contains(T item)
 		{
-			var hash = GetTableHash(item);
+			var index = GetListIndex(item);
 
-			return HasItemsInList(hashTable[hash]) && hashTable[hash].Contains(item);
+			return HasItemsInList(hashList[index]) && hashList[index].Contains(item);
 		}
 
 		public void CopyTo(T[] array, int arrayIndex)
@@ -109,7 +107,7 @@ namespace HashTable
 
 			var index = arrayIndex;
 
-			foreach (var itemsList in hashTable)
+			foreach (var itemsList in hashList)
 			{
 				if (HasItemsInList(itemsList))
 				{
@@ -124,7 +122,7 @@ namespace HashTable
 		{
 			var oldModCount = modCount;
 
-			foreach (var itemsList in hashTable)
+			foreach (var itemsList in hashList)
 			{
 				if (oldModCount != modCount)
 				{
@@ -143,9 +141,9 @@ namespace HashTable
 
 		public bool Remove(T item)
 		{
-			var hash = GetTableHash(item);
+			var index = GetListIndex(item);
 
-			if (hashTable[hash] != null && hashTable[hash].Remove(item))
+			if (hashList[index] != null && hashList[index].Remove(item))
 			{
 				Count--;
 				modCount++;
